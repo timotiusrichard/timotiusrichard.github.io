@@ -14,7 +14,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ═══ RESET & TOKENS ═══════════════════════════════════════════════════════ */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 button,a,[onclick]{touch-action:manipulation;}
 :root{
@@ -31,10 +30,8 @@ html,body{height:100%;background:var(--bg);}
 body{font-family:'Syne',-apple-system,sans-serif;color:var(--tx);
   overscroll-behavior:none;-webkit-font-smoothing:antialiased;}
 
-/* ═══ LAYOUT ════════════════════════════════════════════════════════════════ */
 #app{max-width:480px;margin:0 auto;min-height:100dvh;position:relative;}
 
-/* ═══ HEADER ════════════════════════════════════════════════════════════════ */
 #hdr{
   position:sticky;top:0;z-index:50;
   background:rgba(8,8,11,.85);
@@ -60,7 +57,6 @@ body{font-family:'Syne',-apple-system,sans-serif;color:var(--tx);
 #btn-add{background:var(--gold);color:var(--bg);}
 #btn-scan{background:var(--bg2);color:var(--gold);border:.5px solid var(--bd2);}
 #btn-scan svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-/* green dot when OCR pre-loaded */
 #scan-ready{
   position:absolute;top:1px;right:1px;width:8px;height:8px;
   border-radius:50%;background:var(--ok);border:1.5px solid var(--bg);
@@ -68,7 +64,6 @@ body{font-family:'Syne',-apple-system,sans-serif;color:var(--tx);
 }
 #scan-ready.on{display:block;}
 
-/* ═══ BOTTOM NAV ════════════════════════════════════════════════════════════ */
 #nav{
   position:fixed;bottom:0;left:50%;transform:translateX(-50%);
   width:100%;max-width:480px;z-index:50;
@@ -86,12 +81,10 @@ body{font-family:'Syne',-apple-system,sans-serif;color:var(--tx);
 .nbt svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
 .nbt.on{color:var(--gold);}
 
-/* ═══ VIEWS ═════════════════════════════════════════════════════════════════ */
 .view{display:none;padding-bottom:calc(var(--sab) + 72px);}
 .view.on{display:block;animation:fadeUp .2s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-/* ═══ OVERVIEW ══════════════════════════════════════════════════════════════ */
 #hero{padding:1.8rem 1.1rem 1.4rem;border-bottom:.5px solid var(--bd);}
 #nw-eyebrow{font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
   color:var(--tx3);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
@@ -135,7 +128,6 @@ body{font-family:'Syne',-apple-system,sans-serif;color:var(--tx);
 #goal-track{height:5px;background:var(--bg3);border-radius:100px;overflow:hidden;}
 #goal-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--gold),var(--goldl));transition:width .5s ease;}
 
-/* empty overview hint */
 #ov-empty{padding:1.5rem 1.1rem;display:none;}
 .ov-empty-card{background:var(--bg2);border-radius:var(--r2);padding:1.4rem 1.2rem;border:.5px solid var(--bd2);}
 .ov-empty-ttl{font-size:15px;font-weight:800;margin-bottom:6px;}
@@ -145,7 +137,6 @@ body{font-family:'Syne',-apple-system,sans-serif;color:var(--tx);
   padding:12px 20px;border-radius:100px;cursor:pointer;transition:opacity .12s;}
 .gold-btn:active{opacity:.7;}
 
-/* ═══ HOLDINGS ══════════════════════════════════════════════════════════════ */
 #search-wrap{padding:.8rem 1.1rem;border-bottom:.5px solid var(--bd);position:relative;}
 #search-ico{position:absolute;left:calc(1.1rem + 12px);top:50%;transform:translateY(-50%);pointer-events:none;}
 #search-ico svg{width:14px;height:14px;stroke:var(--tx3);fill:none;stroke-width:2;}
@@ -204,7 +195,6 @@ body{font-family:'Syne',-apple-system,sans-serif;color:var(--tx);
 .badge{font-size:7.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
   padding:2px 6px;border-radius:4px;background:var(--bg3);color:var(--tx3);margin-left:4px;}
 
-/* Empty state */
 #hold-empty{padding:2.5rem 1.5rem 1.5rem;text-align:center;}
 .emp-ico{width:60px;height:60px;border-radius:18px;background:var(--bg2);border:.5px solid var(--bd2);
   display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
@@ -219,7 +209,6 @@ body{font-family:'Syne',-apple-system,sans-serif;color:var(--tx);
 .step-t{font-size:12.5px;color:var(--tx2);line-height:1.55;}
 .step-t strong{color:var(--tx);font-weight:700;}
 
-/* ═══ GROWTH ════════════════════════════════════════════════════════════════ */
 #g-hero{padding:1.5rem 1.1rem 1.2rem;border-bottom:.5px solid var(--bd);}
 #g-periods{display:flex;gap:5px;margin-bottom:14px;}
 .gper{font-family:'Syne',sans-serif;font-size:8.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
@@ -248,7 +237,6 @@ body{font-family:'Syne',-apple-system,sans-serif;color:var(--tx);
 #g-empty p{font-size:13px;color:var(--tx2);line-height:1.65;}
 #g-empty .hint{font-size:11px;color:var(--tx3);margin-top:8px;line-height:1.8;}
 
-/* ═══ SETTINGS ══════════════════════════════════════════════════════════════ */
 #set-inner{padding:1.2rem 1.1rem 2rem;}
 .set-sec{margin-bottom:1.6rem;}
 .set-hd{font-size:9px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;
@@ -291,7 +279,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
 .set-note{font-size:10px;color:var(--tx3);line-height:2.1;text-align:center;
   margin-top:1.5rem;border-top:.5px solid var(--bd);padding-top:1.2rem;}
 
-/* ═══ OVERLAYS ══════════════════════════════════════════════════════════════ */
 .overlay{
   position:fixed;inset:0;z-index:100;background:var(--bg);
   display:none;flex-direction:column;
@@ -313,7 +300,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
 .ov-ttl{font-size:15px;font-weight:800;}
 .ov-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:2rem;}
 
-/* ── Form overlay ── */
 #form-ov{z-index:110;}
 .form-body{padding:1.1rem;padding-bottom:3rem;}
 #cat-chips{display:flex;gap:5px;flex-wrap:wrap;}
@@ -331,12 +317,10 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
 .primary-btn:active{opacity:.7;}
 .form-err{font-size:11px;color:var(--no);padding:.3rem 1.1rem 0;display:none;}
 
-/* ── Scan overlay ── */
 #scan-ov{z-index:120;overflow:hidden;}
 #scan-ov .ov-body{overflow-y:auto;}
 .scan-step{padding:1.1rem;display:none;}
 .scan-step.on{display:block;}
-/* Upload zone */
 .scan-src-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .scan-src-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:8px;padding:1.4rem 1rem;border-radius:var(--r2);border:1.5px dashed var(--bd2);
@@ -368,7 +352,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   cursor:pointer;transition:opacity .15s;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;}
 #btn-ocr:active{opacity:.7;}
 #btn-ocr:disabled{opacity:.35;cursor:not-allowed;}
-/* Progress */
 .scan-prog{display:none;text-align:center;padding:2rem 1.1rem;}
 .spin{width:38px;height:38px;border:2.5px solid var(--bg3);border-top-color:var(--gold);
   border-radius:50%;animation:spin .65s linear infinite;margin:0 auto 14px;}
@@ -376,7 +359,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
 .scan-prog-lbl{font-size:13px;color:var(--tx2);margin-bottom:10px;}
 .scan-prog-track{height:3px;background:var(--bg3);border-radius:100px;overflow:hidden;}
 .scan-prog-fill{height:100%;border-radius:100px;background:var(--gold);width:0%;transition:width .3s ease;}
-/* Results */
 .scan-results{display:none;}
 .scan-res-hd{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0 .7rem;}
 .scan-res-ttl{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3);}
@@ -413,7 +395,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
 #btn-apply:active{opacity:.75;}
 #btn-apply:disabled{opacity:.3;cursor:not-allowed;}
 
-/* ── Action sheet (bottom sheet) ── */
 #sheet-bg{
   position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0);
   display:none;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
@@ -445,7 +426,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
 .sheet-act-lbl{font-size:14px;font-weight:700;margin-bottom:2px;}
 .sheet-act-sub{font-size:11px;color:var(--tx3);}
 .sheet-act.danger .sheet-act-lbl{color:var(--no);}
-/* Quick price input inside sheet */
 #qpx-asset{font-size:11px;color:var(--tx2);margin-bottom:6px;}
 #qpx-input-wrap{display:flex;gap:8px;align-items:center;margin-bottom:10px;}
 #qpx-input{font-family:'DM Mono',monospace;font-size:22px;background:var(--bg3);color:var(--tx);
@@ -457,7 +437,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   text-transform:uppercase;background:var(--gold);color:var(--bg);border:none;
   width:100%;padding:14px;border-radius:var(--r);cursor:pointer;transition:opacity .12s;}
 #btn-qpx-save:active{opacity:.7;}
-/* Sell inside sheet */
 #sell-px-inp{font-family:'DM Mono',monospace;font-size:22px;background:var(--bg3);color:var(--tx);
   border:.5px solid var(--bd2);border-radius:var(--r);padding:13px 14px;width:100%;
   outline:none;-webkit-appearance:none;transition:border-color .15s;margin-bottom:10px;}
@@ -473,7 +452,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   width:100%;padding:14px;border-radius:var(--r);cursor:pointer;transition:opacity .12s;}
 #btn-confirm-sell:active{opacity:.7;}
 
-/* ─── Toast ─── */
 #toast{
   position:fixed;bottom:calc(var(--sab) + 80px);left:50%;
   transform:translateX(-50%) translateY(6px);
@@ -484,7 +462,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
 }
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* ─── Install banner ─── */
 #install-bar{
   position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);
   width:100%;max-width:480px;background:var(--bg2);border-top:.5px solid rgba(201,168,112,.3);
@@ -503,7 +480,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
 <body>
 <div id="app">
 
-<!-- ── HEADER ─────────────────────────────────────────────────────────────── -->
 <div id="hdr">
   <div id="hdr-inner">
     <span id="wordmark">WEALTH</span>
@@ -517,7 +493,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   </div>
 </div>
 
-<!-- ── OVERVIEW ───────────────────────────────────────────────────────────── -->
 <div id="view-overview" class="view on">
   <div id="hero">
     <div id="nw-eyebrow">Net Worth · Banks → NTD</div>
@@ -552,18 +527,17 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   </div>
   <div id="ov-empty">
     <div class="ov-empty-card">
-      <div class="ov-empty-ttl">Welcome to Wealth 👋</div>
+      <div class="ov-empty-ttl">Welcome to Wealth</div>
       <div class="ov-empty-sub">Start by adding your bank accounts to see your net worth, then add investments to track your portfolio.</div>
-      <button class="gold-btn" onclick="go('holdings')">Get Started →</button>
+      <button class="gold-btn" onclick="go('holdings')">Get Started</button>
     </div>
   </div>
 </div>
 
-<!-- ── HOLDINGS ───────────────────────────────────────────────────────────── -->
 <div id="view-holdings" class="view">
   <div id="search-wrap">
     <span id="search-ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-    <input type="text" id="search" placeholder="Search assets…" autocomplete="off" autocorrect="off" spellcheck="false" inputmode="search">
+    <input type="text" id="search" placeholder="Search assets" autocomplete="off" autocorrect="off" spellcheck="false" inputmode="search">
   </div>
   <div id="cat-row"></div>
   <div id="sort-strip">
@@ -579,7 +553,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   <div id="hold-list"></div>
 </div>
 
-<!-- ── GROWTH ─────────────────────────────────────────────────────────────── -->
 <div id="view-growth" class="view">
   <div id="g-hero">
     <div id="g-periods">
@@ -606,7 +579,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   </div>
 </div>
 
-<!-- ── SETTINGS ───────────────────────────────────────────────────────────── -->
 <div id="view-settings" class="view">
   <div id="set-inner">
     <div class="set-sec">
@@ -629,9 +601,9 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
     <div class="set-sec">
       <div class="set-hd">Backup &amp; Export</div>
       <div class="set-card">
-        <div class="set-row" onclick="doCSV()"><span class="set-row-l">Export to CSV</span><span class="set-row-r">↓ Download</span></div>
-        <div class="set-row" onclick="doBackup()"><span class="set-row-l">Encrypted backup</span><span class="set-row-r">🔒 .enc</span></div>
-        <div class="set-row" onclick="el('restore-in').click()"><span class="set-row-l">Restore backup</span><span class="set-row-r">📂 Load</span></div>
+        <div class="set-row" onclick="doCSV()"><span class="set-row-l">Export to CSV</span><span class="set-row-r">Download</span></div>
+        <div class="set-row" onclick="doBackup()"><span class="set-row-l">Encrypted backup</span><span class="set-row-r">.enc</span></div>
+        <div class="set-row" onclick="el('restore-in').click()"><span class="set-row-l">Restore backup</span><span class="set-row-r">Load</span></div>
       </div>
     </div>
     <div class="set-sec">
@@ -655,9 +627,8 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   </div>
 </div>
 
-</div><!-- /app -->
+</div>
 
-<!-- ── BOTTOM NAV ─────────────────────────────────────────────────────────── -->
 <div id="nav">
   <button class="nbt on" data-tab="overview" onclick="go('overview')">
     <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Overview
@@ -673,7 +644,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   </button>
 </div>
 
-<!-- ── FORM OVERLAY ───────────────────────────────────────────────────────── -->
 <div id="form-ov" class="overlay">
   <div class="ov-hdr">
     <button class="ov-back" onclick="closeForm()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
@@ -705,7 +675,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   </div>
 </div>
 
-<!-- ── SCAN OVERLAY ───────────────────────────────────────────────────────── -->
 <div id="scan-ov" class="overlay">
   <div class="ov-hdr">
     <button class="ov-back" onclick="closeScan()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
@@ -713,17 +682,14 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
     <span style="min-width:44px"></span>
   </div>
   <div class="ov-body">
-    <!-- Step 1: Upload -->
     <div id="scan-s1" class="scan-step on">
       <div class="scan-src-row">
-        <!-- Camera button -->
         <div class="scan-src-btn" id="scan-cam-btn">
           <input type="file" accept="image/*" capture="environment" id="scan-cam-in" onchange="scanFileChosen(event)">
           <div class="scan-src-ico"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
           <div class="scan-src-lbl">Camera</div>
           <div class="scan-src-sub">Take photo now</div>
         </div>
-        <!-- Gallery button -->
         <div class="scan-src-btn" id="scan-gal-btn">
           <input type="file" accept="image/*" id="scan-gal-in" onchange="scanFileChosen(event)">
           <div class="scan-src-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
@@ -739,12 +705,11 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
         <div class="scan-hint-lbl">Hint (optional)</div>
         <textarea class="inp" id="scan-hint" rows="2" placeholder="e.g. Stockbit IDR portfolio — update prices only"></textarea>
       </div>
-      <div class="scan-notice" id="scan-notice">📷 OCR runs locally — nothing leaves your phone. Clearer screenshots = better results.</div>
+      <div class="scan-notice" id="scan-notice">OCR runs locally — nothing leaves your phone. Clearer screenshots = better results.</div>
       <div class="scan-err" id="scan-err"></div>
       <button id="btn-ocr" onclick="runOCR()" disabled>Analyse Screenshot</button>
       <div style="height:1.5rem"></div>
     </div>
-    <!-- Step 2: Progress -->
     <div id="scan-s2" class="scan-step">
       <div class="scan-prog" id="scan-prog-wrap" style="display:block">
         <div class="spin"></div>
@@ -752,7 +717,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
         <div class="scan-prog-track"><div class="scan-prog-fill" id="scan-prog-fill"></div></div>
       </div>
     </div>
-    <!-- Step 3: Results -->
     <div id="scan-s3" class="scan-step">
       <div class="scan-results" id="scan-results-wrap">
         <div class="scan-res-hd">
@@ -768,14 +732,12 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
   </div>
 </div>
 
-<!-- ── ACTION SHEET ───────────────────────────────────────────────────────── -->
 <div id="sheet-bg" onclick="closeSheet()"></div>
 <div id="sheet">
   <div class="sheet-handle"></div>
   <div id="sheet-content"></div>
 </div>
 
-<!-- ── TOAST & MISC ───────────────────────────────────────────────────────── -->
 <div id="toast"></div>
 <div id="install-bar">
   <div id="install-bar-ico">💰</div>
@@ -785,9 +747,6 @@ textarea.inp{resize:none;font-size:13px;padding:11px 14px;}
 <input type="file" id="restore-in" accept=".enc" onchange="doRestore(event)" style="display:none">
 
 <script>
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  CONFIG
-   ╚══════════════════════════════════════════════════════════════════ */
 const CATS = {
   IDX:     {l:'IDX',   full:'Indonesia IDX', cur:'IDR',  color:'#c2512b', kind:'asset'},
   US:      {l:'US',    full:'US Stocks',      cur:'USD',  color:'#1d6fa5', kind:'asset'},
@@ -804,9 +763,6 @@ const isLiab = c => CATS[c]?.kind === 'liab';
 const isBank  = c => c === 'BANK_TWD' || c === 'BANK_IDR';
 const isInv   = c => !isBank(c) && !isLiab(c);
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  STORAGE
-   ╚══════════════════════════════════════════════════════════════════ */
 const DB = {
   a:[], fx:{...DFX}, s:[], goal:{target:0,label:''},
   p:{tab:'overview',flt:'ALL',sort:'val',q:'',per:'all'},
@@ -832,9 +788,6 @@ const DB = {
   }
 };
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  UTILITIES
-   ╚══════════════════════════════════════════════════════════════════ */
 const el = id => document.getElementById(id);
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,5);
 const toNTD = (v,c) => v * ({TWD:1, IDR:DB.fx.IDR_TWD, USD:DB.fx.USD_TWD, USDT:DB.fx.USDT_TWD}[c]||0);
@@ -866,9 +819,6 @@ function toast(msg, dur=2400) {
   clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),dur);
 }
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  NAVIGATION
-   ╚══════════════════════════════════════════════════════════════════ */
 let curTab = 'overview';
 function go(tab) {
   curTab = tab; DB.p.tab = tab; DB.write();
@@ -881,9 +831,6 @@ function go(tab) {
   ({overview:renderOverview, holdings:renderHoldings, growth:renderGrowth, settings:renderSettings}[tab]||Function())();
 }
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  OVERVIEW
-   ╚══════════════════════════════════════════════════════════════════ */
 let _raf;
 function animNW(target) {
   if(_raf) cancelAnimationFrame(_raf);
@@ -900,7 +847,6 @@ function renderOverview() {
   el('ov-assets').textContent = fnt(t.tA);
   el('ov-liab').textContent   = fnt(t.tL);
 
-  // P&L pill
   const pp = el('ov-pnl');
   if(t.cost>0) {
     const pct = t.pnl/t.cost*100;
@@ -908,7 +854,6 @@ function renderOverview() {
     pp.className   = 'pill '+(t.pnl>=0?'pos':'neg');
   } else { pp.textContent=''; pp.className='pill neu'; }
 
-  // Monthly change pill (vs second-to-last snapshot)
   const mp = el('ov-month');
   const ss = [...DB.s].sort((a,b)=>a.m.localeCompare(b.m));
   if(ss.length>=2) {
@@ -919,7 +864,6 @@ function renderOverview() {
     mp.title       = `${mLbl(prev.m)} → ${mLbl(last.m)}`;
   } else { mp.textContent=''; mp.className='pill neu'; }
 
-  // All-time stat
   const sr = el('st-alltime');
   if(ss.length>=2) {
     const d=ss[ss.length-1].nw-ss[0].nw, p=ss[0].nw>0?d/ss[0].nw*100:0;
@@ -932,10 +876,8 @@ function renderOverview() {
   sp.textContent=(t.pnl>=0?'+':'')+fnt(Math.abs(t.pnl));
   sp.style.color=t.pnl>=0?'var(--ok)':'var(--no)';
 
-  // Empty state
   el('ov-empty').style.display = DB.a.length===0 ? 'block' : 'none';
 
-  // Goal
   const gb = el('goal-bar');
   if(DB.goal.target>0) {
     gb.style.display='';
@@ -945,7 +887,6 @@ function renderOverview() {
     el('goal-fill').style.width = pct.toFixed(1)+'%';
   } else gb.style.display='none';
 
-  // Allocation
   const pie = Object.entries(CATS).filter(([,c])=>c.kind==='asset').map(([k,c])=>{
     const v = DB.a.filter(a=>a.on&&a.cat===k).reduce((s,a)=>s+toNTD(calcVal(a),a.cur),0);
     return {name:c.full, val:Math.round(v), color:c.color};
@@ -958,7 +899,6 @@ function renderOverview() {
     el('alloc-rows').innerHTML = pie.map(d=>`<div class="ar"><div class="ardot" style="background:${d.color}"></div><span class="arname">${d.name}</span><span class="aramt">${fnt(d.val)}</span><span class="arpct">${Math.round(d.val/tot*100)}%</span></div>`).join('');
   }
 
-  // FX
   el('fx-a').innerHTML = `<strong>USD</strong>${fn(DB.fx.USD_TWD,2)}`;
   el('fx-b').innerHTML = `<strong>IDR</strong>${DB.fx.IDR_TWD.toFixed(5)}`;
   el('fx-c').innerHTML = `<strong>USDT</strong>${fn(DB.fx.USDT_TWD,2)}`;
@@ -982,17 +922,12 @@ function renderSparkline() {
   </svg>`;
 }
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  HOLDINGS
-   ╚══════════════════════════════════════════════════════════════════ */
 let curFlt='ALL', curSort='val';
 function renderHoldings() {
   const q = (DB.p.q||'').toLowerCase();
-  // Filter chips
   el('cat-row').innerHTML = ['ALL',...Object.keys(CATS)].map(c=>
     `<button class="cat-chip${curFlt===c?' on':''}" onclick="setFlt('${c}')">${c==='ALL'?'All':CATS[c].l}</button>`
   ).join('');
-  // Sort buttons
   document.querySelectorAll('.srt').forEach(b=>b.classList.toggle('on', b.dataset.s===curSort));
 
   const vis = DB.a.filter(a => {
@@ -1059,7 +994,6 @@ function setFlt(f) { curFlt=f; DB.p.flt=f; DB.write(); renderHoldings(); }
 function setSort(s) { curSort=s; DB.p.sort=s; DB.write(); renderHoldings(); }
 el('search').addEventListener('input', e => { DB.p.q=e.target.value; DB.write(); renderHoldings(); });
 
-/* Holdings row tap → action sheet */
 function onRowTap(id) {
   const a = DB.a.find(x=>x.id===id); if(!a) return;
   const cat = CATS[a.cat];
@@ -1099,7 +1033,6 @@ function onRowTap(id) {
   );
 }
 
-/* ── Quick price update (bottom sheet) ── */
 function openQuickPrice(id) {
   const a = DB.a.find(x=>x.id===id); if(!a) return;
   const isL = isLiab(a.cat);
@@ -1122,7 +1055,6 @@ function saveQuickPrice(id) {
   toast('✓ Updated');
 }
 
-/* ── Sell flow (bottom sheet) ── */
 let _sellId = null;
 function openSell(id) {
   _sellId = id;
@@ -1164,7 +1096,6 @@ function confirmSell(id) {
   toast(`✓ Sold ${a.name} · ${sign}${fnt(pnl)}`);
 }
 
-/* ── Delete ── */
 function confirmDelete(id) {
   const a = DB.a.find(x=>x.id===id); if(!a) return;
   if(!confirm(`Delete "${a.name}" permanently?`)) return;
@@ -1172,9 +1103,6 @@ function confirmDelete(id) {
   DB.write(); renderHoldings(); toast('Deleted');
 }
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  ACTION SHEET
-   ╚══════════════════════════════════════════════════════════════════ */
 function openSheet(html) {
   el('sheet-content').innerHTML = html;
   el('sheet-bg').classList.add('on');
@@ -1185,9 +1113,6 @@ function closeSheet() {
   el('sheet-bg').classList.remove('on');
 }
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  GROWTH
-   ╚══════════════════════════════════════════════════════════════════ */
 let curPer='all';
 function setPer(p) {
   curPer=p; DB.p.per=p; DB.write();
@@ -1224,7 +1149,6 @@ function renderGrowth() {
   const has = DB.s.some(s=>s.m===mStr());
   el('snap-bar-txt').textContent = has ? `${mLbl(mStr())} recorded — tap to update` : `Record ${mLbl(mStr())}'s net worth`;
   requestAnimationFrame(()=>drawChart(sorted));
-  // List
   const allAsc=[...DB.s].sort((a,b)=>a.m.localeCompare(b.m));
   const allDesc=[...DB.s].sort((a,b)=>b.m.localeCompare(a.m));
   const ge=el('g-empty'); const gl=el('g-list');
@@ -1261,9 +1185,66 @@ function drawChart(sorted) {
     ${lbls.map(s=>{const p=pts[sorted.indexOf(s)]; return `<text x="${p.x.toFixed(1)}" y="${H-8}" text-anchor="middle" fill="#42424e" font-size="9.5" font-family="DM Mono,monospace">${mLbl(s.m)}</text>`;}).join('')}`;
 }
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  SETTINGS
-   ╚══════════════════════════════════════════════════════════════════ */
+//YYYYMMDD Timo
+// function saveFx() {
+//   const u=parseFloat(el('in-usd').value), i=parseFloat(el('in-idr').value), t=parseFloat(el('in-usdt').value);
+//   if(isNaN(u)||u<=0||isNaN(i)||i<=0||isNaN(t)||t<=0) { toast('⚠ Enter valid positive rates'); return; }
+//   DB.fx.USD_TWD=u; DB.fx.IDR_TWD=i; DB.fx.USDT_TWD=t;
+//   DB.write(); toast('✓ FX rates saved');
+//   const b=el('btn-savefx'); b.textContent='✓ Saved'; b.classList.add('ok');
+//   setTimeout(()=>{b.textContent='Save Rates';b.classList.remove('ok');},2000);
+// }
+
+async function fetchLiveFX() {
+  try {
+    const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=IDR,TWD');
+    if (!res.ok) throw new Error('Network error');
+    const data = await res.json();
+    const r = data.rates;
+    const usd_twd = r.TWD;
+    const idr_twd = r.TWD / r.IDR;
+    return { USD_TWD: usd_twd, IDR_TWD: idr_twd, USDT_TWD: usd_twd };
+  } catch (e) {
+    return null;
+  }
+}
+
+async function autoUpdateFX() {
+  const rates = await fetchLiveFX();
+  if (!rates) return;
+  
+  DB.fx = rates;
+  DB.write();
+  
+  if (curTab === 'settings') renderSettings();
+  if (curTab === 'overview') renderOverview();
+  if (curTab === 'holdings') renderHoldings();
+}
+
+function saveFx() {
+  const u = parseFloat(el('in-usd').value);
+  const i = parseFloat(el('in-idr').value);
+  const t = parseFloat(el('in-usdt').value);
+  
+  if (isNaN(u) || u <= 0 || isNaN(i) || i <= 0 || isNaN(t) || t <= 0) { 
+    toast('⚠ Enter valid positive rates'); 
+    return; 
+  }
+  
+  DB.fx = { USD_TWD: u, IDR_TWD: i, USDT_TWD: t };
+  DB.write(); 
+  toast('✓ FX rates saved');
+  
+  const b = el('btn-savefx'); 
+  b.textContent = '✓ Saved'; 
+  b.classList.add('ok');
+  
+  setTimeout(() => { 
+    b.textContent = 'Save Rates'; 
+    b.classList.remove('ok'); 
+  }, 2000);
+}
+
 function renderSettings() {
   el('in-usd').value       = DB.fx.USD_TWD;
   el('in-idr').value       = DB.fx.IDR_TWD;
@@ -1275,14 +1256,6 @@ function renderSettings() {
   try { const b=new Blob([JSON.stringify({a:DB.a,fx:DB.fx,s:DB.s,goal:DB.goal})]).size; el('d-size').textContent=b<1024?`${b} B`:`${(b/1024).toFixed(1)} KB`; } catch { el('d-size').textContent='—'; }
   const ts=localStorage.getItem('w:ts');
   el('d-time').textContent = ts ? new Date(+ts).toLocaleDateString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
-}
-function saveFx() {
-  const u=parseFloat(el('in-usd').value), i=parseFloat(el('in-idr').value), t=parseFloat(el('in-usdt').value);
-  if(isNaN(u)||u<=0||isNaN(i)||i<=0||isNaN(t)||t<=0) { toast('⚠ Enter valid positive rates'); return; }
-  DB.fx.USD_TWD=u; DB.fx.IDR_TWD=i; DB.fx.USDT_TWD=t;
-  DB.write(); toast('✓ FX rates saved');
-  const b=el('btn-savefx'); b.textContent='✓ Saved'; b.classList.add('ok');
-  setTimeout(()=>{b.textContent='Save Rates';b.classList.remove('ok');},2000);
 }
 function saveGoal() {
   const t=parseFloat(el('in-goal').value), l=el('in-goal-lbl').value.trim();
@@ -1349,9 +1322,6 @@ function doClear() {
   DB.a=[]; DB.s=[]; DB.goal={target:0,label:''}; DB.write(); go('holdings');
 }
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  FORM (Add / Edit)
-   ╚══════════════════════════════════════════════════════════════════ */
 let editId=null, formCat='IDX';
 function buildCatChips() {
   el('cat-chips').innerHTML = Object.entries(CATS).map(([k,v])=>
@@ -1380,7 +1350,7 @@ function openForm(id) {
   el('btn-del-asset').style.display = a?'':'none';
   el('form-err').style.display='none';
   selectCat(formCat);
-  if(a) el('f-cur').value = a.cur; // restore after selectCat override
+  if(a) el('f-cur').value = a.cur;
   el('form-ov').classList.add('on');
   requestAnimationFrame(()=>setTimeout(()=>el('f-name').focus(),80));
 }
@@ -1409,17 +1379,8 @@ function deleteAsset() {
   DB.write(); toast('Deleted'); closeForm();
 }
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  SCAN — Tesseract OCR
-   ║  Key improvements over previous version:
-   ║  · Pre-loads Tesseract 2s after app start (persistent worker)
-   ║  · Canvas preprocessing: resize + grayscale + contrast boost
-   ║  · Both Camera and Gallery input buttons
-   ║  · Green dot on scan button when ready (~4x faster cold scan)
-   ╚══════════════════════════════════════════════════════════════════ */
 let _worker=null, _workerReady=false, _scanImgSrc=null, _ocrItems=[];
 
-/* Pre-load Tesseract.js in the background */
 async function preloadOCR() {
   try {
     if(!window.Tesseract) {
@@ -1431,11 +1392,10 @@ async function preloadOCR() {
     }
     _worker = await Tesseract.createWorker('eng');
     _workerReady = true;
-    el('scan-ready').classList.add('on'); // green dot
-  } catch(e) { /* silent — will retry on demand */ }
+    el('scan-ready').classList.add('on');
+  } catch(e) { /* silent */ }
 }
 
-/* Preprocess image: resize + enhance for faster/better OCR */
 async function preprocessImg(src) {
   return new Promise(res=>{
     const img=new Image(); img.onload=()=>{
@@ -1498,7 +1458,7 @@ async function runOCR() {
   showScanStep(2); el('scan-err').style.display='none';
   try {
     setProgress('Preprocessing image…',.08);
-    const processed = await preprocessImg(_scanImgSrc); // resize + enhance
+    const processed = await preprocessImg(_scanImgSrc);
 
     if(!_workerReady) {
       setProgress('Loading OCR engine…',.12);
@@ -1532,7 +1492,6 @@ async function runOCR() {
   }
 }
 
-/* ── OCR Parsing ── */
 function inferCur(txt) {
   if(/Rp\.?\s*\d|IDR\b|rupiah/i.test(txt))  return 'IDR';
   if(/NT\$|NTD\b|TWD\b/i.test(txt))          return 'TWD';
@@ -1552,13 +1511,10 @@ function fuzzyMatch(text) {
   return bestScore>=15 ? best : null;
 }
 function extractNum(line) {
-  // IDR style: 45.000.000
   const idr=line.match(/(\d{1,3}(?:\.\d{3}){2,})/);
   if(idr) { const n=parseFloat(idr[1].replace(/\./g,'')); if(n>0) return n; }
-  // Comma thousands: 1,234,567
   const std=line.match(/(\d{1,3}(?:,\d{3})+)(?:\.\d+)?/);
   if(std) { const n=parseFloat(std[1].replace(/,/g,'')); if(n>0) return n; }
-  // Plain decimal
   const pl=line.match(/\d+(?:[.,]\d+)?/);
   if(pl) { const n=parseFloat(pl[0].replace(',','.')); if(n>0) return n; }
   return null;
@@ -1638,9 +1594,6 @@ function applyOcr() {
   toast(`✓ ${updated} updated${added?` · ${added} added`:''}`);
 }
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  INSTALL BANNER
-   ╚══════════════════════════════════════════════════════════════════ */
 function dismissInstall() {
   el('install-bar').classList.remove('show');
   localStorage.setItem('w:nodismiss','1');
@@ -1653,9 +1606,6 @@ function dismissInstall() {
   if(!standalone&&!dismissed&&safari) setTimeout(()=>el('install-bar').classList.add('show'),2000);
 })();
 
-/* ╔══════════════════════════════════════════════════════════════════
-   ║  INIT
-   ╚══════════════════════════════════════════════════════════════════ */
 if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 DB.load();
 curFlt = DB.p.flt||'ALL';
@@ -1665,8 +1615,8 @@ el('search').value = DB.p.q||'';
 document.querySelectorAll('.gper').forEach(b=>b.classList.toggle('on',b.dataset.p===curPer));
 go(DB.p.tab||'overview');
 
-// Pre-load OCR silently in background after 2s
 setTimeout(preloadOCR, 2000);
+setInterval(autoUpdateFX, 60000);
 </script>
 </body>
 </html>
