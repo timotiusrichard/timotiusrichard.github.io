@@ -1481,9 +1481,9 @@ function renderScanResults(found){
   if(!found.length){
     el('scan-found-hdr').textContent='No items detected';
     el('scan-items-list').innerHTML='';el('scan-toolbar').innerHTML='';
-    el('scan-empty').style.display='';el('btn-import').style.display='none';return;
+    el('scan-empty').style.display='block';el('btn-import').style.display='none';return;
   }
-  el('scan-empty').style.display='none';el('btn-import').style.display='';
+  el('scan-empty').style.display='none';el('btn-import').style.display='block';
   const shown=hideLow?found.filter(f=>f.conf!=='lo'):found;
   scanGroups=diffScan(shown);
   const{add,update,sold}=scanGroups;
@@ -1950,7 +1950,7 @@ function openScanPreview(){
     else if(g==='sold')selected.sold.push(i);
   });
   const totalSel=selected.add.length+selected.update.length+selected.sold.length;
-  if(!totalSel){toast('Nothing selected','no');return;}
+  if(!totalSel){toast('Select at least one item to import','no');return;}
 
   // Compute current portfolio values
   const curInv=computeInv();
@@ -2020,16 +2020,23 @@ function openScanPreview(){
   });
   el('preview-changes-list').innerHTML=html||'<p style="color:var(--tx3);font-size:13px">No changes selected.</p>';
 
-  // Show preview screen
+  // Show preview screen (hide everything else)
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   el('view-scan').classList.remove('on');
+  el('hdr').style.display='none';
+  document.querySelector('nav').style.display='none';
   el('view-scan-preview').classList.add('on');
 }
 function closeScanPreview(){
   el('view-scan-preview').classList.remove('on');
+  el('hdr').style.display='none';  // still inside scanner, keep hdr hidden
+  document.querySelector('nav').style.display='none';
   el('view-scan').classList.add('on');
 }
 function confirmImport(){
+  el('view-scan-preview').classList.remove('on');
+  el('hdr').style.display='';
+  document.querySelector('nav').style.display='';
   importScanned();
 }
 
