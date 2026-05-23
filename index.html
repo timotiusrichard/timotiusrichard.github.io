@@ -1725,7 +1725,7 @@ function preprocessImg(src,crop){
 
 async function runScan(dataUrl,crop){
   el('crop-wrap').style.display='none';
-  el('scan-steps').style.display='';
+  el('scan-steps').style.display='block';
   setStep(1,'active');setStep(2,'wait');setStep(3,'wait');setStep(4,'wait');setProg(0);
   if(!tWorker){
     setStatus('Loading OCR engine (one-time)…','running');
@@ -1739,7 +1739,7 @@ async function runScan(dataUrl,crop){
   try{const{data:{text}}=await tWorker.recognize(processed);raw=text;}
   catch(e){setStatus('OCR failed: '+e.message,'err');el('scan-steps').style.display='none';return;}
   setStep(3,'done');setStep(4,'active');setProg(88);setStatus('Analysing assets…','running');
-  el('scan-raw').textContent=raw;el('scan-raw-wrap').style.display='';
+  el('scan-raw').textContent=raw;el('scan-raw-wrap').style.display='block';
   await new Promise(r=>setTimeout(r,100));
   hideLow=false;
   const found=parseOcrText(raw);
@@ -1763,7 +1763,7 @@ function showCrop(url){
     cropBox.style.width=(w*0.9)+'px';cropBox.style.height=(h*0.9)+'px';
   };
   cropImgEl.src=url;
-  el('crop-wrap').style.display='';
+  el('crop-wrap').style.display='block';
 }
 function clientToStage(e){const r=el('crop-stage').getBoundingClientRect();const t=e.touches?e.touches[0]:e;return{x:t.clientX-r.left,y:t.clientY-r.top,sw:r.width,sh:r.height};}
 function cropPointerDown(e){
