@@ -1524,7 +1524,7 @@ function diffScan(found){
 /* ── Render results ──────────────────────────────────────────────────────────*/
 function renderScanResults(found){
   lastFound=found;
-  el('scan-results').style.display='';
+  el('scan-results').style.display='block';
   if(!found.length){
     el('scan-found-hdr').textContent='No items detected';
     el('scan-items-list').innerHTML='';el('scan-toolbar').innerHTML='';
@@ -1614,7 +1614,7 @@ function applyScanEdit(g,i){
   el(`sie-${g}-${i}`)?.classList.remove('open');
   // Refresh NTD display
   const ntdEl=el(`sntd-${g}-${i}`);
-  const refObj=g==='update'?(scanGroups.update[idx]?.found):scanGroups.add[idx];
+  const refObj=g==='update'?(scanGroups.update[i]?.found):scanGroups.add[i];
   if(ntdEl&&refObj)ntdEl.textContent='≈ '+fnt(itemNTD(refObj));
   toast('Updated','ok');
 }
@@ -1821,7 +1821,7 @@ function resetScan(){
 function toggleManual(){const b=el('scan-manual-body'),t=el('manual-toggle');const open=b.style.display==='none'||!b.style.display;b.style.display=open?'block':'none';t.classList.toggle('open',open);}
 function parseManual(){
   const txt=el('scan-manual-txt').value.trim();if(!txt){toast('Paste some text first','no');return;}
-  hideLow=false;const found=parseOcrText(txt);renderScanResults(found);el('scan-results').style.display='';
+  hideLow=false;const found=parseOcrText(txt);renderScanResults(found);
   const n=found.length;setStatus(n?`Found ${n} item${n!==1?'s':''}.`:'No assets detected.',n?'done':'err');
 }
 function toggleRaw(){const r=el('scan-raw'),open=r.style.display!=='block';r.style.display=open?'block':'none';document.querySelector('.scan-raw-toggle').textContent=open?'Hide raw OCR text':'Show raw OCR text';}
@@ -2019,7 +2019,7 @@ function reloadLastScan(){
   scanGroups=h.groups||diffScan(h.found);
   renderScanResults(h.found);
   el('scan-history-banner').style.display='none';
-  el('scan-results').style.display='';
+  el('scan-results').style.display='block';
   setStatus(`Reloaded ${h.found.length} items from previous scan`,'done');
 }
 
