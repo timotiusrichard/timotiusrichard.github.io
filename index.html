@@ -37,12 +37,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-s
   background:var(--bg);color:var(--tx);min-height:100dvh;overscroll-behavior-y:none;
   -webkit-font-smoothing:antialiased;}
 #wrap{max-width:480px;margin:0 auto;padding-top:var(--sat);
-  padding-bottom:calc(var(--sab)+64px);padding-left:var(--sal);padding-right:var(--sar);}
+  padding-bottom:calc(var(--sab)+80px);padding-left:var(--sal);padding-right:var(--sar);}
 
 /* Header */
 #hdr{position:sticky;top:0;background:var(--bg);border-bottom:.5px solid var(--bd);
   z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding-top:var(--sat);}
-#hdr-row{padding:12px 1rem 0;display:flex;justify-content:space-between;align-items:center;}
+#hdr-row{padding:11px 1rem 0;display:flex;justify-content:space-between;align-items:center;}
 #hdr-title{font-size:17px;font-weight:700;letter-spacing:-.4px;}
 #hdr-right{display:flex;align-items:center;gap:6px;}
 #btn-scan,#btn-add{display:none;align-items:center;gap:4px;font-size:12px;padding:6px 11px;
@@ -57,8 +57,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-s
   display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;color:var(--tx3);
   font-size:9px;font-weight:700;letter-spacing:.07em;transition:color .15s;}
 .htab.on{color:var(--tx);border-bottom-color:var(--tx);}
-.htab svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6;
-  stroke-linecap:round;stroke-linejoin:round;}
+.htab svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 
 /* Nav */
 nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;
@@ -68,15 +67,14 @@ nav button{flex:1;background:none;border:none;padding:8px 0 6px;display:flex;fle
   align-items:center;gap:2px;color:var(--tx3);font-size:9px;font-weight:700;letter-spacing:.07em;
   cursor:pointer;transition:color .15s;}
 nav button.on{color:var(--tx);}
-nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;
-  stroke-linecap:round;stroke-linejoin:round;}
+nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 
 /* Views */
 .view{display:none;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .view.on{display:block;animation:fadeUp .2s ease;}
-#view-form,#view-scan{display:none;}
-#view-form.on,#view-scan.on{display:block;animation:fadeUp .2s ease;}
+.fullpage{display:none;}
+.fullpage.on{display:block;animation:fadeUp .2s ease;}
 
 /* Inputs */
 input,select,textarea{font-family:inherit;font-size:15px;background:var(--bg2);color:var(--tx);
@@ -106,7 +104,7 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 #hero{padding:1.75rem 1rem 1.25rem;}
 #nw-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;
   color:var(--tx3);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-#nw-val{font-size:48px;font-weight:700;letter-spacing:-3px;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums;}
+#nw-val{font-size:46px;font-weight:700;letter-spacing:-3px;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums;}
 #nw-sub{font-size:13px;color:var(--tx2);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 #nw-sub strong{color:var(--tx);}
 .pnl-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:100px;font-size:12px;font-weight:700;}
@@ -123,6 +121,8 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .stat{background:var(--bg2);border-radius:var(--r);padding:12px 14px;border:.5px solid var(--bd);}
 .stat-lbl{font-size:11px;color:var(--tx3);margin-bottom:4px;font-weight:500;}
 .stat-val{font-size:20px;font-weight:700;letter-spacing:-.5px;font-variant-numeric:tabular-nums;}
+.stat-trend{font-size:11px;margin-top:3px;font-weight:500;}
+.stat-trend.up{color:var(--ok);}.stat-trend.dn{color:var(--no);}
 #alloc-wrap{padding:0 1rem 1rem;border-top:.5px solid var(--bd);}
 #alloc-hd{font-size:13px;font-weight:600;margin:14px 0 12px;}
 #alloc-inner{display:flex;align-items:center;gap:14px;}
@@ -136,11 +136,21 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .leg-name{font-size:12px;color:var(--tx2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .leg-pct{font-size:12px;font-weight:700;flex-shrink:0;}
-#fx-strip{padding:.75rem 1rem;border-top:.5px solid var(--bd);display:flex;gap:14px;font-size:11px;color:var(--tx3);align-items:center;overflow-x:auto;}
-.fx-item{display:flex;align-items:center;gap:4px;}
-.fx-lbl{color:var(--tx3);white-space:nowrap;}
-.fx-val{font-weight:600;color:var(--tx2);white-space:nowrap;}
-#fx-edit{margin-left:auto;font-size:11px;color:var(--bl);background:none;border:none;cursor:pointer;font-family:inherit;}
+#fx-strip{padding:.75rem 1rem;border-top:.5px solid var(--bd);display:flex;gap:16px;font-size:11px;
+  color:var(--tx3);align-items:center;overflow-x:auto;white-space:nowrap;}
+.fx-item{display:flex;align-items:center;gap:4px;flex-shrink:0;}
+.fx-lbl{color:var(--tx3);}
+.fx-val{font-weight:600;color:var(--tx2);}
+#fx-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;
+  padding:2px 7px;border-radius:100px;margin-left:auto;flex-shrink:0;}
+#fx-badge.live{background:var(--ok-bg);color:var(--ok);}
+#fx-badge.stale{background:var(--wn-bg);color:var(--wn);}
+#fx-badge.err{background:var(--no-bg);color:var(--no);}
+#fx-badge.fetching{background:var(--bg3);color:var(--tx3);}
+#fx-badge::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+#fx-badge.fetching::before{animation:pulse .9s ease infinite;}
+#fx-refresh{background:none;border:none;color:var(--bl);font-size:11px;cursor:pointer;font-family:inherit;padding:0;flex-shrink:0;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* Holdings */
 #search-wrap{padding:.7rem 1rem .5rem;border-bottom:.5px solid var(--bd);position:relative;}
@@ -161,8 +171,11 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
   border-bottom:.5px solid var(--bd);background:var(--bg2);}
 #holdings-total span:first-child{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);}
 #holdings-total span:last-child{font-size:14px;font-weight:700;}
-.sec-hdr{padding:5px 1rem;background:var(--bg2);font-size:10px;font-weight:700;color:var(--tx3);
-  text-transform:uppercase;letter-spacing:.08em;border-bottom:.5px solid var(--bd);}
+.sec-hdr{padding:5px 1rem;background:var(--bg2);border-bottom:.5px solid var(--bd);
+  display:flex;justify-content:space-between;align-items:center;}
+.sec-hdr-label{font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;}
+.sec-hdr-val{font-size:11px;font-weight:600;color:var(--tx2);margin-top:1px;}
+.sec-hdr-pct{font-size:10px;color:var(--tx3);font-weight:500;}
 .asset-row{padding:13px 1rem 13px 0;border-bottom:.5px solid var(--bd);display:flex;align-items:center;
   gap:10px;cursor:pointer;background:var(--bg);transition:background .1s;overflow:hidden;}
 .asset-row:active{background:var(--bg2);}
@@ -175,16 +188,19 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .a-right{text-align:right;flex-shrink:0;margin-right:14px;}
 .a-val{font-size:14px;font-weight:700;letter-spacing:-.3px;font-variant-numeric:tabular-nums;}
 .a-pnl{font-size:11px;margin-top:2px;font-weight:600;}
+.a-pct{font-size:10px;color:var(--tx3);margin-top:1px;}
 #empty-hold{padding:4rem 1rem;text-align:center;}
 #empty-hold p{color:var(--tx3);font-size:15px;margin-bottom:18px;}
 
+/* Full-page (form/scanner/preview) */
+.page-nav{padding:13px 1rem 11px;display:flex;justify-content:space-between;align-items:center;
+  border-bottom:.5px solid var(--bd);padding-top:calc(13px + var(--sat));}
+.page-nav-title{font-size:17px;font-weight:700;}
+.page-back{background:none;border:none;color:var(--bl);display:flex;align-items:center;gap:4px;
+  font-size:14px;cursor:pointer;font-family:inherit;}
+.page-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
 /* Form */
-#view-form{padding:0 0 2rem;}
-.form-nav{padding:13px 1rem 11px;display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--bd);padding-top:calc(13px + var(--sat));}
-.form-back{background:none;border:none;color:var(--bl);display:flex;align-items:center;gap:4px;font-size:14px;cursor:pointer;font-family:inherit;}
-.form-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-#form-title-txt{font-size:17px;font-weight:700;}
-#btn-del{padding:5px 10px;font-size:12px;display:none;}
 #form-body{padding:1rem;}
 #cat-chips{display:flex;gap:5px;flex-wrap:wrap;}
 .cat-chip{display:inline-flex;align-items:center;padding:6px 12px;border-radius:100px;font-size:12px;
@@ -198,10 +214,9 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .set-title{font-size:16px;font-weight:700;margin-bottom:3px;letter-spacing:-.3px;}
 .set-sub{font-size:13px;color:var(--tx2);margin-bottom:14px;line-height:1.5;}
 .set-grid{display:grid;gap:10px;}
-#btn-save-fx{margin-top:12px;width:100%;padding:13px 0;background:var(--tx);color:var(--bg);border:none;
-  font-weight:700;border-radius:var(--r);font-size:15px;font-family:inherit;cursor:pointer;letter-spacing:-.2px;transition:background .2s,opacity .12s;}
-#btn-save-fx:active{opacity:.7;}
-#btn-save-fx.saved{background:var(--ok);}
+.set-fx-status{background:var(--bg2);border-radius:var(--r);padding:13px 14px;margin-bottom:10px;
+  border:.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.set-fx-meta{font-size:11px;color:var(--tx3);margin-top:2px;}
 .data-card{background:var(--bg2);border-radius:var(--r);padding:13px 14px;margin-bottom:12px;border:.5px solid var(--bd);}
 .data-row{display:flex;justify-content:space-between;padding:4px 0;font-size:14px;}
 .data-row span:first-child{color:var(--tx2);}
@@ -217,23 +232,9 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .set-export svg{width:17px;height:17px;stroke:var(--tx3);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .set-note{font-size:12px;color:var(--tx3);line-height:1.9;padding-top:1.25rem;border-top:.5px solid var(--bd);}
 .version{font-size:11px;color:var(--tx3);text-align:center;padding-top:1rem;}
-.fx-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;
-  padding:2px 7px;border-radius:100px;margin-left:auto;}
-.fx-badge.live{background:var(--ok-bg);color:var(--ok);}
-.fx-badge.stale{background:var(--wn-bg);color:var(--wn);}
-.fx-badge.err{background:var(--no-bg);color:var(--no);}
-.fx-badge.fetching{background:var(--bg3);color:var(--tx3);}
-.fx-badge::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
-.fx-badge.fetching::before{animation:pulse .9s ease infinite;}
-#fx-refresh{background:none;border:none;color:var(--bl);font-size:11px;cursor:pointer;
-  font-family:inherit;padding:0;white-space:nowrap;}
-.set-fx-status{background:var(--bg2);border-radius:var(--r);padding:10px 13px;
-  margin-bottom:10px;border:.5px solid var(--bd);font-size:13px;display:flex;
-  align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;}
-.set-fx-meta{font-size:11px;color:var(--tx3);margin-top:2px;}
 
 /* Toast */
-#toast-host{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(72px + var(--sab));
+#toast-host{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(80px + var(--sab));
   z-index:500;display:flex;flex-direction:column;gap:8px;width:calc(100% - 2rem);max-width:420px;pointer-events:none;}
 .toast{background:var(--tx);color:var(--bg);padding:12px 16px;border-radius:12px;font-size:14px;font-weight:500;
   box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:9px;pointer-events:auto;
@@ -272,11 +273,6 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
   box-shadow:var(--shadow-lg);animation:sheetUp .3s cubic-bezier(.3,1.1,.4,1);max-height:85dvh;overflow-y:auto;}
 @keyframes sheetUp{from{transform:translate(-50%,100%)}to{transform:translate(-50%,0)}}
 #sheet-grip{width:36px;height:4px;border-radius:3px;background:var(--bd2);margin:0 auto 16px;}
-#sheet-head{display:flex;align-items:center;gap:11px;margin-bottom:18px;}
-#sheet-accent{width:5px;height:38px;border-radius:3px;flex-shrink:0;}
-#sheet-name{font-size:22px;font-weight:700;letter-spacing:-.5px;}
-#sheet-alias{font-size:13px;color:var(--tx3);margin-top:1px;}
-#sheet-cat{margin-left:auto;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;}
 .sheet-stat{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:.5px solid var(--bd);}
 .sheet-stat:last-of-type{border-bottom:none;}
 .sheet-stat-lbl{font-size:13px;color:var(--tx2);}
@@ -287,16 +283,33 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .sheet-edit{background:var(--tx);color:var(--bg);border:none;}
 .sheet-del{background:var(--no-bg);color:var(--no);border:.5px solid var(--no);}
 
+/* FABs — persistent, always visible except in fullpage views */
+#fab-wrap{position:fixed;bottom:calc(80px + var(--sab) + 12px);right:1rem;z-index:150;
+  display:none;flex-direction:column;align-items:center;gap:10px;}
+#fab-wrap.on{display:flex;}
+#fab-add{width:52px;height:52px;border-radius:50%;background:var(--tx);color:var(--bg);border:none;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);font-size:28px;font-weight:300;line-height:1;
+  transition:transform .15s,box-shadow .15s;}
+#fab-add:active{transform:scale(.88);box-shadow:0 2px 8px rgba(0,0,0,.18);}
+#fab-scan-btn{width:40px;height:40px;border-radius:50%;background:var(--bg2);color:var(--tx2);
+  border:.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:var(--shadow);transition:transform .15s;}
+#fab-scan-btn:active{transform:scale(.88);}
+#fab-scan-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
 /* Scanner */
 #view-scan{padding:0 0 3rem;}
-#scan-nav{padding:13px 1rem 11px;display:flex;justify-content:space-between;align-items:center;
-  border-bottom:.5px solid var(--bd);padding-top:calc(13px + var(--sat));}
-#scan-title{font-size:17px;font-weight:700;}
 #scan-body{padding:1rem;}
+#scan-history-banner{display:none;background:var(--bg2);border:.5px solid var(--bd2);border-radius:var(--r);
+  padding:11px 13px;margin-bottom:12px;cursor:pointer;transition:opacity .12s;}
+#scan-history-banner:active{opacity:.6;}
+.scan-hist-top{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;}
+.scan-hist-top svg{width:15px;height:15px;stroke:var(--bl);fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;}
+.scan-hist-sub{font-size:11px;color:var(--tx3);margin-top:3px;}
 #scan-drop{border:1.5px dashed var(--bd2);border-radius:var(--rl);padding:2.5rem 1rem;text-align:center;
   cursor:pointer;transition:border-color .15s,background .15s;margin-bottom:1rem;background:var(--bg2);}
 #scan-drop.drag{border-color:var(--bl);background:rgba(20,85,163,.05);}
-#scan-drop.has-img{border-style:solid;border-color:var(--bd);padding:0;background:var(--bg2);display:none;}
 #scan-drop-icon{width:36px;height:36px;stroke:var(--tx3);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;margin:0 auto 10px;}
 #scan-drop p{font-size:14px;color:var(--tx2);margin-bottom:4px;font-weight:500;}
 #scan-drop small{font-size:12px;color:var(--tx3);}
@@ -309,10 +322,8 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 #crop-img{width:100%;display:block;pointer-events:none;opacity:.85;}
 #crop-box{position:absolute;border:2px solid #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.55);box-sizing:border-box;cursor:move;}
 .crop-h{position:absolute;width:24px;height:24px;background:#fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.4);}
-.crop-h.tl{top:-12px;left:-12px;cursor:nwse-resize;}
-.crop-h.tr{top:-12px;right:-12px;cursor:nesw-resize;}
-.crop-h.bl{bottom:-12px;left:-12px;cursor:nesw-resize;}
-.crop-h.br{bottom:-12px;right:-12px;cursor:nwse-resize;}
+.crop-h.tl{top:-12px;left:-12px;cursor:nwse-resize;}.crop-h.tr{top:-12px;right:-12px;cursor:nesw-resize;}
+.crop-h.bl{bottom:-12px;left:-12px;cursor:nesw-resize;}.crop-h.br{bottom:-12px;right:-12px;cursor:nwse-resize;}
 #crop-btns{display:flex;gap:10px;margin-top:10px;}
 #crop-btns button{flex:1;padding:12px 0;border-radius:var(--r);font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:opacity .12s;}
 #crop-btns button:active{opacity:.7;}
@@ -328,44 +339,39 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .sbar-num.active{background:var(--bl);color:#fff;box-shadow:0 0 0 3px rgba(20,85,163,.2);}
 .sbar-num.done{background:var(--ok);color:#fff;}
 .sbar-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);}
-.sbar-label.active{color:var(--bl);}
-.sbar-label.done{color:var(--ok);}
+.sbar-label.active{color:var(--bl);}.sbar-label.done{color:var(--ok);}
 .sbar-line{flex:1;height:1.5px;background:var(--bg3);transition:background .3s;}
 .sbar-line.done{background:var(--ok);}
 #scan-progress{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:.75rem;}
 #scan-progress-bar{height:100%;background:linear-gradient(90deg,var(--bl),#5b9bf8);border-radius:2px;transition:width .4s ease;width:0%;}
 #scan-status{padding:11px 14px;border-radius:var(--r);background:var(--bg2);font-size:13px;color:var(--tx2);
-  margin-bottom:1rem;display:none;border:.5px solid var(--bd);display:flex;align-items:center;gap:8px;}
+  margin-bottom:1rem;border:.5px solid var(--bd);display:none;align-items:center;gap:8px;}
 #scan-status svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;}
-#scan-status.running{color:var(--bl);}
-#scan-status.done{color:var(--ok);background:var(--ok-bg);border-color:rgba(10,112,64,.15);}
-#scan-status.err{color:var(--no);background:var(--no-bg);border-color:rgba(192,57,43,.15);}
+#scan-status.running{color:var(--bl);display:flex;}
+#scan-status.done{color:var(--ok);background:var(--ok-bg);border-color:rgba(10,112,64,.15);display:flex;}
+#scan-status.err{color:var(--no);background:var(--no-bg);border-color:rgba(192,57,43,.15);display:flex;}
 
-/* Scan history banner */
-#scan-history-banner{display:none;background:var(--bg2);border:.5px solid var(--bd2);border-radius:var(--r);
-  padding:11px 13px;margin-bottom:12px;cursor:pointer;transition:opacity .12s;}
-#scan-history-banner:active{opacity:.6;}
-#scan-hist-top{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;}
-#scan-hist-top svg{width:15px;height:15px;stroke:var(--bl);fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;}
-#scan-hist-sub{font-size:11px;color:var(--tx3);margin-top:3px;}
-
-/* Results */
+/* Scan results */
 #scan-results{display:none;}
 #scan-results-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 #scan-found-hdr{font-size:14px;font-weight:700;}
-#scan-hdr-right{display:flex;gap:10px;align-items:center;}
-#btn-rescan{font-size:12px;color:var(--tx3);background:none;border:none;cursor:pointer;font-family:inherit;padding:0;}
+.scan-hdr-btns{display:flex;gap:12px;align-items:center;}
+.scan-hdr-btn{font-size:12px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;font-weight:500;}
+#btn-select-all{color:var(--bl);}
+#btn-rescan{color:var(--tx3);}
 #scan-toolbar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
 .scan-tool{color:var(--tx2);background:var(--bg2);border:.5px solid var(--bd2);border-radius:100px;
   padding:4px 11px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;transition:all .12s;}
 .scan-tool.on{background:var(--tx);color:var(--bg);border-color:var(--tx);}
 .scan-section-hdr{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.09em;color:var(--tx2);padding:12px 0 6px;margin-top:2px;}
+  text-transform:uppercase;letter-spacing:.09em;color:var(--tx2);padding:12px 0 6px;}
 .scan-section-count{margin-left:auto;font-size:10px;color:var(--tx3);font-weight:500;text-transform:none;letter-spacing:0;}
 .scan-hdr-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-#sold-warn{font-size:11px;color:var(--wn);background:var(--wn-bg);border-radius:8px;padding:9px 11px;margin:4px 0 8px;line-height:1.5;border:.5px solid rgba(180,83,9,.12);}
-.scan-item{background:var(--bg2);border-radius:var(--r);margin-bottom:6px;border:.5px solid var(--bd);overflow:hidden;transition:box-shadow .15s;}
-.scan-item:has(.scan-item-chk:checked){border-color:var(--bl);box-shadow:0 0 0 1px rgba(20,85,163,.15);}
+#sold-warn{font-size:11px;color:var(--wn);background:var(--wn-bg);border-radius:8px;padding:9px 11px;
+  margin:4px 0 8px;line-height:1.5;border:.5px solid rgba(180,83,9,.12);}
+/* Scan items */
+.scan-item{background:var(--bg2);border-radius:var(--r);margin-bottom:6px;border:.5px solid var(--bd);overflow:hidden;}
+.scan-item.checked{border-color:rgba(20,85,163,.35);}
 .scan-item-row{padding:12px;display:flex;align-items:center;gap:9px;}
 .scan-item-chk{width:20px;height:20px;border-radius:6px;border:.5px solid var(--bd2);appearance:none;
   -webkit-appearance:none;background:var(--bg);cursor:pointer;flex-shrink:0;transition:all .15s;}
@@ -375,6 +381,13 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .scan-item-name{font-size:14px;font-weight:700;display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
 .scan-item-detail{font-size:11px;color:var(--tx3);margin-top:3px;line-height:1.4;}
 .scan-item-ntd{font-size:11px;font-weight:600;color:var(--tx2);margin-top:2px;}
+/* Per-item action buttons */
+.scan-item-actions{display:flex;align-items:center;gap:5px;flex-shrink:0;}
+.scan-add-btn{width:28px;height:28px;border-radius:50%;background:var(--ok);color:#fff;border:none;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 1px 4px rgba(10,112,64,.3);transition:transform .12s,opacity .12s;flex-shrink:0;}
+.scan-add-btn:active{transform:scale(.85);}
+.scan-add-btn svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;}
 .scan-cat-chip{font-size:10px;padding:3px 9px;border-radius:100px;font-weight:700;cursor:pointer;flex-shrink:0;transition:all .12s;}
 .scan-conf{font-size:10px;padding:1px 7px;border-radius:100px;font-weight:600;flex-shrink:0;}
 .scan-conf.hi{background:var(--ok-bg);color:var(--ok);}
@@ -382,7 +395,6 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .scan-conf.lo{background:var(--bg3);color:var(--tx3);}
 .scan-edit-btn{background:none;border:none;cursor:pointer;padding:5px;color:var(--tx3);
   display:flex;align-items:center;flex-shrink:0;border-radius:6px;transition:background .12s;}
-.scan-edit-btn:hover{background:var(--bg3);}
 .scan-edit-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
 .scan-item-edit{display:none;padding:10px 12px;border-top:.5px solid var(--bd);background:var(--bg);gap:8px;flex-wrap:wrap;}
 .scan-item-edit.open{display:flex;}
@@ -391,9 +403,16 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 .scan-edit-field input{font-size:13px;padding:8px 10px;border-radius:8px;}
 .scan-edit-save{font-size:12px;font-weight:700;background:var(--bl);color:#fff;border:none;border-radius:8px;
   padding:8px 14px;cursor:pointer;font-family:inherit;align-self:flex-end;white-space:nowrap;}
+/* Import buttons */
+#scan-import-wrap{display:none;margin-top:8px;}
+#btn-import-direct{width:100%;padding:14px 0;background:var(--tx);color:var(--bg);border:none;font-weight:700;
+  border-radius:var(--r);font-size:16px;font-family:inherit;cursor:pointer;letter-spacing:-.2px;transition:opacity .12s;}
+#btn-import-direct:active{opacity:.7;}
+#btn-import-preview{width:100%;padding:8px 0;background:none;border:none;color:var(--bl);font-size:13px;
+  font-family:inherit;cursor:pointer;font-weight:500;margin-top:6px;}
 #scan-empty{display:none;text-align:center;padding:2rem 0;}
 #scan-empty p{color:var(--tx3);font-size:14px;line-height:1.6;margin-bottom:12px;}
-#btn-import{display:none;margin-top:6px;}
+/* Manual paste */
 #scan-manual-wrap{margin-top:1.25rem;border-top:.5px solid var(--bd);padding-top:1rem;}
 .scan-manual-toggle{font-size:12px;color:var(--tx3);cursor:pointer;display:flex;align-items:center;gap:5px;
   background:none;border:none;font-family:inherit;padding:0;font-weight:500;}
@@ -409,23 +428,17 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
   margin-top:6px;white-space:pre-wrap;word-break:break-all;max-height:120px;overflow-y:auto;display:none;border:.5px solid var(--bd);}
 
 /* Preview screen */
-#view-scan-preview{display:none;padding:0 0 3rem;}
-#view-scan-preview.on{display:block;animation:fadeUp .2s ease;}
-#preview-nav{padding:13px 1rem 11px;display:flex;justify-content:space-between;align-items:center;
-  border-bottom:.5px solid var(--bd);padding-top:calc(13px + var(--sat));}
-#preview-title{font-size:17px;font-weight:700;}
 #preview-body{padding:1rem;}
-#preview-impact{background:var(--bg2);border-radius:var(--rl);padding:16px;margin-bottom:16px;border:.5px solid var(--bd);}
-#preview-impact-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx3);margin-bottom:12px;}
-.preview-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:.5px solid var(--bd);}
+.preview-impact{background:var(--bg2);border-radius:var(--rl);padding:16px;margin-bottom:16px;border:.5px solid var(--bd);}
+.preview-impact-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx3);margin-bottom:12px;}
+.preview-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:.5px solid var(--bd);}
 .preview-row:last-child{border-bottom:none;}
 .preview-row-lbl{font-size:13px;color:var(--tx2);}
-.preview-row-val{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;}
-.preview-delta{font-size:12px;font-weight:600;padding:2px 8px;border-radius:100px;margin-left:8px;}
+.preview-row-val{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:6px;}
+.preview-delta{font-size:12px;font-weight:600;padding:2px 8px;border-radius:100px;}
 .preview-delta.up{background:var(--ok-bg);color:var(--ok);}
 .preview-delta.dn{background:var(--no-bg);color:var(--no);}
-.preview-delta.neut{background:var(--bg3);color:var(--tx3);}
-#preview-changes-title{font-size:13px;font-weight:700;margin-bottom:10px;}
+.preview-changes-title{font-size:13px;font-weight:700;margin-bottom:10px;}
 .preview-change{background:var(--bg2);border-radius:var(--r);margin-bottom:6px;border:.5px solid var(--bd);padding:12px;}
 .preview-change-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
 .preview-change-tk{font-size:14px;font-weight:700;}
@@ -439,31 +452,14 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
   border-radius:var(--r);font-size:16px;font-family:inherit;cursor:pointer;margin-top:8px;transition:opacity .12s;}
 #btn-confirm-import:active{opacity:.75;}
 
-/* Holdings improvements */
-.sec-hdr{display:flex;justify-content:space-between;align-items:center;}
-.sec-hdr-info{display:flex;flex-direction:column;}
-.sec-hdr-label{font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;}
-.sec-hdr-val{font-size:11px;font-weight:600;color:var(--tx2);margin-top:1px;}
-.a-pct{font-size:10px;color:var(--tx3);margin-top:1px;}
-
-/* Dashboard quick-scan FAB */
-#fab-scan{position:fixed;bottom:calc(72px + var(--sab) + 14px);right:1rem;
-  width:48px;height:48px;border-radius:50%;background:var(--bl);color:#fff;border:none;
-  display:none;align-items:center;justify-content:center;cursor:pointer;
-  box-shadow:0 4px 16px rgba(20,85,163,.35);z-index:150;transition:transform .15s,opacity .15s;}
-#fab-scan:active{transform:scale(.9);}
-#fab-scan svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-
-/* Better stats row */
-.stat-trend{font-size:11px;margin-top:3px;font-weight:500;}
-.stat-trend.up{color:var(--ok);}
-.stat-trend.dn{color:var(--no);}
+/* Settings FX live */
+#fx-refresh{background:none;border:none;color:var(--bl);font-size:11px;cursor:pointer;font-family:inherit;padding:0;}
 </style>
-</head>
 </head>
 <body>
 <div id="wrap">
 
+  <!-- Header -->
   <div id="hdr">
     <div id="hdr-row">
       <span id="hdr-title">Portfolio</span>
@@ -494,7 +490,7 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
     </div>
   </div>
 
-  <!-- Dashboard -->
+  <!-- DASHBOARD -->
   <div id="view-dashboard" class="view on">
     <div id="hero">
       <div id="nw-eyebrow">
@@ -508,7 +504,7 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
       <div id="trend-card">
         <div id="trend-top"><span id="trend-lbl">Net worth trend</span><span id="trend-chg"></span></div>
         <svg id="trend-svg" viewBox="0 0 300 48" preserveAspectRatio="none"></svg>
-        <div id="trend-empty">Snapshots will appear here as your net worth changes over time.</div>
+        <div id="trend-empty">Snapshots appear as your net worth changes over time.</div>
       </div>
     </div>
     <div id="stats-row">
@@ -526,13 +522,13 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
       <div class="fx-item"><span class="fx-lbl">USD→NTD</span><span class="fx-val" id="fx-a">—</span></div>
       <div class="fx-item"><span class="fx-lbl">NTD→IDR</span><span class="fx-val" id="fx-b">—</span></div>
       <div class="fx-item"><span class="fx-lbl">USD→IDR</span><span class="fx-val" id="fx-c">—</span></div>
-      <div class="fx-item"><span class="fx-lbl">USDT→NTD</span><span class="fx-val" id="fx-d">—</span></div>
+      <div class="fx-item"><span class="fx-lbl">USDT</span><span class="fx-val" id="fx-d">—</span></div>
       <span class="fx-badge fetching" id="fx-badge">Fetching</span>
       <button id="fx-refresh" onclick="refreshRates(true)">↻</button>
     </div>
   </div>
 
-  <!-- Holdings -->
+  <!-- HOLDINGS -->
   <div id="view-holdings" class="view">
     <div id="search-wrap">
       <svg id="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -546,22 +542,22 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
       <button class="sort-btn" onclick="setSort('pnl')">P&amp;L</button>
       <button class="sort-btn" onclick="setSort('name')">Name</button>
     </div>
-    <div id="holdings-total"><span>Total</span><span id="total-val">—</span></div>
+    <div id="holdings-total"><span>0 assets</span><span id="total-val">—</span></div>
     <div id="holdings-list"></div>
   </div>
 
-  <!-- Settings -->
+  <!-- SETTINGS -->
   <div id="view-settings" class="view">
     <div id="settings-wrap">
       <div class="set-section">
         <div class="set-title">FX Rates</div>
-        <div class="set-sub">Auto-fetched from ExchangeRate-API (fiat) and CoinGecko (USDT). Updated every hour.</div>
+        <div class="set-sub">Auto-fetched every hour. Sources: ExchangeRate-API (fiat) + CoinGecko (USDT).</div>
         <div class="set-fx-status">
           <div>
             <div id="set-fx-label">Checking rates…</div>
             <div class="set-fx-meta" id="set-fx-meta"></div>
           </div>
-          <button class="btn" id="btn-refresh-rates" onclick="refreshRates(true)" style="padding:7px 12px;font-size:12px">Refresh now</button>
+          <button class="btn" id="btn-refresh-rates" onclick="refreshRates(true)" style="padding:7px 12px;font-size:12px">Refresh</button>
         </div>
         <div class="set-grid" id="fx-live-display" style="grid-template-columns:1fr 1fr">
           <div><div class="lbl">1 USD = ? NTD</div><div id="in-usd" style="font-size:22px;font-weight:700;padding:5px 0;font-variant-numeric:tabular-nums">—</div></div>
@@ -569,26 +565,26 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
           <div><div class="lbl">1 USD = ? IDR</div><div id="in-usd-idr" style="font-size:22px;font-weight:700;padding:5px 0;font-variant-numeric:tabular-nums">—</div></div>
           <div><div class="lbl">1 USDT = ? NTD</div><div id="in-usdt" style="font-size:22px;font-weight:700;padding:5px 0;font-variant-numeric:tabular-nums">—</div></div>
         </div>
-        <div class="set-sub" style="margin-top:8px;margin-bottom:0">
-          Fiat source: <a href="https://open.er-api.com" target="_blank" style="color:var(--bl)">ExchangeRate-API</a> ·
-          USDT source: <a href="https://coingecko.com" target="_blank" style="color:var(--bl)">CoinGecko</a>
+        <div class="set-sub" style="margin-top:8px;margin-bottom:0;font-size:11px">
+          Fiat: <a href="https://open.er-api.com" target="_blank" style="color:var(--bl)">ExchangeRate-API</a> ·
+          USDT: <a href="https://coingecko.com" target="_blank" style="color:var(--bl)">CoinGecko</a>
         </div>
       </div>
       <div class="set-divider"></div>
       <div class="set-section">
         <div class="set-title">Backup &amp; Data</div>
-        <div class="set-sub">Your data lives only on this device. Back up regularly.</div>
+        <div class="set-sub">Your data lives only on this device.</div>
         <div class="set-export" onclick="exportJSON()">
-          <div><div class="set-export-lbl">Backup (JSON)</div><div class="set-export-sub">Full snapshot — assets, rates, history</div></div>
+          <div><div class="set-export-lbl">Backup (JSON)</div><div class="set-export-sub">Assets + rates + history</div></div>
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         </div>
         <div class="set-export" onclick="el('import-file').click()">
-          <div><div class="set-export-lbl">Restore (JSON)</div><div class="set-export-sub">Replace everything from a backup file</div></div>
+          <div><div class="set-export-lbl">Restore (JSON)</div><div class="set-export-sub">Replace from backup</div></div>
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         </div>
         <input type="file" id="import-file" accept="application/json,.json" style="display:none" onchange="importJSON(this.files[0])">
         <div class="set-export" onclick="exportCSV()">
-          <div><div class="set-export-lbl">Export CSV</div><div class="set-export-sub">Spreadsheet of current holdings</div></div>
+          <div><div class="set-export-lbl">Export CSV</div><div class="set-export-sub">Spreadsheet of holdings</div></div>
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         </div>
       </div>
@@ -612,19 +608,19 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
       <div class="set-note">
         Net worth = bank balances → NTD (authoritative)<br>
         Investment value = mark-to-market (informational)<br>
-        OCR scanner runs fully on-device · no AI API, no server<br>
+        OCR scanner runs fully on-device · no AI API · no server<br>
         All data stored locally · No account required
       </div>
-      <div class="version">v3.0 · Portfolio Tracker</div>
+      <div class="version">v3.1 · Portfolio Tracker</div>
     </div>
   </div>
 
-  <!-- Form -->
-  <div id="view-form">
-    <div class="form-nav">
-      <button class="form-back" onclick="closeForm()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
-      <span id="form-title-txt">Add Asset</span>
-      <button id="btn-del" class="btn btn-d" onclick="deleteAsset()">Delete</button>
+  <!-- FORM (add/edit asset) -->
+  <div id="view-form" class="fullpage">
+    <div class="page-nav">
+      <button class="page-back" onclick="closeForm()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
+      <span class="page-nav-title" id="form-title-txt">Add Asset</span>
+      <button id="btn-del" class="btn btn-d" onclick="deleteAsset()" style="display:none">Delete</button>
     </div>
     <div id="form-body">
       <div class="mb"><label class="lbl">Category</label><div id="cat-chips"></div></div>
@@ -634,7 +630,7 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
       </div>
       <div class="g2" id="f-qty-wrap">
         <div><label class="lbl">Quantity</label><input id="f-qty" type="text" inputmode="decimal" placeholder="0" data-num oninput="fmtNum(this)"></div>
-        <div><label class="lbl">Avg Price</label><input id="f-avg" type="text" inputmode="decimal" placeholder="0" data-num oninput="fmtNum(this)"></div>
+        <div><label class="lbl" id="f-avg-lbl">Avg Price</label><input id="f-avg" type="text" inputmode="decimal" placeholder="0" data-num oninput="fmtNum(this)"></div>
       </div>
       <div class="mb"><label class="lbl" id="f-px-lbl">Current Price</label><input id="f-px" type="text" inputmode="decimal" placeholder="0" data-num oninput="fmtNum(this)"></div>
       <div class="g2">
@@ -646,21 +642,21 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
     </div>
   </div>
 
-  <!-- Scanner -->
-  <div id="view-scan">
-    <div id="scan-nav">
-      <button class="form-back" onclick="closeScan()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
-      <span id="scan-title">Scan Screenshot</span>
+  <!-- SCANNER -->
+  <div id="view-scan" class="fullpage">
+    <div class="page-nav">
+      <button class="page-back" onclick="closeScan()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
+      <span class="page-nav-title">Scan Screenshot</span>
       <span style="width:56px"></span>
     </div>
     <div id="scan-body">
-      <!-- History banner -->
+      <!-- History reload banner -->
       <div id="scan-history-banner" onclick="reloadLastScan()">
-        <div id="scan-hist-top">
+        <div class="scan-hist-top">
           <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.37"/></svg>
           Reload previous scan
         </div>
-        <div id="scan-hist-sub"></div>
+        <div class="scan-hist-sub" id="scan-hist-sub"></div>
       </div>
       <!-- Drop zone -->
       <div id="scan-drop" onclick="el('scan-file').click()"
@@ -671,9 +667,9 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
         <small>JPG · PNG · WebP · drag &amp; drop</small>
       </div>
       <input type="file" id="scan-file" accept="image/*" onchange="handleFile(this.files[0])">
-
+      <!-- Crop tool -->
       <div id="crop-wrap">
-        <div id="crop-hint">Drag the corners to crop to just your holdings — sharper crop, better results.</div>
+        <div id="crop-hint">Drag corners to crop — sharper crop, better results</div>
         <div id="crop-stage">
           <img id="crop-img" alt="">
           <div id="crop-box">
@@ -683,10 +679,10 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
         </div>
         <div id="crop-btns">
           <button class="crop-full" onclick="scanFromCrop(true)">Use full image</button>
-          <button class="crop-go" onclick="scanFromCrop(false)">Crop &amp; scan</button>
+          <button class="crop-go" onclick="scanFromCrop(false)">Crop &amp; Scan</button>
         </div>
       </div>
-
+      <!-- Progress -->
       <div id="scan-steps">
         <div id="scan-step-bar">
           <div class="sbar-step"><div class="sbar-num" id="s1">1</div><div class="sbar-label" id="sl1">Load</div></div>
@@ -699,19 +695,26 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
         </div>
         <div id="scan-progress"><div id="scan-progress-bar"></div></div>
       </div>
-
       <div id="scan-status"></div>
-
+      <!-- Results -->
       <div id="scan-results">
-        <div id="scan-results-hdr"><div id="scan-found-hdr"></div><button id="btn-rescan" onclick="resetScan()">Scan again</button></div>
+        <div id="scan-results-hdr">
+          <div id="scan-found-hdr"></div>
+          <div class="scan-hdr-btns">
+            <button class="scan-hdr-btn" id="btn-select-all" onclick="selectAllScan()">All</button>
+            <button class="scan-hdr-btn" id="btn-rescan" onclick="resetScan()">↺ Rescan</button>
+          </div>
+        </div>
         <div id="scan-toolbar"></div>
         <div id="scan-items-list"></div>
-        <div id="scan-empty"><p>No assets detected.<br>Try cropping tighter, a clearer screenshot, or paste text below.</p></div>
-        <button class="btn-p" id="btn-import" onclick="openScanPreview()" style="background:var(--bl);">
-          Preview &amp; Import →
-        </button>
+        <div id="scan-empty"><p>No assets detected.<br>Try cropping tighter or paste text below.</p></div>
+        <!-- Import actions — shown when results exist -->
+        <div id="scan-import-wrap">
+          <button id="btn-import-direct" onclick="importScannedDirect()">Add to Portfolio</button>
+          <button id="btn-import-preview" onclick="openScanPreview()">Preview changes first →</button>
+        </div>
       </div>
-
+      <!-- Manual paste -->
       <div id="scan-manual-wrap">
         <button class="scan-manual-toggle" id="manual-toggle" onclick="toggleManual()">
           <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>Paste text manually
@@ -721,7 +724,6 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
           <button id="btn-parse-manual" onclick="parseManual()">Parse Text</button>
         </div>
       </div>
-
       <div id="scan-raw-wrap">
         <button class="scan-raw-toggle" onclick="toggleRaw()">Show raw OCR text</button>
         <div id="scan-raw"></div>
@@ -729,7 +731,44 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
     </div>
   </div>
 
+  <!-- PREVIEW (before import) -->
+  <div id="view-scan-preview" class="fullpage">
+    <div class="page-nav">
+      <button class="page-back" onclick="closeScanPreview()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
+      <span class="page-nav-title">Preview Changes</span>
+      <span style="width:56px"></span>
+    </div>
+    <div id="preview-body">
+      <div class="preview-impact">
+        <div class="preview-impact-title">Portfolio impact</div>
+        <div class="preview-row">
+          <span class="preview-row-lbl">Current investments</span>
+          <span class="preview-row-val" id="prev-cur-inv">—</span>
+        </div>
+        <div class="preview-row">
+          <span class="preview-row-lbl">After import</span>
+          <div class="preview-row-val"><span id="prev-new-inv">—</span><span class="preview-delta" id="prev-delta"></span></div>
+        </div>
+        <div class="preview-row">
+          <span class="preview-row-lbl">Changes</span>
+          <span class="preview-row-val" id="prev-count">—</span>
+        </div>
+      </div>
+      <div class="preview-changes-title">What will change</div>
+      <div id="preview-changes-list"></div>
+      <button id="btn-confirm-import" onclick="confirmImport()">Confirm Import</button>
+    </div>
+  </div>
+
 </div><!-- /wrap -->
+
+<!-- FABs — persistent add + scan buttons -->
+<div id="fab-wrap">
+  <button id="fab-scan-btn" onclick="openScan()" title="Scan screenshot">
+    <svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
+  </button>
+  <button id="fab-add" onclick="openForm(null)" title="Add asset">+</button>
+</div>
 
 <nav>
   <button class="on" data-tab="dashboard" onclick="switchTab('dashboard')">
@@ -744,16 +783,24 @@ input::placeholder,textarea::placeholder{color:var(--tx3);}
 </nav>
 
 <div id="toast-host"></div>
-<div id="modal-host"><div id="modal-backdrop" onclick="closeModal(false)"></div>
-  <div id="modal-card"><div id="modal-title"></div><div id="modal-body"></div>
-    <div id="modal-btns"><button class="modal-cancel" onclick="closeModal(false)">Cancel</button><button class="modal-ok" onclick="closeModal(true)">OK</button></div>
+<div id="modal-host">
+  <div id="modal-backdrop" onclick="closeModal(false)"></div>
+  <div id="modal-card">
+    <div id="modal-title"></div>
+    <div id="modal-body"></div>
+    <div id="modal-btns">
+      <button class="modal-cancel" onclick="closeModal(false)">Cancel</button>
+      <button class="modal-ok" onclick="closeModal(true)">OK</button>
+    </div>
   </div>
 </div>
-<div id="sheet-host"><div id="sheet-backdrop" onclick="closeSheet()"></div>
+<div id="sheet-host">
+  <div id="sheet-backdrop" onclick="closeSheet()"></div>
   <div id="sheet-card"><div id="sheet-grip"></div><div id="sheet-content"></div></div>
 </div>
 
 <script>
+
 /* ── Config ──────────────────────────────────────────────────────────────────*/
 const SCHEMA=4;
 const CATS={
@@ -942,16 +989,15 @@ function donut(data,size=130,R=56,r=36){
 /* ── Tabs ────────────────────────────────────────────────────────────────────*/
 function switchTab(tab){
   curTab=tab;
-  el('view-form').classList.remove('on');el('view-scan').classList.remove('on');
-  const prevEl=el('view-scan-preview');if(prevEl)prevEl.classList.remove('on');
+  // Hide all fullpage views
+  document.querySelectorAll('.fullpage').forEach(v=>v.classList.remove('on'));
   el('hdr').style.display='';document.querySelector('nav').style.display='';
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   el('view-'+tab).classList.add('on');
   document.querySelectorAll('.htab,nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
   const onH=tab==='holdings';
   el('btn-add').style.display=onH?'flex':'none';el('btn-scan').style.display=onH?'flex':'none';
-  const fab=el('fab-scan');
-  if(fab)fab.style.display=(tab==='dashboard'||tab==='holdings')?'flex':'none';
+  const fw=el('fab-wrap');if(fw)fw.classList.toggle('on',true);
   if(tab==='dashboard')renderDash();else if(tab==='holdings')renderHold();else if(tab==='settings')renderSet();
 }
 
@@ -1190,6 +1236,7 @@ function openForm(idOrNull){
   el('btn-del').style.display=a?'':'none';
   selectCat(formCat);
   el('hdr').style.display='none';document.querySelector('nav').style.display='none';
+  const fw2=el('fab-wrap');if(fw2)fw2.classList.remove('on');
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   el('view-form').classList.add('on');
   if(!a)setTimeout(()=>el('f-name').focus(),100);
@@ -1481,9 +1528,9 @@ function renderScanResults(found){
   if(!found.length){
     el('scan-found-hdr').textContent='No items detected';
     el('scan-items-list').innerHTML='';el('scan-toolbar').innerHTML='';
-    el('scan-empty').style.display='block';el('btn-import').style.display='none';return;
+    el('scan-empty').style.display='block';el('scan-import-wrap').style.display='none';return;
   }
-  el('scan-empty').style.display='none';el('btn-import').style.display='block';
+  el('scan-empty').style.display='none';el('scan-import-wrap').style.display='block';
   const shown=hideLow?found.filter(f=>f.conf!=='lo'):found;
   scanGroups=diffScan(shown);
   const{add,update,sold}=scanGroups;
@@ -1508,6 +1555,12 @@ function renderScanResults(found){
   saveScanHistory(found);
 }
 function toggleHideLow(){hideLow=!hideLow;renderScanResults(lastFound);}
+function selectAllScan(){
+  const chks=document.querySelectorAll('.scan-item-chk');
+  const allChecked=[...chks].every(c=>c.checked);
+  chks.forEach(c=>{c.checked=!allChecked;});
+  el('btn-select-all').textContent=allChecked?'Select all':'Deselect all';
+}
 function sec(col,l,cnt){return`<div class="scan-section-hdr"><span class="scan-hdr-dot" style="background:${col}"></span>${l}${cnt!==undefined?`<span class="scan-section-count">${cnt}</span>`:''}</div>`;}
 function vmDetail(it){
   if(it.bk)return `Balance ${fn(it.px,0)} ${it.cur}`;
@@ -1536,6 +1589,9 @@ function scanItem(group,i,it,detail,canCat,sold=false){
         <div class="scan-item-ntd" id="sntd-${group}-${i}">≈ ${fnt(itemNTD(it))}</div>
       </div>
       <span class="scan-cat-chip" style="color:${cat.color}"${canCat?` onclick="cycleCat('${group}',${i},this)"`:''}>${cat.l}</span>
+      ${group!=='sold'?`<button class="scan-add-btn" onclick="addSingleScanItem('${group}',${i})" title="Add now">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>`:''}
       ${group!=='sold'?`<button class="scan-edit-btn" onclick="toggleEdit('${group}',${i})"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>`:''}
     </div>
     ${group!=='sold'?`<div class="scan-item-edit" id="sie-${group}-${i}">
@@ -1578,6 +1634,33 @@ function importScanned(){
   });
   if(n){saveA();snapshot(true);closeScan();switchTab('holdings');toast(`${n} change${n!==1?'s':''} applied`,'ok');}
   else toast('Nothing selected','no');
+}
+
+// Direct import — no preview step. Imports all checked items immediately.
+function importScannedDirect(){
+  const total=document.querySelectorAll('.scan-item-chk:checked').length;
+  if(!total){toast('Select at least one item','no');return;}
+  importScanned();
+}
+
+// Add a single scanned item directly to portfolio (per-item quick-add)
+function addSingleScanItem(group,idx){
+  const it=group==='add'?scanGroups.add[idx]:(group==='update'?scanGroups.update[idx]?.found:null);
+  if(!it){toast('Item not found','no');return;}
+  if(group==='add'){
+    assets=[...assets,{id:uid(),name:it.name||it.tk,tk:it.tk||'',cat:it.cat,
+      qty:it.bk?1:(it.valueMode?1:it.qty),avg:it.avg||0,px:it.px,cur:it.cur,
+      pl:'Scan',note:'',bk:it.bk,on:true,valueMode:!!it.valueMode}];
+  } else if(group==='update'){
+    const u=scanGroups.update[idx];
+    assets=assets.map(a=>a.id!==u.existing.id?a:{...a,px:u.found.px,
+      ...(u.changed.qty?{qty:u.found.qty}:{})});
+  }
+  saveA();snapshot(false);
+  // Visual feedback: grey out the row
+  const row=document.getElementById(`si-${group}-${idx}`);
+  if(row){row.style.opacity='0.45';row.style.pointerEvents='none';}
+  toast(`${it.tk||it.name} added ✓`,'ok');
 }
 
 /* ── OCR engine ──────────────────────────────────────────────────────────────*/
@@ -1725,7 +1808,7 @@ function handleFile(file){
   const url=URL.createObjectURL(file);
   el('scan-drop').classList.add('has-img');
   el('scan-results').style.display='none';el('scan-raw-wrap').style.display='none';
-  el('btn-import').style.display='none';setStatus('','');
+  el('scan-import-wrap').style.display='none';setStatus('','');
   showCrop(url);
 }
 function handleDrop(e){e.preventDefault();el('scan-drop').classList.remove('drag');const f=e.dataTransfer.files[0];if(f)handleFile(f);}
@@ -1744,16 +1827,18 @@ function parseManual(){
 function toggleRaw(){const r=el('scan-raw'),open=r.style.display!=='block';r.style.display=open?'block':'none';document.querySelector('.scan-raw-toggle').textContent=open?'Hide raw OCR text':'Show raw OCR text';}
 function openScan(){
   el('hdr').style.display='none';document.querySelector('nav').style.display='none';
+  const fw3=el('fab-wrap');if(fw3)fw3.classList.remove('on');
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   el('view-scan').classList.add('on');resetScan();
   el('scan-manual-body').style.display='none';const mt=el('manual-toggle');if(mt)mt.classList.remove('open');
-  showHistoryBanner();  // show reload banner if previous scan exists
+  showHistoryBanner();
   initTesseract();
 }
 function closeScan(){
   el('view-scan').classList.remove('on');
-  const pv=el('view-scan-preview');if(pv)pv.classList.remove('on');
-  el('hdr').style.display='';document.querySelector('nav').style.display='';switchTab(curTab);
+  el('view-scan-preview').classList.remove('on');
+  el('hdr').style.display='';document.querySelector('nav').style.display='';
+  switchTab(curTab);
 }
 
 /* ── PWA: generated icon + manifest ──────────────────────────────────────────*/
@@ -2020,23 +2105,16 @@ function openScanPreview(){
   });
   el('preview-changes-list').innerHTML=html||'<p style="color:var(--tx3);font-size:13px">No changes selected.</p>';
 
-  // Show preview screen (hide everything else)
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  // Show preview (scanner already has hdr/nav hidden)
   el('view-scan').classList.remove('on');
-  el('hdr').style.display='none';
-  document.querySelector('nav').style.display='none';
   el('view-scan-preview').classList.add('on');
 }
 function closeScanPreview(){
   el('view-scan-preview').classList.remove('on');
-  el('hdr').style.display='none';  // still inside scanner, keep hdr hidden
-  document.querySelector('nav').style.display='none';
   el('view-scan').classList.add('on');
 }
 function confirmImport(){
   el('view-scan-preview').classList.remove('on');
-  el('hdr').style.display='';
-  document.querySelector('nav').style.display='';
   importScanned();
 }
 
@@ -2056,6 +2134,7 @@ refreshRates(false).catch(()=>{});
 // Enter-to-save on form text fields
 ['f-name','f-ticker','f-plat','f-note'].forEach(id=>el(id).addEventListener('keydown',e=>{if(e.key==='Enter')saveAsset();}));
 switchTab('dashboard');
+
 </script>
 </body>
 </html>
