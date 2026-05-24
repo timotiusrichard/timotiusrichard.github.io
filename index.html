@@ -1682,15 +1682,29 @@ function setStatus(m,cls=''){
 }
 function setProg(p){el('scan-progress-bar').style.width=p+'%';}
 function makeWorker(){
-  return import('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.esm.min.js').then(({createWorker})=>
-    createWorker('eng',1,{
-      workerPath:'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/worker.min.js',
-      langPath:'https://cdn.jsdelivr.net/npm/tesseract.js-data@4/tessdata_best',
-      corePath:'https://cdn.jsdelivr.net/npm/tesseract.js-core@5/tesseract-core-simd-lstm.wasm.js',
-      logger:m=>{if(m.status==='recognizing text')setProg(15+Math.round(m.progress*70));}
-    }).then(w=>{w.setParameters({tessedit_ocr_engine_mode:'1',tessedit_pageseg_mode:'6',preserve_interword_spaces:'1'});return w;}));
+  // v5: do NOT specify corePath (must be a directory of 4 files, not a single file).
+  // Let Tesseract.js use its built-in jsDelivr defaults — simplest and most reliable.
+  return import('https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.esm.min.js')
+    .then(({createWorker})=>createWorker('eng',1,{
+      logger:m=>{
+        if(m.status==='recognizing text')setProg(15+Math.round(m.progress*70));
+        if(m.status==='loading tesseract core')setStatus('Loading OCR engine…','running');
+        if(m.status==='loading language traineddata')setStatus('Downloading language data…','running');
+      }
+    }))
+    .then(w=>{
+      w.setParameters({
+        tessedit_ocr_engine_mode:'1', // LSTM only — faster
+        tessedit_pageseg_mode:'6',    // uniform block
+        preserve_interword_spaces:'1',
+      });
+      return w;
+    });
 }
-function initTesseract(){if(tWorker||tReady)return;makeWorker().then(w=>{tWorker=w;tReady=true;}).catch(()=>{});}
+function initTesseract(){
+  if(tWorker||tReady)return;
+  makeWorker().then(w=>{tWorker=w;tReady=true;}).catch(()=>{});
+}
 
 // Otsu adaptive threshold + 2x upscale grayscale binarization
 function preprocessImg(src,crop){
@@ -1730,7 +1744,7 @@ async function runScan(dataUrl,crop){
   if(!tWorker){
     setStatus('Loading OCR engine (one-time)…','running');
     try{tWorker=await makeWorker();tReady=true;}
-    catch(e){setStatus('Could not load OCR engine. Check your connection and try again.','err');el('scan-steps').style.display='none';return;}
+    catch(e){setStatus('OCR engine failed to load: '+(e.message||e)+'. Check internet connection.','err');el('scan-steps').style.display='none';return;}
   }
   setStep(1,'done');setStep(2,'active');setProg(5);setStatus('Enhancing image…','running');
   let processed;try{processed=await preprocessImg(dataUrl,crop);}catch{processed=dataUrl;}
