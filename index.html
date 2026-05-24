@@ -10,7 +10,22 @@
 <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme:dark)">
 <title>Portfolio</title>
 <!-- Tesseract.js v4 — createWorker lives on Tesseract global, NOT destructured -->
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+<script>
+(function(){
+  var primary='https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/tesseract.min.js';
+  var fallback='https://unpkg.com/tesseract.js@4.1.4/dist/tesseract.min.js';
+  var s=document.createElement('script');
+  s.src=primary;
+  s.onerror=function(){
+    console.warn('[OCR] Primary CDN failed, trying unpkg…');
+    var s2=document.createElement('script');
+    s2.src=fallback;
+    s2.onerror=function(){console.error('[OCR] Both CDNs failed.');};
+    document.head.appendChild(s2);
+  };
+  document.head.appendChild(s);
+})();
+</script>
 <style>
 /* ── Reset & Tokens ────────────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -863,6 +878,13 @@ function ocrSetProg(p){el('ocr-prog').style.width=Math.min(100,p)+'%';}
 
 async function runOCR(){
   if(!ocrImgURL)return;
+
+  // Guard: Tesseract CDN may still be loading or blocked
+  if(typeof Tesseract==='undefined'){
+    ocrSetStatus('OCR engine not loaded. Check internet connection and reload the page.');
+    return;
+  }
+
   el('btn-ocr-scan').disabled=true;
   el('btn-ocr-scan').textContent='Scanning…';
   el('ocr-prog-wrap').style.display='';
@@ -872,10 +894,6 @@ async function runOCR(){
   ocrSetStatus('Loading OCR engine…');
 
   try{
-    // ── CORRECT v4 API ──────────────────────────────────────────────────────
-    // Tesseract is a global from the CDN script.
-    // createWorker lives on Tesseract, not destructured.
-    // Logger goes in the options object (3rd arg), not as separate arg.
     const worker=await Tesseract.createWorker('eng',1,{
       logger:m=>{
         if(m.status==='loading tesseract core'){ocrSetStatus('Loading OCR engine…');ocrSetProg(15);}
@@ -895,10 +913,14 @@ async function runOCR(){
     ocrDetected=parseOCRText(text);
     renderOCRResults();
   }catch(err){
-    ocrSetStatus('Error: '+err.message+'. Check internet connection.');
+    // err may be a string, Error, or plain object — extract message safely
+    const msg=err instanceof Error
+      ? err.message
+      : (typeof err==='string' ? err : (err?.message||JSON.stringify(err)||'Unknown error'));
+    ocrSetStatus('Error: '+msg+' — Check internet connection and retry.');
     el('btn-ocr-scan').disabled=false;
     el('btn-ocr-scan').textContent='Retry Scan';
-    console.error('[OCR]',err);
+    console.error('[OCR] Full error:',err);
   }
 }
 
