@@ -9,9 +9,7 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme:light)">
 <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme:dark)">
 <title>Portfolio</title>
-
 <style>
-/* ── Reset & Tokens ────────────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 :root{
   --bg:#ffffff;--bg2:#f6f6f6;--bg3:#ececec;
@@ -19,10 +17,8 @@
   --bd:rgba(0,0,0,.08);--bd2:rgba(0,0,0,.15);
   --ok:#0a7040;--no:#bf3030;--bl:#1760a0;
   --r:10px;--rl:14px;
-  --sat:env(safe-area-inset-top,0px);
-  --sab:env(safe-area-inset-bottom,0px);
-  --sal:env(safe-area-inset-left,0px);
-  --sar:env(safe-area-inset-right,0px);
+  --sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px);--sar:env(safe-area-inset-right,0px);
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#0f0f0f;--bg2:#1a1a1c;--bg3:#252528;
@@ -32,66 +28,53 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif;
   background:var(--bg);color:var(--tx);min-height:100dvh;overscroll-behavior:none;
   -webkit-font-smoothing:antialiased;}
-
-/* ── Layout ────────────────────────────────────────────────────────────────── */
 #wrap{max-width:480px;margin:0 auto;
-  padding-top:var(--sat);
-  padding-bottom:calc(var(--sab) + 64px);
+  padding-top:var(--sat);padding-bottom:calc(var(--sab)+64px);
   padding-left:var(--sal);padding-right:var(--sar);}
 
-/* ── Header ────────────────────────────────────────────────────────────────── */
-#hdr{position:sticky;top:var(--sat);background:var(--bg);
-  border-bottom:.5px solid var(--bd);z-index:100;backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);}
+/* Header */
+#hdr{position:sticky;top:var(--sat);background:var(--bg);border-bottom:.5px solid var(--bd);
+  z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
 #hdr-row{padding:14px 1rem 0;display:flex;justify-content:space-between;align-items:center;}
 #hdr-title{font-size:18px;font-weight:700;letter-spacing:-.5px;}
 #hdr-right{display:flex;align-items:center;gap:8px;}
-#btn-add{display:none;align-items:center;gap:4px;font-size:13px;
-  padding:6px 12px;border-radius:100px;}
-#btn-scan-open{display:flex;align-items:center;gap:4px;font-size:13px;
-  padding:6px 12px;border-radius:100px;}
+#btn-add{display:none;align-items:center;gap:4px;font-size:13px;padding:6px 12px;border-radius:100px;}
+#btn-scan-open{display:flex;align-items:center;gap:4px;font-size:13px;padding:6px 12px;border-radius:100px;}
 #hdr-tabs{display:flex;}
 .htab{flex:1;background:none;border:none;border-bottom:2px solid transparent;
   padding:8px 0 9px;display:flex;flex-direction:column;align-items:center;gap:3px;
-  cursor:pointer;color:var(--tx3);font-size:9px;font-weight:700;letter-spacing:.07em;
-  transition:color .15s;}
+  cursor:pointer;color:var(--tx3);font-size:9px;font-weight:700;letter-spacing:.07em;transition:color .15s;}
 .htab.on{color:var(--tx);border-bottom-color:var(--tx);}
-.htab svg{width:20px;height:20px;stroke:currentColor;fill:none;
-  stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.htab svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 
-/* ── Nav ───────────────────────────────────────────────────────────────────── */
-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:480px;background:var(--bg);
-  border-top:.5px solid var(--bd);display:flex;z-index:200;
+/* Nav */
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;
+  background:var(--bg);border-top:.5px solid var(--bd);display:flex;z-index:200;
   padding-bottom:var(--sab);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
-nav button{flex:1;background:none;border:none;padding:9px 0 6px;
-  display:flex;flex-direction:column;align-items:center;gap:3px;
-  color:var(--tx3);font-size:9px;font-weight:700;letter-spacing:.07em;
+nav button{flex:1;background:none;border:none;padding:9px 0 6px;display:flex;flex-direction:column;
+  align-items:center;gap:3px;color:var(--tx3);font-size:9px;font-weight:700;letter-spacing:.07em;
   cursor:pointer;transition:color .15s;}
 nav button.on{color:var(--tx);}
-nav svg{width:22px;height:22px;stroke:currentColor;fill:none;
-  stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
 
-/* ── Views ─────────────────────────────────────────────────────────────────── */
+/* Views */
 .view{display:none;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .view.on{display:block;animation:fadeUp .22s ease;}
-#view-form{display:none;}
-#view-form.on{display:block;animation:fadeUp .22s ease;}
-#view-ocr{display:none;}
-#view-ocr.on{display:block;animation:fadeUp .22s ease;}
+#view-form,#view-import{display:none;}
+#view-form.on,#view-import.on{display:block;animation:fadeUp .22s ease;}
 
-/* ── Inputs ────────────────────────────────────────────────────────────────── */
-input,select{font-family:inherit;font-size:15px;background:var(--bg2);color:var(--tx);
+/* Inputs */
+input,select,textarea{font-family:inherit;font-size:15px;background:var(--bg2);color:var(--tx);
   border:.5px solid var(--bd2);border-radius:var(--r);padding:11px 13px;width:100%;
   outline:none;-webkit-appearance:none;appearance:none;transition:border-color .15s;}
-input:focus,select:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(23,96,160,.12);}
-input::placeholder{color:var(--tx3);}
+input:focus,select:focus,textarea:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(23,96,160,.12);}
+input::placeholder,textarea::placeholder{color:var(--tx3);}
 .lbl{font-size:12px;color:var(--tx2);display:block;margin-bottom:5px;font-weight:500;}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
 .mb{margin-bottom:14px;}
 
-/* ── Buttons ───────────────────────────────────────────────────────────────── */
+/* Buttons */
 .btn{font-family:inherit;font-size:13px;background:var(--bg);color:var(--tx);
   border:.5px solid var(--bd2);border-radius:var(--r);padding:10px 15px;cursor:pointer;
   transition:opacity .12s,background .12s;}
@@ -102,16 +85,14 @@ input::placeholder{color:var(--tx3);}
 .btn-p:active{opacity:.7;}
 .btn-d{color:var(--no);border-color:var(--no);}
 
-/* ── Chips ─────────────────────────────────────────────────────────────────── */
+/* Chips */
 .chip{display:inline-block;padding:5px 12px;border-radius:100px;font-size:12px;font-weight:500;
-  cursor:pointer;white-space:nowrap;border:.5px solid var(--bd2);color:var(--tx2);
-  transition:all .15s;}
+  cursor:pointer;white-space:nowrap;border:.5px solid var(--bd2);color:var(--tx2);transition:all .15s;}
 .chip.on{background:var(--tx);color:var(--bg);border-color:var(--tx);}
 
-/* ── Dashboard ─────────────────────────────────────────────────────────────── */
+/* Dashboard */
 #hero{padding:1.5rem 1rem 1.25rem;border-bottom:.5px solid var(--bd);}
-#nw-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;
-  letter-spacing:.1em;color:var(--tx3);margin-bottom:8px;}
+#nw-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-bottom:8px;}
 #nw-val{font-size:44px;font-weight:700;letter-spacing:-2.5px;line-height:1;margin-bottom:6px;}
 #nw-sub{font-size:14px;color:var(--tx2);}
 #stats-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:1.1rem 1rem;}
@@ -121,20 +102,17 @@ input::placeholder{color:var(--tx3);}
 #alloc-wrap{padding:0 1rem 1.25rem;}
 #alloc-hd{font-size:14px;font-weight:600;margin-bottom:12px;}
 #alloc-inner{display:flex;align-items:center;gap:12px;}
-#alloc-svg{flex-shrink:0;position:relative;}
 #alloc-legend{flex:1;display:flex;flex-direction:column;gap:8px;}
 .leg-row{display:flex;align-items:center;gap:7px;}
 .leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 .leg-name{font-size:12px;color:var(--tx2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .leg-pct{font-size:12px;font-weight:700;}
-#fx-strip{padding:.8rem 1rem;border-top:.5px solid var(--bd);
-  display:flex;gap:18px;font-size:11px;color:var(--tx3);flex-wrap:wrap;}
+#fx-strip{padding:.8rem 1rem;border-top:.5px solid var(--bd);display:flex;gap:18px;font-size:11px;color:var(--tx3);flex-wrap:wrap;}
 
-/* ── Holdings ──────────────────────────────────────────────────────────────── */
+/* Holdings */
 #filter-wrap{overflow-x:auto;padding:.8rem 1rem .6rem;border-bottom:.5px solid var(--bd);}
 #filter-chips{display:flex;gap:7px;width:max-content;}
-#sort-row{padding:.5rem 1rem;display:flex;align-items:center;gap:8px;
-  border-bottom:.5px solid var(--bd);}
+#sort-row{padding:.5rem 1rem;display:flex;align-items:center;gap:8px;border-bottom:.5px solid var(--bd);}
 #sort-row span{font-size:12px;color:var(--tx3);}
 .sort-btn{font-size:12px;padding:3px 9px;border-radius:100px;cursor:pointer;
   background:none;border:.5px solid var(--bd2);color:var(--tx2);font-family:inherit;}
@@ -143,13 +121,10 @@ input::placeholder{color:var(--tx3);}
   align-items:center;border-bottom:.5px solid var(--bd);}
 #holdings-total span:first-child{font-size:12px;color:var(--tx3);}
 #holdings-total span:last-child{font-size:14px;font-weight:700;}
-#holdings-list{}
 .sec-hdr{padding:5px 1rem;background:var(--bg2);font-size:10px;font-weight:700;
-  color:var(--tx2);text-transform:uppercase;letter-spacing:.08em;
-  display:flex;justify-content:space-between;align-items:center;}
-.asset-row{padding:13px 1rem;border-bottom:.5px solid var(--bd);
-  display:flex;align-items:center;gap:11px;cursor:pointer;background:var(--bg);
-  transition:background .1s;}
+  color:var(--tx2);text-transform:uppercase;letter-spacing:.08em;}
+.asset-row{padding:13px 1rem;border-bottom:.5px solid var(--bd);display:flex;align-items:center;
+  gap:11px;cursor:pointer;background:var(--bg);transition:background .1s;}
 .asset-row:active{background:var(--bg2);}
 .a-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:1px;}
 .a-info{flex:1;min-width:0;}
@@ -161,34 +136,31 @@ input::placeholder{color:var(--tx3);}
 .a-val{font-size:15px;font-weight:700;letter-spacing:-.3px;}
 .a-pnl{font-size:12px;margin-top:1px;font-weight:500;}
 .a-chev{opacity:.35;}
-.a-chev svg{width:14px;height:14px;stroke:var(--tx);fill:none;stroke-width:2;
-  stroke-linecap:round;stroke-linejoin:round;}
+.a-chev svg{width:14px;height:14px;stroke:var(--tx);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 #empty-hold{padding:4rem 1rem;text-align:center;}
 #empty-hold p{color:var(--tx3);font-size:15px;margin-bottom:18px;}
 
-/* ── Form ──────────────────────────────────────────────────────────────────── */
+/* Form */
 #view-form{padding:0 0 2rem;}
-#form-nav{padding:14px 1rem 0;display:flex;justify-content:space-between;align-items:center;
-  border-bottom:.5px solid var(--bd);padding-bottom:12px;}
-#form-back-btn{background:none;border:none;color:var(--bl);
-  display:flex;align-items:center;gap:5px;font-size:14px;cursor:pointer;font-family:inherit;}
-#form-back-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;
-  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+#form-nav{padding:14px 1rem 12px;display:flex;justify-content:space-between;align-items:center;
+  border-bottom:.5px solid var(--bd);}
+#form-back-btn{background:none;border:none;color:var(--bl);display:flex;align-items:center;
+  gap:5px;font-size:14px;cursor:pointer;font-family:inherit;}
+#form-back-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 #form-title-txt{font-size:17px;font-weight:700;}
 #btn-del{padding:6px 11px;font-size:12px;display:none;}
 #form-body{padding:1rem;}
 #cat-chips{display:flex;gap:6px;flex-wrap:wrap;}
 
-/* ── Settings ──────────────────────────────────────────────────────────────── */
+/* Settings */
 #settings-wrap{padding:1.25rem 1rem 2rem;}
 .set-section{margin-bottom:2rem;}
 .set-title{font-size:16px;font-weight:700;margin-bottom:4px;letter-spacing:-.3px;}
 .set-sub{font-size:13px;color:var(--tx2);margin-bottom:14px;line-height:1.5;}
 .set-grid{display:grid;gap:12px;}
-#btn-save-fx{margin-top:14px;width:100%;padding:13px 0;background:var(--tx);
-  color:var(--bg);border:none;font-weight:700;border-radius:var(--r);
-  font-size:15px;font-family:inherit;cursor:pointer;letter-spacing:-.2px;
-  transition:background .2s,opacity .12s;}
+#btn-save-fx{margin-top:14px;width:100%;padding:13px 0;background:var(--tx);color:var(--bg);
+  border:none;font-weight:700;border-radius:var(--r);font-size:15px;font-family:inherit;
+  cursor:pointer;letter-spacing:-.2px;transition:background .2s,opacity .12s;}
 #btn-save-fx:active{opacity:.7;}
 #btn-save-fx.saved{background:var(--ok);}
 .data-card{background:var(--bg2);border-radius:var(--r);padding:14px 15px;margin-bottom:12px;}
@@ -203,259 +175,233 @@ input::placeholder{color:var(--tx3);}
 .set-export:active{opacity:.6;}
 .set-export-lbl{font-size:14px;font-weight:500;}
 .set-export-sub{font-size:12px;color:var(--tx2);margin-top:2px;}
-.set-export svg{width:18px;height:18px;stroke:var(--tx3);fill:none;stroke-width:1.8;
-  stroke-linecap:round;stroke-linejoin:round;}
-.set-note{font-size:12px;color:var(--tx3);line-height:1.9;padding-top:1.25rem;
-  border-top:.5px solid var(--bd);}
+.set-export svg{width:18px;height:18px;stroke:var(--tx3);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.set-note{font-size:12px;color:var(--tx3);line-height:1.9;padding-top:1.25rem;border-top:.5px solid var(--bd);}
 .version{font-size:11px;color:var(--tx3);text-align:center;padding-top:1rem;}
 
-/* ── OCR View ──────────────────────────────────────────────────────────────── */
-#view-ocr{padding:0 0 2rem;}
-#ocr-nav{padding:14px 1rem 12px;display:flex;justify-content:space-between;align-items:center;
+/* Import view */
+#view-import{padding:0 0 2rem;}
+#imp-nav{padding:14px 1rem 12px;display:flex;justify-content:space-between;align-items:center;
   border-bottom:.5px solid var(--bd);}
-#ocr-back-btn{background:none;border:none;color:var(--bl);display:flex;align-items:center;
+#imp-back-btn{background:none;border:none;color:var(--bl);display:flex;align-items:center;
   gap:5px;font-size:14px;cursor:pointer;font-family:inherit;}
-#ocr-back-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;
-  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-#ocr-title-txt{font-size:17px;font-weight:700;}
-#ocr-body{padding:1rem;}
-#ocr-drop{border:1.5px dashed var(--bd2);border-radius:var(--rl);padding:2.5rem 1rem;
-  text-align:center;cursor:pointer;margin-bottom:14px;transition:border-color .15s,background .15s;}
-#ocr-drop:active{background:var(--bg2);}
-#ocr-drop svg{width:38px;height:38px;stroke:var(--tx3);fill:none;stroke-width:1.4;
-  stroke-linecap:round;stroke-linejoin:round;display:block;margin:0 auto 10px;}
-#ocr-drop-lbl{font-size:14px;font-weight:600;margin-bottom:5px;}
-#ocr-drop-sub{font-size:12px;color:var(--tx3);line-height:1.5;}
-#ocr-preview{display:none;margin-bottom:14px;border-radius:var(--r);overflow:hidden;
-  background:var(--bg2);position:relative;}
-#ocr-preview img{width:100%;max-height:220px;object-fit:contain;display:block;}
-#ocr-preview-change{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.55);
-  color:#fff;border:none;border-radius:100px;font-size:12px;font-weight:600;
-  padding:5px 12px;cursor:pointer;font-family:inherit;}
-#ocr-status{font-size:13px;color:var(--tx2);margin-bottom:6px;min-height:20px;font-weight:500;}
-#ocr-prog-wrap{height:4px;background:var(--bg3);border-radius:2px;margin-bottom:14px;display:none;}
-#ocr-prog{height:4px;background:var(--bl);border-radius:2px;width:0%;transition:width .35s ease;}
-#btn-ocr-scan{font-family:inherit;width:100%;padding:13px 0;background:var(--bl);color:#fff;
-  border:none;font-weight:700;border-radius:var(--r);font-size:15px;cursor:pointer;
-  letter-spacing:-.2px;transition:opacity .12s;margin-bottom:14px;}
-#btn-ocr-scan:active{opacity:.7;}
-#btn-ocr-scan:disabled{opacity:.35;cursor:default;}
-#ocr-results{display:none;margin-bottom:14px;}
-#ocr-results-hd{font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:10px;}
-.ocr-item{background:var(--bg2);border-radius:var(--r);padding:12px 14px;
-  margin-bottom:8px;display:flex;align-items:center;gap:10px;}
-.ocr-chk{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bd2);
-  background:var(--bg);cursor:pointer;flex-shrink:0;display:flex;align-items:center;
-  justify-content:center;transition:all .15s;font-size:12px;font-weight:700;color:transparent;}
+#imp-back-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+#imp-title{font-size:17px;font-weight:700;}
+#imp-body{padding:1rem;}
+#imp-how{background:var(--bg2);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;
+  font-size:12px;color:var(--tx2);line-height:1.7;}
+#imp-status{font-size:13px;color:var(--no);margin-bottom:10px;min-height:18px;font-weight:500;}
+#imp-results{display:none;margin-bottom:14px;}
+#imp-results-hd{font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:10px;}
+#imp-items-list{}
+.ocr-item{background:var(--bg2);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+.ocr-chk{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bd2);background:var(--bg);
+  cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;font-size:12px;font-weight:700;color:transparent;}
 .ocr-chk.on{background:var(--ok);border-color:var(--ok);color:#fff;}
 .ocr-item-info{flex:1;min-width:0;}
 .ocr-item-tk{font-size:14px;font-weight:700;letter-spacing:-.2px;}
 .ocr-item-sub{font-size:12px;color:var(--tx3);margin-top:2px;}
 .ocr-item-cat{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;
   border-radius:100px;color:#fff;margin-left:6px;vertical-align:1px;}
-#ocr-empty{font-size:14px;color:var(--tx3);text-align:center;padding:2rem 0;line-height:1.6;}
-#btn-ocr-import{display:none;font-family:inherit;width:100%;padding:14px 0;
-  background:var(--tx);color:var(--bg);border:none;font-weight:700;border-radius:var(--r);
-  font-size:16px;cursor:pointer;letter-spacing:-.2px;transition:opacity .12s;}
-#btn-ocr-import:active{opacity:.7;}
-.ocr-hint{font-size:12px;color:var(--tx3);line-height:1.7;margin-top:10px;
-  border-top:.5px solid var(--bd);padding-top:10px;}
+#imp-empty{font-size:14px;color:var(--tx3);text-align:center;padding:1rem 0;line-height:1.7;}
 </style>
 </head>
 <body>
 <div id="wrap">
 
-  <!-- Header -->
-  <div id="hdr">
-    <div id="hdr-row">
-      <span id="hdr-title">Portfolio</span>
-      <div id="hdr-right">
-        <button id="btn-scan-open" class="btn" onclick="openOCR()">
-          <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;vertical-align:-1px" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-          Scan
-        </button>
-        <button id="btn-add" class="btn" onclick="openForm(null)">
-          <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;vertical-align:-1px" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add
-        </button>
-      </div>
-    </div>
-    <div id="hdr-tabs">
-      <button class="htab on" data-tab="dashboard" onclick="switchTab('dashboard')">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        OVERVIEW
+<!-- Header -->
+<div id="hdr">
+  <div id="hdr-row">
+    <span id="hdr-title">Portfolio</span>
+    <div id="hdr-right">
+      <button id="btn-scan-open" class="btn" onclick="openImport()">
+        <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;vertical-align:-1px" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Import
       </button>
-      <button class="htab" data-tab="holdings" onclick="switchTab('holdings')">
-        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-        HOLDINGS
-      </button>
-      <button class="htab" data-tab="settings" onclick="switchTab('settings')">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        SETTINGS
+      <button id="btn-add" class="btn" onclick="openForm(null)">
+        <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;vertical-align:-1px" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add
       </button>
     </div>
   </div>
+  <div id="hdr-tabs">
+    <button class="htab on" data-tab="dashboard" onclick="switchTab('dashboard')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      OVERVIEW
+    </button>
+    <button class="htab" data-tab="holdings" onclick="switchTab('holdings')">
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      HOLDINGS
+    </button>
+    <button class="htab" data-tab="settings" onclick="switchTab('settings')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      SETTINGS
+    </button>
+  </div>
+</div>
 
-  <!-- Dashboard -->
-  <div id="view-dashboard" class="view on">
-    <div id="hero">
-      <div id="nw-eyebrow">Net Worth · Banks → NTD</div>
-      <div id="nw-val">NT$0</div>
-      <div id="nw-sub">Invested: <strong id="inv-val">NT$0</strong><span id="pnl-inline" style="margin-left:10px;font-weight:700;"></span></div>
-    </div>
-    <div id="stats-row">
-      <div class="stat"><div class="stat-lbl">Unrealised P&amp;L</div><div class="stat-val" id="stat-pnl">—</div></div>
-      <div class="stat"><div class="stat-lbl">Active Positions</div><div class="stat-val" id="stat-cnt">0</div></div>
-    </div>
-    <div id="alloc-wrap">
-      <div id="alloc-hd">Allocation</div>
-      <div id="alloc-inner">
-        <div id="alloc-svg"></div>
-        <div id="alloc-legend"></div>
-      </div>
-    </div>
-    <div id="fx-strip">
-      <span id="fx-a"></span><span id="fx-b"></span><span id="fx-c"></span>
+<!-- Dashboard -->
+<div id="view-dashboard" class="view on">
+  <div id="hero">
+    <div id="nw-eyebrow">Net Worth · Banks → NTD</div>
+    <div id="nw-val">NT$0</div>
+    <div id="nw-sub">Invested: <strong id="inv-val">NT$0</strong><span id="pnl-inline" style="margin-left:10px;font-weight:700;"></span></div>
+  </div>
+  <div id="stats-row">
+    <div class="stat"><div class="stat-lbl">Unrealised P&amp;L</div><div class="stat-val" id="stat-pnl">—</div></div>
+    <div class="stat"><div class="stat-lbl">Active Positions</div><div class="stat-val" id="stat-cnt">0</div></div>
+  </div>
+  <div id="alloc-wrap">
+    <div id="alloc-hd">Allocation</div>
+    <div id="alloc-inner">
+      <div id="alloc-svg"></div>
+      <div id="alloc-legend"></div>
     </div>
   </div>
-
-  <!-- Holdings -->
-  <div id="view-holdings" class="view">
-    <div id="filter-wrap"><div id="filter-chips"></div></div>
-    <div id="sort-row">
-      <span>Sort by</span>
-      <button class="sort-btn on" onclick="setSort('val')">Value</button>
-      <button class="sort-btn" onclick="setSort('pnl')">P&amp;L %</button>
-      <button class="sort-btn" onclick="setSort('name')">Name</button>
-    </div>
-    <div id="holdings-total"><span>Total Portfolio</span><span id="total-val">—</span></div>
-    <div id="holdings-list"></div>
+  <div id="fx-strip">
+    <span id="fx-a"></span><span id="fx-b"></span><span id="fx-c"></span>
   </div>
+</div>
 
-  <!-- Settings -->
-  <div id="view-settings" class="view">
-    <div id="settings-wrap">
-      <div class="set-section">
-        <div class="set-title">FX Rates</div>
-        <div class="set-sub">Set rates for converting to NTD. All values update after saving.</div>
-        <div class="set-grid">
-          <div><label class="lbl">1 USD = ? TWD</label><input type="number" inputmode="decimal" id="in-usd" step="any"></div>
-          <div><label class="lbl">1 IDR = ? TWD</label><input type="number" inputmode="decimal" id="in-idr" step="any"></div>
-          <div><label class="lbl">1 USDT = ? TWD</label><input type="number" inputmode="decimal" id="in-usdt" step="any"></div>
-        </div>
-        <button id="btn-save-fx" onclick="saveFxRates()">Save Rates</button>
-      </div>
-      <div class="set-divider"></div>
-      <div class="set-section">
-        <div class="set-title">Export</div>
-        <div class="set-export" onclick="exportCSV()">
-          <div>
-            <div class="set-export-lbl">Export to CSV</div>
-            <div class="set-export-sub">Download all holdings as spreadsheet</div>
-          </div>
-          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </div>
-      </div>
-      <div class="set-divider"></div>
-      <div class="set-section">
-        <div class="set-title">Data</div>
-        <div class="data-card">
-          <div class="data-row"><span>Active assets</span><span id="d-cnt">0</span></div>
-          <div class="data-row"><span>With prices set</span><span id="d-px">0</span></div>
-          <div class="data-row"><span>Last saved</span><span id="d-time">—</span></div>
-        </div>
-        <div class="set-btn-row">
-          <button class="btn" onclick="loadSample()">Sample Data</button>
-          <button class="btn btn-d" onclick="clearAll()">Clear All</button>
-        </div>
-      </div>
-      <div class="set-note">
-        Net worth = bank balances converted to NTD (authoritative)<br>
-        Investment value = mark-to-market positions (informational)<br>
-        All data stored on this device · No account required
-      </div>
-      <div class="version">v1.1 · Portfolio Tracker</div>
-    </div>
+<!-- Holdings -->
+<div id="view-holdings" class="view">
+  <div id="filter-wrap"><div id="filter-chips"></div></div>
+  <div id="sort-row">
+    <span>Sort by</span>
+    <button class="sort-btn on" onclick="setSort('val')">Value</button>
+    <button class="sort-btn" onclick="setSort('pnl')">P&amp;L %</button>
+    <button class="sort-btn" onclick="setSort('name')">Name</button>
   </div>
+  <div id="holdings-total"><span>Total Portfolio</span><span id="total-val">—</span></div>
+  <div id="holdings-list"></div>
+</div>
 
-  <!-- Form -->
-  <div id="view-form">
-    <div id="form-nav">
-      <button id="form-back-btn" onclick="closeForm()">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        Back
-      </button>
-      <span id="form-title-txt">Add Asset</span>
-      <button id="btn-del" class="btn btn-d" onclick="deleteAsset()">Delete</button>
+<!-- Settings -->
+<div id="view-settings" class="view">
+  <div id="settings-wrap">
+    <div class="set-section">
+      <div class="set-title">FX Rates</div>
+      <div class="set-sub">Set rates for converting to NTD. All values update after saving.</div>
+      <div class="set-grid">
+        <div><label class="lbl">1 USD = ? TWD</label><input type="number" inputmode="decimal" id="in-usd" step="any"></div>
+        <div><label class="lbl">1 IDR = ? TWD</label><input type="number" inputmode="decimal" id="in-idr" step="any"></div>
+        <div><label class="lbl">1 USDT = ? TWD</label><input type="number" inputmode="decimal" id="in-usdt" step="any"></div>
+      </div>
+      <button id="btn-save-fx" onclick="saveFxRates()">Save Rates</button>
     </div>
-    <div id="form-body">
-      <div class="mb">
-        <label class="lbl">Category</label>
-        <div id="cat-chips"></div>
-      </div>
-      <div class="g2">
-        <div><label class="lbl">Name</label><input id="f-name" type="text" placeholder="BCA" autocomplete="off"></div>
-        <div id="f-ticker-wrap"><label class="lbl">Ticker</label><input id="f-ticker" type="text" placeholder="BBCA" autocomplete="off" style="text-transform:uppercase"></div>
-      </div>
-      <div class="g2" id="f-qty-wrap">
-        <div><label class="lbl">Quantity</label><input id="f-qty" type="number" inputmode="decimal" placeholder="0"></div>
-        <div><label class="lbl">Avg Price</label><input id="f-avg" type="number" inputmode="decimal" placeholder="0"></div>
-      </div>
-      <div class="mb">
-        <label class="lbl" id="f-px-lbl">Current Price</label>
-        <input id="f-px" type="number" inputmode="decimal" placeholder="0">
-      </div>
-      <div class="g2">
+    <div class="set-divider"></div>
+    <div class="set-section">
+      <div class="set-title">Export</div>
+      <div class="set-export" onclick="exportCSV()">
         <div>
-          <label class="lbl">Currency</label>
-          <select id="f-cur">
-            <option>IDR</option><option>USD</option><option>TWD</option><option>USDT</option>
-          </select>
+          <div class="set-export-lbl">Export to CSV</div>
+          <div class="set-export-sub">Download all holdings as spreadsheet</div>
         </div>
-        <div><label class="lbl">Platform</label><input id="f-plat" type="text" placeholder="Stockbit" autocomplete="off"></div>
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       </div>
-      <div class="mb" id="f-note-wrap" style="display:none">
-        <label class="lbl">Note (optional)</label>
-        <input id="f-note" type="text" placeholder="e.g. Reksa Dana Saham">
-      </div>
-      <button class="btn-p" onclick="saveAsset()">Save Asset</button>
     </div>
+    <div class="set-divider"></div>
+    <div class="set-section">
+      <div class="set-title">Data</div>
+      <div class="data-card">
+        <div class="data-row"><span>Active assets</span><span id="d-cnt">0</span></div>
+        <div class="data-row"><span>With prices set</span><span id="d-px">0</span></div>
+        <div class="data-row"><span>Last saved</span><span id="d-time">—</span></div>
+      </div>
+      <div class="set-btn-row">
+        <button class="btn" onclick="loadSample()">Sample Data</button>
+        <button class="btn btn-d" onclick="clearAll()">Clear All</button>
+      </div>
+    </div>
+    <div class="set-note">
+      Net worth = bank balances converted to NTD (authoritative)<br>
+      Investment value = mark-to-market positions (informational)<br>
+      All data stored on this device · No account required
+    </div>
+    <div class="version">v1.3 · Portfolio Tracker</div>
   </div>
+</div>
 
-  <!-- OCR Scan View -->
-  <div id="view-ocr">
-    <div id="ocr-nav">
-      <button id="ocr-back-btn" onclick="closeOCR()">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-        Back
-      </button>
-      <span id="ocr-title-txt">Scan Screenshot</span>
-      <div style="width:50px"></div>
+<!-- Form: Add / Edit Asset -->
+<div id="view-form">
+  <div id="form-nav">
+    <button id="form-back-btn" onclick="closeForm()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </button>
+    <span id="form-title-txt">Add Asset</span>
+    <button id="btn-del" class="btn btn-d" onclick="deleteAsset()">Delete</button>
+  </div>
+  <div id="form-body">
+    <div class="mb">
+      <label class="lbl">Category</label>
+      <div id="cat-chips"></div>
     </div>
-    <div id="ocr-body">
-      <div id="ocr-drop" onclick="ocrPickImage()">
-        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        <div id="ocr-drop-lbl">Tap to select screenshot</div>
-        <div id="ocr-drop-sub">Works with Stockbit, Ajaib, Binance<br>Use a clear, bright screenshot for best results</div>
+    <div class="g2">
+      <div><label class="lbl">Name</label><input id="f-name" type="text" placeholder="BCA" autocomplete="off"></div>
+      <div id="f-ticker-wrap"><label class="lbl">Ticker</label><input id="f-ticker" type="text" placeholder="BBCA" autocomplete="off" style="text-transform:uppercase"></div>
+    </div>
+    <div class="g2" id="f-qty-wrap">
+      <div><label class="lbl">Quantity</label><input id="f-qty" type="number" inputmode="decimal" placeholder="0"></div>
+      <div><label class="lbl">Avg Price</label><input id="f-avg" type="number" inputmode="decimal" placeholder="0"></div>
+    </div>
+    <div class="mb">
+      <label class="lbl" id="f-px-lbl">Current Price</label>
+      <input id="f-px" type="number" inputmode="decimal" placeholder="0">
+    </div>
+    <div class="g2">
+      <div>
+        <label class="lbl">Currency</label>
+        <select id="f-cur">
+          <option>IDR</option><option>USD</option><option>TWD</option><option>USDT</option>
+        </select>
       </div>
-      <div id="ocr-preview">
-        <img src="" alt="preview" id="ocr-img">
-        <button id="ocr-preview-change" onclick="ocrPickImage()">Change</button>
+      <div><label class="lbl">Platform</label><input id="f-plat" type="text" placeholder="Stockbit" autocomplete="off"></div>
+    </div>
+    <div class="mb" id="f-note-wrap" style="display:none">
+      <label class="lbl">Note (optional)</label>
+      <input id="f-note" type="text" placeholder="e.g. Reksa Dana Saham">
+    </div>
+    <button class="btn-p" onclick="saveAsset()">Save Asset</button>
+  </div>
+</div>
+
+<!-- Import: paste text from brokerage app -->
+<div id="view-import">
+  <div id="imp-nav">
+    <button id="imp-back-btn" onclick="closeImport()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </button>
+    <span id="imp-title">Import from App</span>
+    <div style="width:50px"></div>
+  </div>
+  <div id="imp-body">
+    <div class="mb">
+      <div class="lbl" style="margin-bottom:8px">Source platform</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap" id="plat-chips">
+        <button class="chip on" onclick="selPlat('AJAIB',this)">Ajaib</button>
+        <button class="chip" onclick="selPlat('BINANCE_TW',this)">Binance TW</button>
+        <button class="chip" onclick="selPlat('GATE_IO',this)">Gate.io</button>
+        <button class="chip" onclick="selPlat('MAX',this)">MAX/Bitopro</button>
+        <button class="chip" onclick="selPlat('GENERIC',this)">Other</button>
       </div>
-      <div id="ocr-status"></div>
-      <div id="ocr-prog-wrap"><div id="ocr-prog"></div></div>
-      <button id="btn-ocr-scan" onclick="runOCR()" disabled>Scan Image</button>
-      <div id="ocr-results">
-        <div id="ocr-results-hd"></div>
-        <div id="ocr-items-list"></div>
-      </div>
-      <button id="btn-ocr-import" onclick="ocrImportAll()">Import Assets</button>
-      <div class="ocr-hint">
-        OCR reads text from images — accuracy varies by screenshot quality.<br>
-        Always review detected values before importing. Edit each asset after import if needed.
-      </div>
+    </div>
+    <div id="imp-how" style="background:var(--bg2);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;font-size:12px;color:var(--tx2);line-height:1.7;"></div>
+    <div class="mb">
+      <label class="lbl">Paste copied text here</label>
+      <textarea id="paste-area" rows="7" placeholder="Paste text copied from your brokerage app…" style="resize:vertical;line-height:1.5;font-size:13px;"></textarea>
+    </div>
+    <button class="btn-p" style="background:var(--bl);margin-top:0;" onclick="runImport()">Parse Text</button>
+    <div id="imp-status" style="font-size:13px;color:var(--no);margin-top:10px;min-height:18px;font-weight:500;"></div>
+    <div id="imp-results" style="display:none;margin-top:14px;">
+      <div id="imp-results-hd" style="font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:10px;"></div>
+      <div id="imp-items-list"></div>
+      <button id="btn-imp-import" class="btn-p" style="display:none;margin-top:4px;" onclick="doImport()"></button>
     </div>
   </div>
+</div>
 
 </div><!-- /wrap -->
 
@@ -499,49 +445,46 @@ const SAMPLE=[
   {id:'s9',name:'CTBC',   tk:'',     cat:'BANK_TWD',qty:1,    avg:0,     px:58000,   cur:'TWD', pl:'CTBC',            on:true,bk:true, note:''},
 ];
 
+/* ── Utils ───────────────────────────────────────────────────────────────────*/
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function lg(k,fb){try{const v=localStorage.getItem(k);return v?JSON.parse(v):fb;}catch{return fb;}}
+function lset(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
+function el(id){return document.getElementById(id);}
+function saveA(){lset('p:a',assets);lset('p:ts',Date.now());}
+function saveFX(){lset('p:fx',fx);}
+const isBank=cat=>cat==='BANK_TWD'||cat==='BANK_IDR';
+const toN=(v,c)=>{if(!v||isNaN(v))return 0;return v*({TWD:1,IDR:fx.IDR_TWD,USD:fx.USD_TWD,USDT:fx.USDT_TWD}[c]||1);};
+const fn=(n,d=0)=>n==null||isNaN(n)?'—':new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n);
+const fnt=n=>n>=1e6?`NT$${(n/1e6).toFixed(2)}M`:n>=1e3?`NT$${(n/1e3).toFixed(1)}K`:`NT$${Math.round(n).toLocaleString()}`;
 
 /* ── State ───────────────────────────────────────────────────────────────────*/
-let assets  =lg('p:a', SAMPLE.map(a=>({...a})));
+let assets  =lg('p:a',SAMPLE.map(a=>({...a})));
 let fx      =lg('p:fx',{...DFX});
 let curTab  ='dashboard';
 let curFlt  ='ALL';
 let curSort ='val';
 let editId  =null;
 let formCat ='IDX';
+let impDetected=[];
+let impPlatform='AJAIB';
 
-/* ── OCR State ───────────────────────────────────────────────────────────────*/
-let ocrImgURL  =null;
-let ocrDetected=[];
-
-/* ── Utils ───────────────────────────────────────────────────────────────────*/
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
-function lg(k,fb){try{const v=localStorage.getItem(k);return v?JSON.parse(v):fb;}catch{return fb;}}
-function lset(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
-const isBank=cat=>cat==='BANK_TWD'||cat==='BANK_IDR';
-const toN=(v,c)=>{if(!v||isNaN(v))return 0;return v*({TWD:1,IDR:fx.IDR_TWD,USD:fx.USD_TWD,USDT:fx.USDT_TWD}[c]||1);};
-const fn=(n,d=0)=>n==null||isNaN(n)?'—':new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n);
-const fnt=n=>n>=1e6?`NT$${(n/1e6).toFixed(2)}M`:n>=1e3?`NT$${(n/1e3).toFixed(1)}K`:`NT$${Math.round(n).toLocaleString()}`;
-function saveA(){lset('p:a',assets);lset('p:ts',Date.now());}
-function saveFX(){lset('p:fx',fx);}
-function el(id){return document.getElementById(id);}
-
-/* ── Panel helpers (hides header/nav, shows a panel) ─────────────────────── */
-function showPanel(panelId){
+/* ── Panel helpers ───────────────────────────────────────────────────────────*/
+function showPanel(id){
   el('hdr').style.display='none';
   document.querySelector('nav').style.display='none';
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
   el('view-form').classList.remove('on');
-  el('view-ocr').classList.remove('on');
-  el(panelId).classList.add('on');
+  el('view-import').classList.remove('on');
+  el(id).classList.add('on');
 }
 function hidePanel(){
   el('view-form').classList.remove('on');
-  el('view-ocr').classList.remove('on');
+  el('view-import').classList.remove('on');
   el('hdr').style.display='';
   document.querySelector('nav').style.display='';
 }
 
-/* ── Donut Chart ─────────────────────────────────────────────────────────────*/
+/* ── Donut chart ─────────────────────────────────────────────────────────────*/
 function donut(data,cx=70,cy=70,R=60,r=38){
   if(!data.length)return'<svg width="140" height="140"></svg>';
   const tot=data.reduce((s,d)=>s+d.value,0);
@@ -550,14 +493,14 @@ function donut(data,cx=70,cy=70,R=60,r=38){
   data.forEach(d=>{
     const sw=Math.min((d.value/tot)*Math.PI*2,Math.PI*2-.0001);
     const ea=angle+sw,la=sw>Math.PI?1:0;
-    const cos1=Math.cos(angle),sin1=Math.sin(angle),cos2=Math.cos(ea),sin2=Math.sin(ea);
-    paths+=`<path d="M${cx+R*cos1},${cy+R*sin1} A${R},${R} 0 ${la},1 ${cx+R*cos2},${cy+R*sin2} L${cx+r*cos2},${cy+r*sin2} A${r},${r} 0 ${la},0 ${cx+r*cos1},${cy+r*sin1} Z" fill="${d.color}"/>`;
+    const c1=Math.cos(angle),s1=Math.sin(angle),c2=Math.cos(ea),s2=Math.sin(ea);
+    paths+=`<path d="M${cx+R*c1},${cy+R*s1} A${R},${R} 0 ${la},1 ${cx+R*c2},${cy+R*s2} L${cx+r*c2},${cy+r*s2} A${r},${r} 0 ${la},0 ${cx+r*c1},${cy+r*s1} Z" fill="${d.color}"/>`;
     angle=ea;
   });
   return`<svg viewBox="0 0 140 140" width="140" height="140">${paths}</svg>`;
 }
 
-/* ── Tab Switching ───────────────────────────────────────────────────────────*/
+/* ── Tab switching ───────────────────────────────────────────────────────────*/
 function switchTab(tab){
   curTab=tab;
   hidePanel();
@@ -565,9 +508,9 @@ function switchTab(tab){
   el('view-'+tab).classList.add('on');
   document.querySelectorAll('.htab,nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
   el('btn-add').style.display=tab==='holdings'?'flex':'none';
-  if(tab==='dashboard') renderDash();
-  else if(tab==='holdings') renderHold();
-  else if(tab==='settings') renderSet();
+  if(tab==='dashboard')renderDash();
+  else if(tab==='holdings')renderHold();
+  else if(tab==='settings')renderSet();
 }
 
 /* ── Dashboard ───────────────────────────────────────────────────────────────*/
@@ -578,7 +521,6 @@ function renderDash(){
   const iv=inv.reduce((s,a)=>s+toN(a.qty*a.px,a.cur),0);
   const co=inv.reduce((s,a)=>s+toN(a.qty*a.avg,a.cur),0);
   const pnl=iv-co,pct=co>0?pnl/co*100:0;
-  const cnt=assets.filter(a=>a.on&&a.px>0).length;
   el('nw-val').textContent=fnt(nw);
   el('inv-val').textContent=fnt(iv);
   const ps=el('pnl-inline');
@@ -587,10 +529,10 @@ function renderDash(){
   const sv=el('stat-pnl');
   sv.textContent=(pnl>=0?'+':'')+fnt(Math.abs(pnl));
   sv.style.color=pnl>=0?'var(--ok)':'var(--no)';
-  el('stat-cnt').textContent=cnt;
+  el('stat-cnt').textContent=assets.filter(a=>a.on&&a.px>0).length;
   const pie=Object.entries(CATS).map(([key,cat])=>{
     const v=assets.filter(a=>a.on&&a.cat===key).reduce((s,a)=>s+toN(a.bk?a.px:a.qty*a.px,a.cur),0);
-    return{name:cat.full,value:Math.round(v),color:cat.color,key};
+    return{name:cat.full,value:Math.round(v),color:cat.color};
   }).filter(d=>d.value>0);
   const tot=pie.reduce((s,d)=>s+d.value,0)||1;
   el('alloc-svg').innerHTML=donut(pie);
@@ -617,27 +559,26 @@ function renderHold(){
   });
   const vis=assets.filter(a=>a.on&&(curFlt==='ALL'||a.cat===curFlt));
   const sorted=[...vis].sort((a,b)=>{
-    if(curSort==='val') return toN(a.bk?a.px:a.qty*a.px,a.cur)<toN(b.bk?b.px:b.qty*b.px,b.cur)?1:-1;
-    if(curSort==='pnl'){const pa=a.avg?((a.px-a.avg)/a.avg):0,pb=b.avg?((b.px-b.avg)/b.avg):0;return pa<pb?1:-1;}
-    if(curSort==='name') return (a.tk||a.name).localeCompare(b.tk||b.name);
+    if(curSort==='val')return toN(a.bk?a.px:a.qty*a.px,a.cur)<toN(b.bk?b.px:b.qty*b.px,b.cur)?1:-1;
+    if(curSort==='pnl'){const pa=a.avg?(a.px-a.avg)/a.avg:0,pb=b.avg?(b.px-b.avg)/b.avg:0;return pa<pb?1:-1;}
+    if(curSort==='name')return(a.tk||a.name).localeCompare(b.tk||b.name);
     return 0;
   });
-  const totalTWD=sorted.reduce((s,a)=>s+toN(a.bk?a.px:a.qty*a.px,a.cur),0);
-  el('total-val').textContent=fnt(totalTWD);
+  el('total-val').textContent=fnt(sorted.reduce((s,a)=>s+toN(a.bk?a.px:a.qty*a.px,a.cur),0));
   if(!sorted.length){
     el('holdings-list').innerHTML='<div id="empty-hold"><p>No assets yet</p><button class="btn" onclick="openForm(null)">Add first asset</button></div>';
     return;
   }
-  const seenCats=new Set();
+  const seen=new Set();
   el('holdings-list').innerHTML=sorted.map(a=>{
     const vt=toN(a.bk?a.px:a.qty*a.px,a.cur);
     const pp=(!a.bk&&a.avg>0)?(a.px-a.avg)/a.avg*100:null;
     const pnlHtml=pp!=null?`<div class="a-pnl" style="color:${pp>=0?'var(--ok)':'var(--no)'}">${pp>=0?'+':''}${fn(pp,1)}%</div>`:'';
     const sub=a.bk?`${a.cur} balance`:`${fn(a.qty,a.qty<1?4:2)} × ${fn(a.px,a.px<100?2:0)} ${a.cur}`;
-    const hdr=seenCats.has(a.cat)||curSort!=='val'?'':`<div class="sec-hdr"><span>${CATS[a.cat]?.full}</span></div>`;
-    seenCats.add(a.cat);
-    return `${hdr}<div class="asset-row" onclick="openForm('${a.id}')">
-      <div class="a-dot" style="background:${CATS[a.cat]?.color}"></div>
+    const hdr=seen.has(a.cat)||curSort!=='val'?'':`<div class="sec-hdr">${CATS[a.cat]?.full||a.cat}</div>`;
+    seen.add(a.cat);
+    return`${hdr}<div class="asset-row" onclick="openForm('${a.id}')">
+      <div class="a-dot" style="background:${CATS[a.cat]?.color||'#888'}"></div>
       <div class="a-info">
         <div class="a-top"><span class="a-name">${a.tk||a.name}</span>${a.tk&&a.name!==a.tk?`<span class="a-alias">${a.name}</span>`:''}</div>
         <div class="a-sub">${sub}</div>
@@ -662,7 +603,7 @@ function renderSet(){
 }
 function saveFxRates(){
   const u=parseFloat(el('in-usd').value),i=parseFloat(el('in-idr').value),t=parseFloat(el('in-usdt').value);
-  if(u>0)fx.USD_TWD=u; if(i>0)fx.IDR_TWD=i; if(t>0)fx.USDT_TWD=t;
+  if(u>0)fx.USD_TWD=u;if(i>0)fx.IDR_TWD=i;if(t>0)fx.USDT_TWD=t;
   saveFX();
   const b=el('btn-save-fx');
   b.textContent='✓ Saved';b.classList.add('saved');
@@ -683,8 +624,7 @@ function exportCSV(){
 }
 function loadSample(){
   if(!confirm('Replace current data with sample data?'))return;
-  assets=SAMPLE.map(a=>({...a,id:uid()}));
-  saveA();switchTab('dashboard');
+  assets=SAMPLE.map(a=>({...a,id:uid()}));saveA();switchTab('dashboard');
 }
 function clearAll(){
   if(!confirm('Delete all assets? Cannot be undone.'))return;
@@ -696,8 +636,7 @@ function buildCatChips(){
   el('cat-chips').innerHTML=Object.entries(CATS).map(([k,v])=>
     `<button class="chip${formCat===k?' on':''}" onclick="selectCat('${k}')"
       style="${formCat===k?`border-color:${v.color};color:${v.color}`:''}">
-      ${v.l}</button>`
-  ).join('');
+      ${v.l}</button>`).join('');
 }
 function selectCat(cat){
   formCat=cat;
@@ -710,9 +649,9 @@ function selectCat(cat){
   el('f-note-wrap').style.display=cat==='MUTUAL'?'':'none';
   buildCatChips();
 }
-function openForm(idOrNull){
-  editId=idOrNull;
-  const a=idOrNull?assets.find(x=>x.id===idOrNull):null;
+function openForm(id){
+  editId=id;
+  const a=id?assets.find(x=>x.id===id):null;
   formCat=a?a.cat:'IDX';
   el('f-name').value=a?a.name:'';
   el('f-ticker').value=a?(a.tk||''):'';
@@ -726,12 +665,9 @@ function openForm(idOrNull){
   el('btn-del').style.display=a?'':'none';
   selectCat(formCat);
   showPanel('view-form');
-  el('f-name').focus();
+  setTimeout(()=>el('f-name').focus(),100);
 }
-function closeForm(){
-  hidePanel();
-  switchTab(curTab);
-}
+function closeForm(){hidePanel();switchTab(curTab);}
 function saveAsset(){
   const bk=isBank(formCat);
   const name=el('f-name').value.trim();
@@ -757,263 +693,280 @@ function deleteAsset(){
   saveA();closeForm();
 }
 
-/* ── OCR — Claude Vision API ─────────────────────────────────────────────────
-   No Tesseract / no Web Workers — uses Claude's vision API directly.
-   FileReader → base64 → api.anthropic.com/v1/messages → JSON assets.
+/* ── Import — text paste from brokerage app ──────────────────────────────────
+   No OCR, no API. User copies text from their app using iOS Live Text or
+   Android Google Lens, pastes here. Platform-specific parsers extract holdings.
 ────────────────────────────────────────────────────────────────────────────── */
-function openOCR(){
-  ocrImgURL=null;
-  ocrDetected=[];
-  el('ocr-drop').style.display='';
-  el('ocr-preview').style.display='none';
-  el('ocr-prog-wrap').style.display='none';
-  el('ocr-results').style.display='none';
-  el('btn-ocr-import').style.display='none';
-  el('btn-ocr-scan').disabled=true;
-  el('btn-ocr-scan').textContent='Scan Image';
-  el('ocr-status').textContent='';
-  el('ocr-items-list').innerHTML='';
-  showPanel('view-ocr');
-}
-function closeOCR(){
-  hidePanel();
-  switchTab(curTab);
-}
-function ocrPickImage(){
-  const inp=document.createElement('input');
-  inp.type='file';
-  inp.accept='image/*';
-  // Must be in DOM for iOS Safari onchange to fire reliably
-  inp.style.cssText='position:fixed;top:-999px;left:-999px;opacity:0;width:1px;height:1px;';
-  document.body.appendChild(inp);
-  inp.onchange=e=>{
-    document.body.removeChild(inp);
-    const file=e.target.files&&e.target.files[0];
-    if(!file)return;
-    // FileReader/base64 — Claude API receives it directly as image content
-    const reader=new FileReader();
-    reader.onerror=()=>ocrSetStatus('Failed to read image. Try again.');
-    reader.onload=evt=>{
-      ocrImgURL=evt.target.result; // base64 data URL, e.g. "data:image/jpeg;base64,..."
-      el('ocr-img').src=ocrImgURL;
-      el('ocr-preview').style.display='';
-      el('ocr-drop').style.display='none';
-      el('ocr-results').style.display='none';
-      el('btn-ocr-import').style.display='none';
-      el('btn-ocr-scan').disabled=false;
-      el('btn-ocr-scan').textContent='Scan Image';
-      el('ocr-prog-wrap').style.display='none';
-      el('ocr-prog').style.width='0%';
-      el('ocr-status').textContent='Image ready — tap Scan Image';
-      ocrDetected=[];
-    };
-    reader.readAsDataURL(file);
-  };
-  // Small delay prevents iOS from swallowing the click in certain scroll contexts
-  setTimeout(()=>inp.click(),10);
-}
-function ocrSetStatus(msg){el('ocr-status').textContent=msg;}
-function ocrSetProg(p){el('ocr-prog').style.width=Math.min(100,p)+'%';}
+const TICKER_CAT={
+  BBCA:'IDX',BMRI:'IDX',BBNI:'IDX',BBRI:'IDX',PGEO:'IDX',SMRA:'IDX',CTRA:'IDX',
+  WBSA:'IDX',WSKT:'IDX',TLKM:'IDX',ASII:'IDX',UNVR:'IDX',GOTO:'IDX',BUKA:'IDX',
+  EXCL:'IDX',PTRO:'IDX',BUMI:'IDX',BRPT:'IDX',ICBP:'IDX',INDF:'IDX',
+  ANTM:'IDX',PGAS:'IDX',ADRO:'IDX',ITMG:'IDX',MDKA:'IDX',
+  GOOGL:'US',AVGO:'US',AMZN:'US',NVDA:'US',MSFT:'US',META:'US',QQQ:'US',
+  AAPL:'US',TSLA:'US',GOOG:'US',SPY:'US',VTI:'US',AMD:'US',INTC:'US',NFLX:'US',
+  '0050':'TW','0056':'TW','2330':'TW','2317':'TW','2454':'TW',
+  BTC:'CRYPTO',ETH:'CRYPTO',BNB:'CRYPTO',SOL:'CRYPTO',SUI:'CRYPTO',GT:'CRYPTO',
+  XRP:'CRYPTO',ADA:'CRYPTO',DOGE:'CRYPTO',DOT:'CRYPTO',MATIC:'CRYPTO',LINK:'CRYPTO',
+  AVAX:'CRYPTO',UNI:'CRYPTO',TRX:'CRYPTO',TON:'CRYPTO',
+};
+const STOP_WORDS=new Set([
+  'THE','AND','FOR','ALL','NET','BUY','SELL','IDR','USD','TWD','PROFIT','LOSS',
+  'TOTAL','RETURN','AVERAGE','CURRENT','PRICE','VALUE','MARKET','CAP','PER','LOT',
+  'GAIN','BALANCE','ACCOUNT','DATE','TIME','APP','TAP','VIEW','SORT','OPEN',
+  'CLOSE','VOL','NILAI','HARGA','SAHAM','PORTOFOLIO','REKSA','DANA','ASET',
+  'KRIPTO','ORDER','RIWAYAT','BELI','JUAL','PASAR','LIMIT','EST','TOTAL','FUT',
+  'CAMPURAN','SPOT','EARN','SEND','TRADE','TRADING','TRANSFER','HISTORY',
+  'SUBSCRIBE','REDEEM','CONVERT','DEPOSIT','WITHDRAW','SETTINGS','AVAILABLE',
+  'UNAVAILABLE','RESERVED','ALLOCATION','RECOMMEND','TODAY','PNL','DISTRIBUTION',
+  'INTEREST','SIMPLE','FLEXIBLE','CUMULATIVE','DILUTED','COST','LAST','HOLDING',
+  'GRID','ROI','APR','BREAKEVEN','ASSETS','ASSET',
+]);
+const PLAT_HOW={
+  AJAIB:'<strong>Ajaib — stock list view:</strong><br>1. Open Ajaib → Portofolio → Saham tab<br>2. iOS: take screenshot → open in Photos → long-press any ticker → Select All → Copy<br>3. Android: screenshot → Google Lens → copy all text<br>4. Paste below. Imports total IDR value (add qty & avg manually for P&L).',
+  BINANCE_TW:'<strong>Binance TW — individual coin page:</strong><br>1. Tap a coin (BTC, BNB, SOL, SUI…)<br>2. iOS: screenshot → Photos → long-press balance → Select All → Copy<br>3. Android: Google Lens → copy text<br>4. One coin per import. Paste below.',
+  GATE_IO:'<strong>Gate.io — individual coin page:</strong><br>1. Tap a coin → asset detail screen<br>2. Screenshot → copy all text as above<br>3. Note: Gate.io TW shows $ but means TWD. One coin per import.',
+  MAX:'<strong>MAX / Bitopro — individual coin page:</strong><br>1. Tap a coin<br>2. Screenshot → copy all text as above<br>3. One coin per import.',
+  GENERIC:'<strong>Other platform:</strong><br>Copy any text containing ticker symbols and numbers. The parser will attempt to extract holdings. Review all values carefully before importing.',
+};
 
-/* ── Claude Vision API — replaces Tesseract (blocked by CSP in this env) ────
-   Sends base64 image → Claude → structured JSON array of assets.
-   No Web Workers, no blob URLs, no external CDN dependencies.
-────────────────────────────────────────────────────────────────────────────*/
-async function runOCR(){
-  if(!ocrImgURL)return;
-
-  el('btn-ocr-scan').disabled=true;
-  el('btn-ocr-scan').textContent='Analysing…';
-  el('ocr-prog-wrap').style.display='';
-  el('ocr-results').style.display='none';
-  el('btn-ocr-import').style.display='none';
-  ocrSetProg(10);
-  ocrSetStatus('Sending to AI for analysis…');
-
-  // Strip data URL prefix to get raw base64 + media type
-  const mimeMatch=ocrImgURL.match(/^data:([^;]+);base64,(.+)$/s);
-  if(!mimeMatch){
-    ocrSetStatus('Image format error — try selecting the photo again.');
-    el('btn-ocr-scan').disabled=false;
-    el('btn-ocr-scan').textContent='Retry';
-    return;
+function parseNum(s){
+  if(!s)return 0;
+  if(/^\d{1,3}(\.\d{3})+$/.test(s))return parseInt(s.replace(/\./g,''),10);
+  return parseFloat(String(s).replace(/,/g,''))||0;
+}
+function firstTitle(lines,max=10){
+  for(let i=0;i<Math.min(max,lines.length);i++){
+    const m=lines[i].match(/^([A-Z]{2,6})$/);
+    if(m&&!STOP_WORDS.has(m[1]))return m[1];
   }
-  const [,mediaType,b64]=mimeMatch;
+  return null;
+}
 
-  const SYSTEM=`You are a financial data extractor. The user will send a screenshot from a brokerage or crypto app.
-Extract ALL visible investment holdings and return ONLY a JSON array — no markdown, no explanation, no code fences.
+function selPlat(p,btn){
+  impPlatform=p;
+  document.querySelectorAll('#plat-chips .chip').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  el('imp-how').innerHTML=PLAT_HOW[p]||'';
+  el('imp-status').textContent='';
+  el('imp-results').style.display='none';
+}
 
-Each item must follow this exact schema:
-{"tk":"TICKER","name":"Display name","cat":"IDX|US|TW|CRYPTO|MUTUAL","cur":"IDR|USD|TWD|USDT","qty":0,"px":0,"avg":0,"pl":"Platform name","note":""}
+function openImport(){
+  impDetected=[];impPlatform='AJAIB';
+  el('paste-area').value='';
+  el('imp-status').textContent='';
+  el('imp-results').style.display='none';
+  el('imp-how').innerHTML=PLAT_HOW.AJAIB;
+  document.querySelectorAll('#plat-chips .chip').forEach((b,i)=>b.classList.toggle('on',i===0));
+  showPanel('view-import');
+  setTimeout(()=>el('paste-area').focus(),200);
+}
+function closeImport(){hidePanel();switchTab(curTab);}
 
-Platform-specific rules:
-AJAIB (Indonesian, shows "Portofolio"/"Saham", amounts in "Rp"):
-  - cat = IDX for stocks, MUTUAL for "Reksa Dana"
-  - cur = IDR
-  - qty = 1, px = total position value in IDR (e.g. "Rp20.912.500" → px=20912500, Indonesian dots are thousand separators)
-  - avg = 0 (not shown in list view)
-  - note = "Total IDR value — add qty & avg price for P&L"
-  - pl = "Ajaib"
+function runImport(){
+  const text=el('paste-area').value.trim();
+  if(!text){el('imp-status').textContent='Paste some text first.';return;}
+  el('imp-status').textContent='';
+  switch(impPlatform){
+    case'AJAIB':      impDetected=parseAjaib(text);break;
+    case'BINANCE_TW': impDetected=parseBinanceTW(text);break;
+    case'GATE_IO':    impDetected=parseGateIO(text);break;
+    case'MAX':        impDetected=parseMAX(text);break;
+    default:          impDetected=parseGeneric(text);
+  }
+  renderImpResults();
+}
 
-BINANCE TW (shows "Spot Balance", amounts in "NT$"):
-  - cat = CRYPTO
-  - cur = TWD
-  - qty = the spot balance number (e.g. "0.00632258")
-  - px = round(NT$ total value / qty) to 2 decimal places
-  - avg = the "Average Price" NT$ value shown on screen
-  - pl = "Binance TW"
-
-GATE.IO (shows "Est. Total Value", "Spot Trading Performance", uses "$" which means TWD):
-  - cat = CRYPTO
-  - cur = TWD
-  - qty = the quantity shown below total value (e.g. "0.3 GT" → qty=0.3)
-  - px = "Last Price" value in TWD
-  - avg = "Diluted Cost" value in TWD
-  - pl = "Gate.io"
-
-MAX / BITOPRO (shows "Total assets", "Breakeven price", value in "TWD"):
-  - cat = CRYPTO
-  - cur = TWD
-  - qty = the asset quantity shown (e.g. "68.76117 SUI" → qty=68.76117)
-  - px = round(TWD total value / qty) to 2 decimal places
-  - avg = 0 (breakeven is in USDT, cannot reliably convert without live FX)
-  - note = "Breakeven: [breakeven USDT value] USDT"
-  - pl = "MAX/Bitopro"
-
-GENERAL RULES:
-- Return only assets with actual holdings (skip crypto with 0 balance shown as "Aset Kripto Favorit" suggestions)
-- Tickers must be uppercase
-- All numbers must be plain numbers (no currency symbols, no commas, no dots-as-thousands)
-- If a field cannot be determined, use 0 for numbers or "" for strings
-- Return [] if no holdings are visible`;
-
-  try{
-    ocrSetProg(30);
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1500,
-        system:SYSTEM,
-        messages:[{
-          role:'user',
-          content:[
-            {type:'image',source:{type:'base64',media_type:mediaType,data:b64}},
-            {type:'text',text:'Extract all investment holdings from this screenshot. Return only the JSON array.'}
-          ]
-        }]
-      })
-    });
-    ocrSetProg(80);
-    if(!resp.ok){
-      const errBody=await resp.text().catch(()=>'');
-      throw new Error(`API ${resp.status}: ${errBody.slice(0,200)}`);
+/* Ajaib: list view — ticker on own line, Rp[value] follows */
+function parseAjaib(text){
+  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+  const out=[],seen=new Set();
+  for(let i=0;i<lines.length;i++){
+    const m=lines[i].match(/^([A-Z]{2,5})(\s+X)?$/);
+    if(!m)continue;
+    const tk=m[1];
+    if(STOP_WORDS.has(tk)||seen.has(tk))continue;
+    for(let j=i+1;j<Math.min(i+6,lines.length);j++){
+      const l=lines[j];
+      if(/-Rp/.test(l)||/\+Rp/.test(l)||/%/.test(l))continue;
+      const rp=l.match(/Rp([\d.]+)/);
+      if(rp){
+        const px=parseNum(rp[1]);
+        if(px<100000)continue;
+        seen.add(tk);
+        out.push({id:uid(),name:tk,tk,cat:TICKER_CAT[tk]||'IDX',cur:'IDR',
+          qty:1,px,avg:0,pl:'Ajaib',note:'Total value — add qty & avg for P&L',
+          bk:false,on:true,selected:true});
+        break;
+      }
     }
-    const data=await resp.json();
-    ocrSetProg(90);
-    const raw=data.content?.find(b=>b.type==='text')?.text||'[]';
-    // Strip any accidental markdown fences
-    const cleaned=raw.replace(/^```[a-z]*\n?/i,'').replace(/\n?```$/,'').trim();
-    let parsed;
-    try{parsed=JSON.parse(cleaned);}
-    catch(e){throw new Error('AI returned unexpected format: '+cleaned.slice(0,100));}
-
-    if(!Array.isArray(parsed))throw new Error('Expected array, got: '+typeof parsed);
-
-    // Normalise and validate each item
-    ocrDetected=parsed
-      .filter(a=>a&&a.tk)
-      .map(a=>({
-        id:uid(),
-        name:a.name||a.tk,
-        tk:String(a.tk).toUpperCase(),
-        cat:['IDX','US','TW','CRYPTO','MUTUAL','BANK_TWD','BANK_IDR'].includes(a.cat)?a.cat:'CRYPTO',
-        cur:['IDR','USD','TWD','USDT'].includes(a.cur)?a.cur:'TWD',
-        qty:Number(a.qty)||0,
-        px:Number(a.px)||0,
-        avg:Number(a.avg)||0,
-        pl:a.pl||'',
-        note:a.note||'',
-        bk:false,on:true,selected:true,
-      }))
-      .filter(a=>a.qty>0||a.px>0); // drop rows where nothing was parsed
-
-    ocrSetProg(100);
-    renderOCRResults();
-  }catch(err){
-    const msg=err instanceof Error?err.message:String(err);
-    ocrSetStatus('Error: '+msg);
-    el('btn-ocr-scan').disabled=false;
-    el('btn-ocr-scan').textContent='Retry';
-    console.error('[OCR]',err);
   }
+  return out;
 }
 
-function renderOCRResults(){
-  el('ocr-results').style.display='';
-  el('btn-ocr-scan').disabled=false;
-  el('btn-ocr-scan').textContent='Re-scan';
+/* Binance TW: qty from Available, NT$ total, Average Price */
+function parseBinanceTW(text){
+  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+  const sbIdx=lines.findIndex(l=>/Spot Balance/i.test(l));
+  const tk=firstTitle(lines,sbIdx>0?sbIdx:10);
+  if(!tk)return[];
+  let qty=0,val=0,avg=0;
+  for(let i=0;i<lines.length-1;i++){
+    if(/^Available$/i.test(lines[i])||/Available\s+Unavailable/i.test(lines[i])){
+      const nums=(lines[i+1].match(/[\d.]+/g)||[]).map(Number).filter(n=>n>0);
+      if(nums.length){qty=nums[0];break;}
+    }
+  }
+  if(!qty){
+    for(let i=1;i<Math.min(9,lines.length);i++){
+      const m=lines[i].match(/^([\d]+\.[\d]+)$/);
+      if(m){const n=parseFloat(m[1]);if(n>0&&n<1e10){qty=n;break;}}
+    }
+  }
+  const ntAll=[...text.matchAll(/NT\s?\$?\s*([\d,]+\.?\d*)/g)].map(m=>parseNum(m[1])).filter(n=>n>0);
+  if(ntAll.length)val=ntAll[0];
+  const avgSec=text.match(/Average Price[\s\S]{0,150}/i);
+  if(avgSec){
+    const av=[...avgSec[0].matchAll(/NT\s?\$?\s*([\d,]+\.?\d*)/g)].map(m=>parseNum(m[1])).filter(n=>n>0&&n!==val);
+    if(av.length)avg=av[0];
+  }
+  const px=qty>0&&val>0?Math.round(val/qty*100)/100:0;
+  if(!qty||!px)return[];
+  return[{id:uid(),name:tk,tk,cat:TICKER_CAT[tk]||'CRYPTO',cur:'TWD',
+    qty,px,avg,pl:'Binance TW',note:'',bk:false,on:true,selected:true}];
+}
 
-  if(!ocrDetected.length){
-    el('ocr-results-hd').textContent='No assets detected';
-    el('ocr-items-list').innerHTML=`<div id="ocr-empty">
-      Nothing recognised. Tips:<br>
-      • Use screenshot from Ajaib, Binance TW, Gate.io, or MAX<br>
-      • Crop tightly — less clutter helps OCR accuracy<br>
-      • Ensure text is sharp and bright
-    </div>`;
-    el('btn-ocr-import').style.display='none';
+/* Gate.io: Diluted Cost = avg cost basis, Last Price = current px, $ means TWD.
+   The two labels appear side-by-side: "Diluted Cost  Last Price"
+   followed by their values on the next line: "$ 3,031,719.5  $ 2,452,370.1"
+   Strategy: find the line containing both labels, grab the next line's two $ values. */
+function parseGateIO(text){
+  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+  const tk=firstTitle(lines);
+  if(!tk)return[];
+  let qty=0,px=0,avg=0;
+  // qty: "[number] [TICKER]"
+  const qm=text.match(new RegExp('([\\d]+\\.?[\\d]*)\\s+'+tk+'\\b'));
+  if(qm)qty=parseFloat(qm[1]);
+  // Find the "Diluted Cost ... Last Price" label line; values are on the NEXT line
+  for(let i=0;i<lines.length-1;i++){
+    if(/Diluted Cost/i.test(lines[i])&&/Last Price/i.test(lines[i])){
+      // Next line has two dollar values: "$ 3,031,719.5  $ 2,452,370.1"
+      const vals=[...lines[i+1].matchAll(/\$?\s*([\d,]+\.?\d*)/g)]
+        .map(m=>parseNum(m[1])).filter(n=>n>100);
+      if(vals.length>=2){avg=vals[0];px=vals[1];}   // Diluted Cost first, Last Price second
+      else if(vals.length===1){px=vals[0];}
+      break;
+    }
+  }
+  // Fallback: separate label rows
+  if(!px){
+    const lastSec=text.match(/Last Price[\s\S]{0,80}/i);
+    if(lastSec){const m=lastSec[0].match(/\$\s*([\d,]+\.?\d*)/);if(m)px=parseNum(m[1]);}
+  }
+  if(!avg){
+    const dilSec=text.match(/Diluted Cost[\s\S]{0,80}/i);
+    if(dilSec){const m=dilSec[0].match(/\$\s*([\d,]+\.?\d*)/);if(m)avg=parseNum(m[1]);}
+  }
+  // Second fallback: derive px from Est. Total Value / qty
+  if(!px&&qty>0){
+    const tvSec=text.match(/Est\.?\s*Total Value[\s\S]{0,80}/i);
+    if(tvSec){const m=tvSec[0].match(/\$\s*([\d,]+\.?\d*)/);if(m)px=Math.round(parseNum(m[1])/qty*100)/100;}
+  }
+  if(!qty||!px)return[];
+  return[{id:uid(),name:tk,tk,cat:TICKER_CAT[tk]||'CRYPTO',cur:'TWD',
+    qty,px,avg,pl:'Gate.io',note:'',bk:false,on:true,selected:true}];
+}
+
+/* MAX: total assets in TWD, breakeven in USDT */
+function parseMAX(text){
+  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+  const tk=firstTitle(lines);
+  if(!tk)return[];
+  let qty=0,val=0,bkUsdt=0;
+  const qm=text.match(new RegExp('([\\d.]+)\\s+'+tk+'\\b'));
+  if(qm)qty=parseFloat(qm[1]);
+  const twdM=text.match(/[≈=~]?\s*([\d,]+\.?\d*)\s*TWD/);
+  if(twdM)val=parseNum(twdM[1]);
+  const bkSec=text.match(/Breakeven price[\s\S]{0,100}/i);
+  if(bkSec){const m=bkSec[0].match(/([\d,]+\.?\d*)\s*USDT/);if(m)bkUsdt=parseNum(m[1]);}
+  const px=qty>0&&val>0?Math.round(val/qty*100)/100:0;
+  if(!qty||!px)return[];
+  return[{id:uid(),name:tk,tk,cat:TICKER_CAT[tk]||'CRYPTO',cur:'TWD',
+    qty,px,avg:0,pl:'MAX/Bitopro',
+    note:bkUsdt?'Breakeven: '+bkUsdt+' USDT':'',
+    bk:false,on:true,selected:true}];
+}
+
+/* Generic: heuristic ticker + number extraction */
+function parseGeneric(text){
+  const lines=text.split('\n').map(l=>l.trim()).filter(l=>l.length>1);
+  const out=[],seen=new Set();
+  for(let i=0;i<lines.length;i++){
+    const tokens=(lines[i].match(/\b([A-Z0-9]{2,6})\b/g)||[]);
+    let tk=null;
+    for(const t of tokens){if(TICKER_CAT[t]&&!seen.has(t)){tk=t;break;}}
+    if(!tk){for(const t of tokens){if(t.length>=3&&t.length<=5&&!STOP_WORDS.has(t)&&!seen.has(t)&&/[A-Z]/.test(t)){tk=t;break;}}}
+    if(!tk)continue;
+    const ctx=lines.slice(Math.max(0,i-1),Math.min(lines.length,i+3)).join(' ');
+    const nums=(ctx.match(/[\d][0-9,.]+/g)||[]).map(n=>{
+      if(/^\d{1,3}(\.\d{3})+$/.test(n))return parseInt(n.replace(/\./g,''),10);
+      return parseNum(n);
+    }).filter(n=>!isNaN(n)&&n>0&&n<1e12);
+    if(!nums.length)continue;
+    const sorted=[...nums].sort((a,b)=>a-b);
+    let qty=sorted[0],px=sorted[sorted.length-1];
+    const si=sorted.find(n=>n<=10000&&n===Math.round(n));
+    if(si&&si!==sorted[sorted.length-1]){qty=si;px=sorted[sorted.length-1];}
+    seen.add(tk);
+    const cat=TICKER_CAT[tk]||'IDX';
+    out.push({id:uid(),name:tk,tk,cat,cur:CATS[cat]?.cur||'IDR',
+      qty,px,avg:0,pl:'',note:'',bk:false,on:true,selected:true});
+  }
+  return out;
+}
+
+function renderImpResults(){
+  el('imp-results').style.display='';
+  if(!impDetected.length){
+    el('imp-results-hd').textContent='Nothing detected';
+    el('imp-items-list').innerHTML='<div id="imp-empty">No holdings found.<br>Make sure you selected all text from the correct screen.</div>';
+    el('btn-imp-import').style.display='none';
     return;
   }
-
-  const platform=ocrDetected[0]?._platform||'';
-  const platformNote={
-    AJAIB:'Ajaib list view — only total value captured. Tap each asset after import to add qty & avg price for P&L tracking.',
-    BINANCE_TW:'Binance TW — full data extracted: qty, current price, avg price.',
-    GATE_IO:'Gate.io TW — prices shown in TWD (Gate.io uses $ to mean TWD).',
-    MAX:'MAX/Bitopro — USDT breakeven converted to TWD avg using your stored FX rate.',
-    GENERIC:'Unknown platform — review all values carefully.',
-  }[platform]||'';
-
-  const sel=ocrDetected.filter(a=>a.selected).length;
-  el('ocr-results-hd').textContent=`${ocrDetected.length} asset${ocrDetected.length!==1?'s':''} detected`;
-  el('ocr-items-list').innerHTML=(platformNote?`<div style="font-size:12px;color:var(--tx2);line-height:1.6;margin-bottom:12px;padding:10px 12px;background:var(--bg2);border-radius:var(--r)">${platformNote}</div>`:'')+
-    ocrDetected.map((a,i)=>{
-    const catColor=CATS[a.cat]?.color||'#888';
-    const isTotal=a._platform==='AJAIB';
-    const sub=isTotal
-      ? `Total value: ${fn(a.px,0)} ${a.cur} · qty & avg TBD`
-      : `Qty ${fn(a.qty,a.qty<1?6:2)} · Price ${fn(a.px,a.px<100?2:0)} ${a.cur}${a.avg?` · Avg ${fn(a.avg,a.avg<100?2:0)}`:''}`;
-    return`<div class="ocr-item">
-      <div class="ocr-chk${a.selected?' on':''}" onclick="ocrToggle(${i})">${a.selected?'✓':''}</div>
-      <div class="ocr-item-info">
-        <div class="ocr-item-tk">${a.tk}<span class="ocr-item-cat" style="background:${catColor}">${a.cat}</span></div>
-        <div class="ocr-item-sub">${sub}</div>
-      </div>
-    </div>`;
-  }).join('');
-
-  el('btn-ocr-import').style.display=sel?'':'none';
-  el('btn-ocr-import').textContent=`Import ${sel} Asset${sel!==1?'s':''}`;
+  const note={
+    AJAIB:'Ajaib: total IDR value imported. Tap each asset after to add qty & avg price.',
+    BINANCE_TW:'Binance TW: full data extracted.',
+    GATE_IO:'Gate.io: $ = TWD. Review prices.',
+    MAX:'MAX: TWD value used. Check avg price.',
+  }[impPlatform]||'Review all values carefully.';
+  const sel=impDetected.filter(a=>a.selected).length;
+  el('imp-results-hd').textContent=impDetected.length+' asset'+(impDetected.length!==1?'s':'')+' found';
+  el('imp-items-list').innerHTML=
+    `<div style="font-size:12px;color:var(--tx2);background:var(--bg2);border-radius:var(--r);padding:10px 12px;margin-bottom:10px;line-height:1.6">${note}</div>`+
+    impDetected.map((a,i)=>{
+      const col=CATS[a.cat]?.color||'#888';
+      const isTotal=a.pl==='Ajaib';
+      const sub=isTotal
+        ?`Total: ${fn(a.px,0)} ${a.cur} · qty/avg TBD`
+        :`Qty ${fn(a.qty,a.qty<1?6:2)} · Price ${fn(a.px,a.px<100?4:0)} ${a.cur}`+(a.avg?` · Avg ${fn(a.avg,a.avg<100?2:0)}`:'');
+      return`<div class="ocr-item">
+        <div class="ocr-chk${a.selected?' on':''}" onclick="impToggle(${i})">${a.selected?'✓':''}</div>
+        <div class="ocr-item-info">
+          <div class="ocr-item-tk">${a.tk}<span class="ocr-item-cat" style="background:${col}">${a.cat}</span></div>
+          <div class="ocr-item-sub">${sub}</div>
+        </div>
+      </div>`;
+    }).join('');
+  el('btn-imp-import').style.display=sel?'':'none';
+  el('btn-imp-import').textContent=`Import ${sel} Asset${sel!==1?'s':''}`;
 }
-
-function ocrToggle(i){
-  ocrDetected[i].selected=!ocrDetected[i].selected;
-  renderOCRResults();
-}
-
-function ocrImportAll(){
-  const toAdd=ocrDetected.filter(a=>a.selected);
+function impToggle(i){impDetected[i].selected=!impDetected[i].selected;renderImpResults();}
+function doImport(){
+  const toAdd=impDetected.filter(a=>a.selected);
   if(!toAdd.length)return;
-  // Strip internal OCR metadata before saving
-  assets=[...assets,...toAdd.map(a=>{
-    const{_platform,...clean}=a;
-    return{...clean,id:uid()};
-  })];
-  saveA();
-  closeOCR();
-  switchTab('holdings');
+  assets=[...assets,...toAdd.map(a=>({...a,id:uid()}))];
+  saveA();closeImport();switchTab('holdings');
 }
 
 /* ── Init ────────────────────────────────────────────────────────────────────*/
