@@ -9,23 +9,7 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme:light)">
 <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme:dark)">
 <title>Portfolio</title>
-<!-- Tesseract.js v4 — createWorker lives on Tesseract global, NOT destructured -->
-<script>
-(function(){
-  var primary='https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/tesseract.min.js';
-  var fallback='https://unpkg.com/tesseract.js@4.1.4/dist/tesseract.min.js';
-  var s=document.createElement('script');
-  s.src=primary;
-  s.onerror=function(){
-    console.warn('[OCR] Primary CDN failed, trying unpkg…');
-    var s2=document.createElement('script');
-    s2.src=fallback;
-    s2.onerror=function(){console.error('[OCR] Both CDNs failed.');};
-    document.head.appendChild(s2);
-  };
-  document.head.appendChild(s);
-})();
-</script>
+
 <style>
 /* ── Reset & Tokens ────────────────────────────────────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -515,49 +499,6 @@ const SAMPLE=[
   {id:'s9',name:'CTBC',   tk:'',     cat:'BANK_TWD',qty:1,    avg:0,     px:58000,   cur:'TWD', pl:'CTBC',            on:true,bk:true, note:''},
 ];
 
-/* ── Ticker catalogue ────────────────────────────────────────────────────────*/
-const TICKER_CAT={
-  // IDX (Tim's holdings + common large caps)
-  BBCA:'IDX',BMRI:'IDX',BBNI:'IDX',BBRI:'IDX',PGEO:'IDX',
-  SMRA:'IDX',CTRA:'IDX',WBSA:'IDX',WSKT:'IDX',TLKM:'IDX',
-  ASII:'IDX',UNVR:'IDX',GOTO:'IDX',BUKA:'IDX',EXCL:'IDX',
-  PTRO:'IDX',BUMI:'IDX',BRPT:'IDX',ICBP:'IDX',INDF:'IDX',
-  ANTM:'IDX',PGAS:'IDX',ADRO:'IDX',ITMG:'IDX',MDKA:'IDX',
-  // US
-  GOOGL:'US',AVGO:'US',AMZN:'US',NVDA:'US',MSFT:'US',
-  META:'US',QQQ:'US',AAPL:'US',TSLA:'US',GOOG:'US',
-  SPY:'US',VTI:'US',AMD:'US',INTC:'US',NFLX:'US',
-  // TW
-  '0050':'TW','0056':'TW','2330':'TW','2317':'TW','2454':'TW',
-  // Crypto (comprehensive — covers all screenshots)
-  BTC:'CRYPTO',ETH:'CRYPTO',BNB:'CRYPTO',SOL:'CRYPTO',
-  SUI:'CRYPTO',GT:'CRYPTO',XRP:'CRYPTO',ADA:'CRYPTO',
-  DOGE:'CRYPTO',DOT:'CRYPTO',MATIC:'CRYPTO',LINK:'CRYPTO',
-  AVAX:'CRYPTO',UNI:'CRYPTO',TRX:'CRYPTO',TON:'CRYPTO',
-  SHIB:'CRYPTO',LTC:'CRYPTO',BCH:'CRYPTO',FIL:'CRYPTO',
-};
-const STOP_WORDS=new Set([
-  // Generic
-  'THE','AND','FOR','ALL','NET','BUY','SELL','IDR','USD','TWD',
-  'PROFIT','LOSS','TOTAL','RETURN','AVERAGE','CURRENT','PRICE',
-  'VALUE','MARKET','CAP','PER','LOT','GAIN','BALANCE','ACCOUNT',
-  'DATE','TIME','APP','TAP','VIEW','SORT','OPEN','CLOSE','VOL',
-  // Ajaib / Indonesian
-  'NILAI','HARGA','SAHAM','PORTOFOLIO','REKSA','DANA','ASET',
-  'KRIPTO','ORDER','RIWAYAT','BELI','JUAL','PASAR','LIMIT',
-  'EST','TOTAL','ASET','FUT','CAMPURAN',
-  // Binance TW
-  'SPOT','EARN','SEND','TRADE','TRADING','TRANSFER','HISTORY',
-  'SUBSCRIBE','REDEEM','CONVERT','DEPOSIT','WITHDRAW','SETTINGS',
-  'AVAILABLE','UNAVAILABLE','RESERVED','ALLOCATION','RECOMMEND',
-  'TODAY','PNL','DISTRIBUTION','INTEREST','SIMPLE','FLEXIBLE',
-  'DUAL','AUTO','ENABLING','HIGH','LOW',
-  // Gate.io
-  'CUMULATIVE','DILUTED','COST','LAST','HOLDING','GRID',
-  'ROI','APR','INVEST',
-  // MAX / Bitopro
-  'BREAKEVEN','ASSETS','ASSET',
-]);
 
 /* ── State ───────────────────────────────────────────────────────────────────*/
 let assets  =lg('p:a', SAMPLE.map(a=>({...a})));
@@ -816,10 +757,9 @@ function deleteAsset(){
   saveA();closeForm();
 }
 
-/* ── OCR ─────────────────────────────────────────────────────────────────────
-   Uses Tesseract.js v4. Key fix: Tesseract.createWorker (NOT destructured).
-   v4 signature: createWorker(lang, oem?, options?)
-   logger goes in options object, NOT as a separate argument.
+/* ── OCR — Claude Vision API ─────────────────────────────────────────────────
+   No Tesseract / no Web Workers — uses Claude's vision API directly.
+   FileReader → base64 → api.anthropic.com/v1/messages → JSON assets.
 ────────────────────────────────────────────────────────────────────────────── */
 function openOCR(){
   ocrImgURL=null;
@@ -850,8 +790,7 @@ function ocrPickImage(){
     document.body.removeChild(inp);
     const file=e.target.files&&e.target.files[0];
     if(!file)return;
-    // FileReader/base64 instead of createObjectURL — works on all iOS/Android browsers
-    // Bonus: Tesseract.js accepts base64 data URLs directly, no blob URL needed
+    // FileReader/base64 — Claude API receives it directly as image content
     const reader=new FileReader();
     reader.onerror=()=>ocrSetStatus('Failed to read image. Try again.');
     reader.onload=evt=>{
@@ -876,368 +815,139 @@ function ocrPickImage(){
 function ocrSetStatus(msg){el('ocr-status').textContent=msg;}
 function ocrSetProg(p){el('ocr-prog').style.width=Math.min(100,p)+'%';}
 
+/* ── Claude Vision API — replaces Tesseract (blocked by CSP in this env) ────
+   Sends base64 image → Claude → structured JSON array of assets.
+   No Web Workers, no blob URLs, no external CDN dependencies.
+────────────────────────────────────────────────────────────────────────────*/
 async function runOCR(){
   if(!ocrImgURL)return;
 
-  // Guard: Tesseract CDN may still be loading or blocked
-  if(typeof Tesseract==='undefined'){
-    ocrSetStatus('OCR engine not loaded. Check internet connection and reload the page.');
-    return;
-  }
-
   el('btn-ocr-scan').disabled=true;
-  el('btn-ocr-scan').textContent='Scanning…';
+  el('btn-ocr-scan').textContent='Analysing…';
   el('ocr-prog-wrap').style.display='';
   el('ocr-results').style.display='none';
   el('btn-ocr-import').style.display='none';
-  ocrSetProg(5);
-  ocrSetStatus('Loading OCR engine…');
+  ocrSetProg(10);
+  ocrSetStatus('Sending to AI for analysis…');
+
+  // Strip data URL prefix to get raw base64 + media type
+  const mimeMatch=ocrImgURL.match(/^data:([^;]+);base64,(.+)$/s);
+  if(!mimeMatch){
+    ocrSetStatus('Image format error — try selecting the photo again.');
+    el('btn-ocr-scan').disabled=false;
+    el('btn-ocr-scan').textContent='Retry';
+    return;
+  }
+  const [,mediaType,b64]=mimeMatch;
+
+  const SYSTEM=`You are a financial data extractor. The user will send a screenshot from a brokerage or crypto app.
+Extract ALL visible investment holdings and return ONLY a JSON array — no markdown, no explanation, no code fences.
+
+Each item must follow this exact schema:
+{"tk":"TICKER","name":"Display name","cat":"IDX|US|TW|CRYPTO|MUTUAL","cur":"IDR|USD|TWD|USDT","qty":0,"px":0,"avg":0,"pl":"Platform name","note":""}
+
+Platform-specific rules:
+AJAIB (Indonesian, shows "Portofolio"/"Saham", amounts in "Rp"):
+  - cat = IDX for stocks, MUTUAL for "Reksa Dana"
+  - cur = IDR
+  - qty = 1, px = total position value in IDR (e.g. "Rp20.912.500" → px=20912500, Indonesian dots are thousand separators)
+  - avg = 0 (not shown in list view)
+  - note = "Total IDR value — add qty & avg price for P&L"
+  - pl = "Ajaib"
+
+BINANCE TW (shows "Spot Balance", amounts in "NT$"):
+  - cat = CRYPTO
+  - cur = TWD
+  - qty = the spot balance number (e.g. "0.00632258")
+  - px = round(NT$ total value / qty) to 2 decimal places
+  - avg = the "Average Price" NT$ value shown on screen
+  - pl = "Binance TW"
+
+GATE.IO (shows "Est. Total Value", "Spot Trading Performance", uses "$" which means TWD):
+  - cat = CRYPTO
+  - cur = TWD
+  - qty = the quantity shown below total value (e.g. "0.3 GT" → qty=0.3)
+  - px = "Last Price" value in TWD
+  - avg = "Diluted Cost" value in TWD
+  - pl = "Gate.io"
+
+MAX / BITOPRO (shows "Total assets", "Breakeven price", value in "TWD"):
+  - cat = CRYPTO
+  - cur = TWD
+  - qty = the asset quantity shown (e.g. "68.76117 SUI" → qty=68.76117)
+  - px = round(TWD total value / qty) to 2 decimal places
+  - avg = 0 (breakeven is in USDT, cannot reliably convert without live FX)
+  - note = "Breakeven: [breakeven USDT value] USDT"
+  - pl = "MAX/Bitopro"
+
+GENERAL RULES:
+- Return only assets with actual holdings (skip crypto with 0 balance shown as "Aset Kripto Favorit" suggestions)
+- Tickers must be uppercase
+- All numbers must be plain numbers (no currency symbols, no commas, no dots-as-thousands)
+- If a field cannot be determined, use 0 for numbers or "" for strings
+- Return [] if no holdings are visible`;
 
   try{
-    const worker=await Tesseract.createWorker('eng',1,{
-      logger:m=>{
-        if(m.status==='loading tesseract core'){ocrSetStatus('Loading OCR engine…');ocrSetProg(15);}
-        if(m.status==='loading language traineddata'){ocrSetStatus('Downloading language data…');ocrSetProg(30);}
-        if(m.status==='initializing api'){ocrSetStatus('Initialising…');ocrSetProg(45);}
-        if(m.status==='recognizing text'){
-          ocrSetStatus('Recognising text…');
-          ocrSetProg(45+Math.round(m.progress*50));
-        }
-      }
+    ocrSetProg(30);
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1500,
+        system:SYSTEM,
+        messages:[{
+          role:'user',
+          content:[
+            {type:'image',source:{type:'base64',media_type:mediaType,data:b64}},
+            {type:'text',text:'Extract all investment holdings from this screenshot. Return only the JSON array.'}
+          ]
+        }]
+      })
     });
-    ocrSetProg(96);
-    ocrSetStatus('Parsing results…');
-    const {data:{text}}=await worker.recognize(ocrImgURL);
-    await worker.terminate();
+    ocrSetProg(80);
+    if(!resp.ok){
+      const errBody=await resp.text().catch(()=>'');
+      throw new Error(`API ${resp.status}: ${errBody.slice(0,200)}`);
+    }
+    const data=await resp.json();
+    ocrSetProg(90);
+    const raw=data.content?.find(b=>b.type==='text')?.text||'[]';
+    // Strip any accidental markdown fences
+    const cleaned=raw.replace(/^```[a-z]*\n?/i,'').replace(/\n?```$/,'').trim();
+    let parsed;
+    try{parsed=JSON.parse(cleaned);}
+    catch(e){throw new Error('AI returned unexpected format: '+cleaned.slice(0,100));}
+
+    if(!Array.isArray(parsed))throw new Error('Expected array, got: '+typeof parsed);
+
+    // Normalise and validate each item
+    ocrDetected=parsed
+      .filter(a=>a&&a.tk)
+      .map(a=>({
+        id:uid(),
+        name:a.name||a.tk,
+        tk:String(a.tk).toUpperCase(),
+        cat:['IDX','US','TW','CRYPTO','MUTUAL','BANK_TWD','BANK_IDR'].includes(a.cat)?a.cat:'CRYPTO',
+        cur:['IDR','USD','TWD','USDT'].includes(a.cur)?a.cur:'TWD',
+        qty:Number(a.qty)||0,
+        px:Number(a.px)||0,
+        avg:Number(a.avg)||0,
+        pl:a.pl||'',
+        note:a.note||'',
+        bk:false,on:true,selected:true,
+      }))
+      .filter(a=>a.qty>0||a.px>0); // drop rows where nothing was parsed
+
     ocrSetProg(100);
-    ocrDetected=parseOCRText(text);
     renderOCRResults();
   }catch(err){
-    // err may be a string, Error, or plain object — extract message safely
-    const msg=err instanceof Error
-      ? err.message
-      : (typeof err==='string' ? err : (err?.message||JSON.stringify(err)||'Unknown error'));
-    ocrSetStatus('Error: '+msg+' — Check internet connection and retry.');
+    const msg=err instanceof Error?err.message:String(err);
+    ocrSetStatus('Error: '+msg);
     el('btn-ocr-scan').disabled=false;
-    el('btn-ocr-scan').textContent='Retry Scan';
-    console.error('[OCR] Full error:',err);
+    el('btn-ocr-scan').textContent='Retry';
+    console.error('[OCR]',err);
   }
-}
-
-/* ── OCR Parsing — Platform-Specific ─────────────────────────────────────────
-   Four dedicated parsers based on actual screenshot layouts observed:
-   • Ajaib      — list view: ticker + total IDR position value (no qty/px breakdown)
-   • Binance TW — detail view: qty + NT$ value + Average Price in NT$
-   • Gate.io    — detail view: uses "$" but = TWD; Last Price = px, Diluted Cost = avg/unit
-   • MAX        — detail view: qty + TWD value + breakeven in USDT
-   • Generic    — fallback heuristic for unknown platforms
-───────────────────────────────────────────────────────────────────────────── */
-
-// ── Number parsers ──────────────────────────────────────────────────────────
-function parseIDRDots(s){
-  // "20.912.500" → 20912500 (Indonesian: dot = thousands separator)
-  // "9.350"      → 9350
-  // "0.179"      → 0.179 (decimal — NOT IDR format)
-  if(!s)return 0;
-  if(/^\d{1,3}(\.\d{3})+$/.test(s))return parseInt(s.replace(/\./g,''),10);
-  return parseFloat(s)||0;
-}
-function parseDec(s){
-  // Standard decimal: "15,078.91" → 15078.91 | "159.22" → 159.22
-  if(!s)return 0;
-  return parseFloat(s.replace(/,/g,''))||0;
-}
-function findTitle(lines,maxLines=10){
-  // First standalone 2-6 char uppercase word = ticker/asset name
-  for(let i=0;i<Math.min(maxLines,lines.length);i++){
-    const m=lines[i].match(/^([A-Z]{2,6})$/);
-    if(m&&!STOP_WORDS.has(m[1]))return m[1];
-  }
-  return null;
-}
-
-// ── Platform detector ───────────────────────────────────────────────────────
-function detectPlatform(text){
-  // Ajaib: Indonesian app with "Portofolio" / "Saham" tabs + "Rp" amounts
-  if((/Portofolio|Saham|Reksa Dana/i.test(text))&&/Rp\d/.test(text))return'AJAIB';
-  // Binance TW: "Spot Balance" + "NT$" + "Average Price"
-  if(/Spot Balance/i.test(text)&&/NT\$/.test(text)&&/Average Price/i.test(text))return'BINANCE_TW';
-  // Gate.io: "Est. Total Value" + "Spot Trading Performance"
-  if(/Est\.?\s*Total Value/i.test(text)&&/Spot Trading Performance/i.test(text))return'GATE_IO';
-  // MAX / Bitopro: "Total assets" + "Breakeven price" + "TWD"
-  if(/Total assets/i.test(text)&&/Breakeven price/i.test(text)&&/TWD/.test(text))return'MAX';
-  return'GENERIC';
-}
-
-// ── Dispatcher ──────────────────────────────────────────────────────────────
-function parseOCRText(rawText){
-  const platform=detectPlatform(rawText);
-  console.log('[OCR] Platform detected:',platform);
-  switch(platform){
-    case'AJAIB':    return parseAjaib(rawText);
-    case'BINANCE_TW':return parseBinanceTW(rawText);
-    case'GATE_IO':  return parseGateIO(rawText);
-    case'MAX':      return parseMAX(rawText);
-    default:        return parseGeneric(rawText);
-  }
-}
-
-// ── Ajaib parser ────────────────────────────────────────────────────────────
-// Screenshot: list view showing TICKER + company name + total position value in IDR
-// NOTE: only total value is visible — qty/avg cannot be extracted from this view.
-// Imported as qty=1, px=totalIDR so portfolio value calc is correct.
-// P&L will be blank until user edits in qty + avg price.
-function parseAjaib(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
-  const results=[];
-  const seen=new Set();
-
-  for(let i=0;i<lines.length;i++){
-    const line=lines[i];
-    // Ticker: 2-5 uppercase letters on own line, optionally followed by " X" (delisted marker)
-    const tkMatch=line.match(/^([A-Z]{2,5})(?:\s+X)?$/);
-    if(!tkMatch)continue;
-    const ticker=tkMatch[1];
-    if(STOP_WORDS.has(ticker)||seen.has(ticker))continue;
-
-    // Look for "Rp[number]" in the next 1-4 lines
-    // First Rp match after ticker = position value (always positive)
-    // Second Rp match = loss/gain amount — we skip it by taking FIRST only
-    for(let j=i+1;j<Math.min(i+5,lines.length);j++){
-      const l=lines[j];
-      // Skip lines that are clearly loss/gain (contain triangle chars, minus, or %)
-      if(/[▼▲vV]/.test(l)&&/%/.test(l))continue;
-      if(/-Rp/.test(l)||/\+Rp/.test(l))continue;
-
-      const rpMatch=l.match(/Rp([\d\.]+)/);
-      if(rpMatch){
-        const totalIDR=parseIDRDots(rpMatch[1]);
-        if(totalIDR<100000)continue; // sanity: IDX positions should be at least 100k IDR
-        seen.add(ticker);
-        results.push({
-          id:uid(),name:ticker,tk:ticker,
-          cat:TICKER_CAT[ticker]||'IDX',cur:'IDR',
-          qty:1,px:totalIDR,avg:0,
-          pl:'Ajaib',
-          note:'Total value — tap to add qty & avg price for P&L',
-          bk:false,on:true,selected:true,
-          _platform:'AJAIB',
-        });
-        break;
-      }
-    }
-  }
-  return results;
-}
-
-// ── Binance TW parser ────────────────────────────────────────────────────────
-// Screenshot: individual asset page (BTC, BNB, SOL, SUI pages)
-// Gives: ticker, qty, total value in NT$, avg price in NT$
-// Current price derived as valueTWD / qty
-function parseBinanceTW(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
-
-  // Ticker: first standalone uppercase word before "Spot Balance"
-  let ticker=null;
-  const sbIdx=lines.findIndex(l=>/Spot Balance/i.test(l));
-  const searchTo=sbIdx>0?sbIdx:Math.min(10,lines.length);
-  for(let i=0;i<searchTo;i++){
-    const m=lines[i].match(/^([A-Z]{2,6})$/);
-    if(m&&!STOP_WORDS.has(m[1])){ticker=m[1];break;}
-  }
-  if(!ticker)return[];
-
-  let qty=0,valueTWD=0,avgTWD=0;
-
-  // Qty: best source = "Available" field (mirrors spot balance, excludes locked)
-  // Layout: "Available | Unavailable" header, then "[qty] | 0.00" values
-  for(let i=0;i<lines.length-1;i++){
-    if(/Available/i.test(lines[i])&&!/Unavailable/i.test(lines[i])){
-      // Next line: just the qty number
-      const n=parseFloat(lines[i+1]);
-      if(!isNaN(n)&&n>0){qty=n;break;}
-    }
-    if(/Available\s+Unavailable/i.test(lines[i])){
-      // Next line: "0.00632258 0.00" or just "0.00632258"
-      const nums=(lines[i+1].match(/[\d.]+/g)||[]).map(Number).filter(n=>n>0);
-      if(nums.length){qty=nums[0];break;}
-    }
-  }
-  // Fallback: large decimal in lines 2-8 (the spot balance number)
-  if(!qty){
-    for(let i=1;i<Math.min(9,lines.length);i++){
-      const m=lines[i].match(/^([\d]+\.[\d]+)$/);
-      if(m){const n=parseFloat(m[1]);if(n>0&&n<1e10){qty=n;break;}}
-    }
-  }
-
-  // NT$ value: all NT$ amounts in text; first one = total value
-  // "NT$" may OCR as "NT$", "NTS", "NT $", "NT$"
-  const ntRegex=/NT[\s]?\$?([\d,]+\.?\d*)/g;
-  const ntMatches=[...text.matchAll(ntRegex)].map(m=>parseDec(m[1])).filter(n=>n>0);
-  if(ntMatches.length)valueTWD=ntMatches[0];
-
-  // Average price: NT$ amount immediately after "Average Price"
-  const avgSection=text.match(/Average Price[\s\S]{0,120}/i);
-  if(avgSection){
-    const ants=[...avgSection[0].matchAll(ntRegex)].map(m=>parseDec(m[1])).filter(n=>n>0);
-    if(ants.length)avgTWD=ants[0];
-    // Make sure we didn't grab the value again (avg should differ from total value)
-    if(avgTWD===valueTWD&&ants.length>1)avgTWD=ants[1];
-  }
-
-  const pxTWD=qty>0&&valueTWD>0?Math.round((valueTWD/qty)*100)/100:0;
-  if(!qty||!pxTWD)return[];
-
-  return[{
-    id:uid(),name:ticker,tk:ticker,
-    cat:TICKER_CAT[ticker]||'CRYPTO',cur:'TWD',
-    qty,px:pxTWD,avg:avgTWD,
-    pl:'Binance TW',note:'',bk:false,on:true,selected:true,
-    _platform:'BINANCE_TW',
-  }];
-}
-
-// ── Gate.io parser ────────────────────────────────────────────────────────────
-// Screenshot: individual asset page (BTC, GT pages)
-// NOTE: Gate.io TW shows prices in TWD but uses "$" symbol.
-// "Last Price" = current price per unit in TWD
-// "Diluted Cost" = avg cost per unit in TWD (not total position cost)
-// qty shown as "[qty] [TICKER]" below "Est. Total Value"
-function parseGateIO(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
-  const ticker=findTitle(lines);
-  if(!ticker)return[];
-
-  let qty=0,pxTWD=0,avgTWD=0;
-
-  // Qty: "[number] [TICKER]" pattern anywhere in text
-  const qtyRe=new RegExp('([\\d]+\\.?[\\d]*)\\s+'+ticker+'\\b');
-  const qtyMatch=text.match(qtyRe);
-  if(qtyMatch)qty=parseFloat(qtyMatch[1]);
-
-  // Last Price: number after "Last Price" label
-  // "$" in Gate.io TW = TWD. May OCR as "$ 235.24" or "$235.24"
-  const dollarNum=s=>parseDec(s.replace(/[$\s]/g,''));
-  const lastSection=text.match(/Last Price[\s\S]{0,100}/i);
-  if(lastSection){
-    const m=lastSection[0].match(/\$\s*([\d,]+\.?\d*)/);
-    if(m)pxTWD=parseDec(m[1]);
-  }
-
-  // Diluted Cost: avg per unit in TWD, after "Diluted Cost"
-  const dilSection=text.match(/Diluted Cost[\s\S]{0,100}/i);
-  if(dilSection){
-    const m=dilSection[0].match(/\$\s*([\d,]+\.?\d*)/);
-    if(m)avgTWD=parseDec(m[1]);
-  }
-
-  // Fallback px: Est. Total Value / qty
-  if(!pxTWD&&qty>0){
-    const tvSection=text.match(/Est\.?\s*Total Value[\s\S]{0,80}/i);
-    if(tvSection){
-      const m=tvSection[0].match(/\$\s*([\d,]+\.?\d*)/);
-      if(m)pxTWD=Math.round((parseDec(m[1])/qty)*100)/100;
-    }
-  }
-
-  if(!qty||!pxTWD)return[];
-  return[{
-    id:uid(),name:ticker,tk:ticker,
-    cat:TICKER_CAT[ticker]||'CRYPTO',cur:'TWD',
-    qty,px:pxTWD,avg:avgTWD,
-    pl:'Gate.io',note:'',bk:false,on:true,selected:true,
-    _platform:'GATE_IO',
-  }];
-}
-
-// ── MAX / Bitopro parser ─────────────────────────────────────────────────────
-// Screenshot: individual asset page (BTC, SUI pages)
-// Layout: "Total assets" → "[qty] [TICKER]" → "≈ [value] TWD"
-//         "Breakeven price" → "[breakeven] USDT"
-// px = valueTWD / qty
-// avg = breakevenUSDT * fx.USDT_TWD (converts USDT cost basis → TWD)
-function parseMAX(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
-  const ticker=findTitle(lines);
-  if(!ticker)return[];
-
-  let qty=0,valueTWD=0,breakevenUSDT=0;
-
-  // Qty: "[number] [TICKER]"
-  const qtyRe=new RegExp('([\\d.]+)\\s+'+ticker+'\\b');
-  const qtyMatch=text.match(qtyRe);
-  if(qtyMatch)qty=parseFloat(qtyMatch[1]);
-
-  // TWD value: "≈ 15,078.91 TWD" or "15,078.91 TWD"
-  // "≈" may OCR as "=", "~", or be dropped
-  const twdMatch=text.match(/[≈=~]?\s*([\d,]+\.?\d*)\s*TWD/);
-  if(twdMatch)valueTWD=parseDec(twdMatch[1]);
-
-  // Breakeven price in USDT
-  const bkSection=text.match(/Breakeven price[\s\S]{0,100}/i);
-  if(bkSection){
-    const m=bkSection[0].match(/([\d,]+\.?\d*)\s*USDT/);
-    if(m)breakevenUSDT=parseDec(m[1]);
-  }
-
-  const pxTWD=qty>0&&valueTWD>0?Math.round((valueTWD/qty)*100)/100:0;
-  // Convert USDT avg → TWD using stored fx rate (approximation)
-  const avgTWD=breakevenUSDT>0?Math.round(breakevenUSDT*fx.USDT_TWD*100)/100:0;
-
-  if(!qty||!pxTWD)return[];
-  return[{
-    id:uid(),name:ticker,tk:ticker,
-    cat:TICKER_CAT[ticker]||'CRYPTO',cur:'TWD',
-    qty,px:pxTWD,avg:avgTWD,
-    pl:'MAX/Bitopro',note:'',bk:false,on:true,selected:true,
-    _platform:'MAX',
-  }];
-}
-
-// ── Generic fallback parser ──────────────────────────────────────────────────
-// Used when platform is unknown. Best-effort ticker + number extraction.
-function parseGeneric(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(l=>l.length>1);
-  const results=[];
-  const seen=new Set();
-
-  for(let i=0;i<lines.length;i++){
-    const line=lines[i];
-    const upperTokens=line.match(/\b([A-Z0-9]{2,6})\b/g)||[];
-    let ticker=null;
-    for(const t of upperTokens){
-      if(TICKER_CAT[t]&&!seen.has(t)){ticker=t;break;}
-    }
-    if(!ticker){
-      for(const t of upperTokens){
-        if(t.length>=3&&t.length<=5&&!STOP_WORDS.has(t)&&!seen.has(t)&&/[A-Z]/.test(t)){ticker=t;break;}
-      }
-    }
-    if(!ticker)continue;
-    const ctx=lines.slice(Math.max(0,i-1),Math.min(lines.length,i+3)).join(' ');
-    const nums=(ctx.match(/[\d][0-9,\.]+/g)||[]).map(n=>{
-      if(/^\d{1,3}(\.\d{3})+$/.test(n))return parseInt(n.replace(/\./g,''),10);
-      return parseDec(n);
-    }).filter(n=>!isNaN(n)&&n>0&&n<1e12);
-    if(!nums.length)continue;
-    const sorted=[...nums].sort((a,b)=>a-b);
-    let qty=1,px=sorted[sorted.length-1];
-    if(nums.length>=2){
-      const si=sorted.find(n=>n<=10000&&n===Math.round(n));
-      if(si&&si!==sorted[sorted.length-1]){qty=si;px=sorted[sorted.length-1];}
-      else{qty=sorted[0];px=sorted[sorted.length-1];}
-    }
-    seen.add(ticker);
-    results.push({
-      id:uid(),name:ticker,tk:ticker,
-      cat:TICKER_CAT[ticker]||'IDX',
-      cur:CATS[TICKER_CAT[ticker]||'IDX']?.cur||'IDR',
-      qty,px,avg:0,pl:'',note:'',bk:false,on:true,selected:true,
-      _platform:'GENERIC',
-    });
-  }
-  return results;
 }
 
 function renderOCRResults(){
