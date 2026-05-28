@@ -5,972 +5,1131 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Portfolio">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme:light)">
-<meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme:dark)">
-<title>Portfolio</title>
+<meta name="apple-mobile-web-app-title" content="Wealth">
+<meta name="theme-color" content="#08080b">
+<title>Wealth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#ffffff;--bg2:#f6f6f6;--bg3:#ececec;
-  --tx:#0f0f0f;--tx2:#58585a;--tx3:#ababab;
-  --bd:rgba(0,0,0,.08);--bd2:rgba(0,0,0,.15);
-  --ok:#0a7040;--no:#bf3030;--bl:#1760a0;
-  --r:10px;--rl:14px;
+  --bg:#08080b;--bg1:#111116;--bg2:#191920;--bg3:#222229;
+  --tx:#f0ede6;--tx2:#8a8a9c;--tx3:#42424e;
+  --gold:#c9a870;--goldl:#e0bf8a;--golddim:rgba(201,168,112,.12);
+  --ok:#2eb870;--no:#e04f4f;--okdim:rgba(46,184,112,.12);--nodim:rgba(224,79,79,.10);
+  --bd:rgba(255,255,255,.06);--bd2:rgba(255,255,255,.12);
+  --r:12px;--pill:100px;
   --sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);
-  --sal:env(safe-area-inset-left,0px);--sar:env(safe-area-inset-right,0px);
+  --font-d:'Syne',-apple-system,sans-serif;--font-m:'DM Mono',ui-monospace,monospace;
 }
-@media(prefers-color-scheme:dark){:root{
-  --bg:#0f0f0f;--bg2:#1a1a1c;--bg3:#252528;
-  --tx:#f2f2f2;--tx2:#9a9a9c;--tx3:#4a4a4c;
-  --bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.16);
-}}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif;
-  background:var(--bg);color:var(--tx);min-height:100dvh;overscroll-behavior:none;
-  -webkit-font-smoothing:antialiased;}
-#wrap{max-width:480px;margin:0 auto;
-  padding-top:var(--sat);padding-bottom:calc(var(--sab)+64px);
-  padding-left:var(--sal);padding-right:var(--sar);}
+html,body{height:100%;background:#000;overflow:hidden;margin:0;padding:0}
+body{font-family:var(--font-d);-webkit-font-smoothing:antialiased;color:var(--tx)}
+button,input,select,textarea{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit;outline:none}
+input,select,textarea{cursor:text}
+
+#app{background:var(--bg);width:100%;height:100dvh;max-width:480px;margin:0 auto;
+  display:flex;flex-direction:column;overflow:hidden;position:relative}
 
 /* Header */
-#hdr{position:sticky;top:var(--sat);background:var(--bg);border-bottom:.5px solid var(--bd);
-  z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
-#hdr-row{padding:14px 1rem 0;display:flex;justify-content:space-between;align-items:center;}
-#hdr-title{font-size:18px;font-weight:700;letter-spacing:-.5px;}
-#hdr-right{display:flex;align-items:center;gap:8px;}
-#btn-add{display:none;align-items:center;gap:4px;font-size:13px;padding:6px 12px;border-radius:100px;}
-#btn-scan-open{display:flex;align-items:center;gap:4px;font-size:13px;padding:6px 12px;border-radius:100px;}
-#hdr-tabs{display:flex;}
-.htab{flex:1;background:none;border:none;border-bottom:2px solid transparent;
-  padding:8px 0 9px;display:flex;flex-direction:column;align-items:center;gap:3px;
-  cursor:pointer;color:var(--tx3);font-size:9px;font-weight:700;letter-spacing:.07em;transition:color .15s;}
-.htab.on{color:var(--tx);border-bottom-color:var(--tx);}
-.htab svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+#hdr{background:rgba(8,8,11,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:.5px solid var(--bd);padding:var(--sat) 1rem 0;flex-shrink:0;z-index:50}
+.hdr-row{height:52px;display:flex;align-items:center;justify-content:space-between}
+.wordmark{font-size:14px;font-weight:800;letter-spacing:.06em;color:var(--gold)}
+.wordmark .sub{font-size:8px;font-weight:600;letter-spacing:.06em;color:var(--tx3);margin-left:6px;vertical-align:1px}
+.hdr-right{display:flex;gap:6px}
+.icon-btn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--bg2);border:.5px solid var(--bd2);color:var(--gold);transition:opacity .12s}
+.icon-btn.ghost{background:transparent;border-color:transparent;color:var(--tx2)}
+.icon-btn:active{opacity:.55}
+.icon-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.spinning svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* Nav */
-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;
-  background:var(--bg);border-top:.5px solid var(--bd);display:flex;z-index:200;
-  padding-bottom:var(--sab);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
-nav button{flex:1;background:none;border:none;padding:9px 0 6px;display:flex;flex-direction:column;
-  align-items:center;gap:3px;color:var(--tx3);font-size:9px;font-weight:700;letter-spacing:.07em;
-  cursor:pointer;transition:color .15s;}
-nav button.on{color:var(--tx);}
-nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+nav{background:rgba(8,8,11,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:.5px solid var(--bd);display:flex;flex-shrink:0;padding-bottom:var(--sab);z-index:50}
+.nbt{flex:1;padding:10px 0 8px;display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:var(--tx3);font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;transition:color .15s}
+.nbt svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.nbt.on{color:var(--gold)}
 
-/* Views */
-.view{display:none;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.view.on{display:block;animation:fadeUp .22s ease;}
-#view-form,#view-import{display:none;}
-#view-form.on,#view-import.on{display:block;animation:fadeUp .22s ease;}
+/* Main scroll */
+#main{flex:1;overflow:hidden;position:relative;min-height:0}
+.view{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;display:none;scrollbar-width:none}
+.view::-webkit-scrollbar{display:none}
+.view.on{display:block}
 
-/* Inputs */
-input,select,textarea{font-family:inherit;font-size:15px;background:var(--bg2);color:var(--tx);
-  border:.5px solid var(--bd2);border-radius:var(--r);padding:11px 13px;width:100%;
-  outline:none;-webkit-appearance:none;appearance:none;transition:border-color .15s;}
-input:focus,select:focus,textarea:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(23,96,160,.12);}
-input::placeholder,textarea::placeholder{color:var(--tx3);}
-.lbl{font-size:12px;color:var(--tx2);display:block;margin-bottom:5px;font-weight:500;}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
-.mb{margin-bottom:14px;}
+/* Common */
+.sec-hdr{padding:7px 1rem;background:var(--bg1);font-size:8.5px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--tx2);display:flex;justify-content:space-between}
+.sec-hdr-r{font-family:var(--font-m);font-size:8.5px;color:var(--tx3);letter-spacing:-.1px}
+.tab-hd{padding:1.1rem 1rem .8rem;border-bottom:.5px solid var(--bd)}
+.tab-hd .ttl{font-size:18px;font-weight:800;letter-spacing:-.4px}
+.tab-hd .sub{font-size:11.5px;color:var(--tx2);margin-top:4px}
+.eyebrow{font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--tx3)}
+.pill{font-family:var(--font-m);font-size:10px;font-weight:500;padding:3px 9px;border-radius:100px;
+  white-space:nowrap;line-height:1.4;letter-spacing:-.2px}
+.pill.pos{background:var(--okdim);color:var(--ok)}
+.pill.neg{background:var(--nodim);color:var(--no)}
+.pill.neu{background:var(--bg3);color:var(--tx2)}
+.chips-row{display:flex;gap:5px;overflow-x:auto;padding:.65rem 1rem;border-bottom:.5px solid var(--bd);scrollbar-width:none}
+.chips-row::-webkit-scrollbar{display:none}
+.chip{font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:5px 13px;
+  border-radius:100px;border:.5px solid var(--bd2);color:var(--tx3);white-space:nowrap;transition:all .15s;line-height:1.4}
+.chip.on{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.sort-strip{display:flex;align-items:center;gap:5px;padding:.5rem 1rem;border-bottom:.5px solid var(--bd)}
+.sort-strip>span{font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin-right:4px}
+.srt{font-size:8.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:4px 11px;
+  border-radius:100px;border:.5px solid var(--bd2);color:var(--tx3);transition:all .15s}
+.srt.on{background:var(--tx3);color:var(--bg)}
+.empty{padding:3rem 1rem;text-align:center;color:var(--tx3);font-size:12px;line-height:2}
 
-/* Buttons */
-.btn{font-family:inherit;font-size:13px;background:var(--bg);color:var(--tx);
-  border:.5px solid var(--bd2);border-radius:var(--r);padding:10px 15px;cursor:pointer;
-  transition:opacity .12s,background .12s;}
-.btn:active{opacity:.55;}
-.btn-p{font-family:inherit;background:var(--tx);color:var(--bg);border:none;font-weight:700;
-  width:100%;padding:14px 0;border-radius:var(--r);font-size:16px;cursor:pointer;
-  margin-top:6px;letter-spacing:-.2px;transition:opacity .12s;}
-.btn-p:active{opacity:.7;}
-.btn-d{color:var(--no);border-color:var(--no);}
+/* Hero */
+.hero{padding:1.3rem 1rem 1rem;border-bottom:.5px solid var(--bd)}
+.nw-big{font-family:var(--font-m);font-size:46px;font-weight:500;letter-spacing:-3px;line-height:1;margin:8px 0 7px}
+.hero-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:4px}
+.hero-sub{font-size:11.5px;color:var(--tx2)}
+.hero-sub strong{color:var(--tx);font-weight:700}
 
-/* Chips */
-.chip{display:inline-block;padding:5px 12px;border-radius:100px;font-size:12px;font-weight:500;
-  cursor:pointer;white-space:nowrap;border:.5px solid var(--bd2);color:var(--tx2);transition:all .15s;}
-.chip.on{background:var(--tx);color:var(--bg);border-color:var(--tx);}
+/* Stats */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:.5px solid var(--bd)}
+.stat{padding:12px 1rem;border-right:.5px solid var(--bd)}
+.stat:last-child{border-right:none}
+.stat-l{font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin-bottom:5px}
+.stat-v{font-family:var(--font-m);font-size:14px;font-weight:500;letter-spacing:-.3px;white-space:nowrap}
 
-/* Dashboard */
-#hero{padding:1.5rem 1rem 1.25rem;border-bottom:.5px solid var(--bd);}
-#nw-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-bottom:8px;}
-#nw-val{font-size:44px;font-weight:700;letter-spacing:-2.5px;line-height:1;margin-bottom:6px;}
-#nw-sub{font-size:14px;color:var(--tx2);}
-#stats-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:1.1rem 1rem;}
-.stat{background:var(--bg2);border-radius:var(--r);padding:13px 15px;}
-.stat-lbl{font-size:11px;color:var(--tx3);margin-bottom:5px;font-weight:500;}
-.stat-val{font-size:21px;font-weight:700;letter-spacing:-.5px;}
-#alloc-wrap{padding:0 1rem 1.25rem;}
-#alloc-hd{font-size:14px;font-weight:600;margin-bottom:12px;}
-#alloc-inner{display:flex;align-items:center;gap:12px;}
-#alloc-legend{flex:1;display:flex;flex-direction:column;gap:8px;}
-.leg-row{display:flex;align-items:center;gap:7px;}
-.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.leg-name{font-size:12px;color:var(--tx2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.leg-pct{font-size:12px;font-weight:700;}
-#fx-strip{padding:.8rem 1rem;border-top:.5px solid var(--bd);display:flex;gap:18px;font-size:11px;color:var(--tx3);flex-wrap:wrap;}
+/* Flow section */
+.flow-sec{padding:1rem;border-bottom:.5px solid var(--bd)}
+.flow-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.flow-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-radius:11px;overflow:hidden;margin-bottom:10px}
+.flow-cell{background:var(--bg1);padding:9px 11px}
+.flow-cell .l{font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin-bottom:4px}
+.flow-cell .v{font-family:var(--font-m);font-size:13px;font-weight:500;letter-spacing:-.3px}
+.flow-cell .v.pos{color:var(--ok)}.flow-cell .v.neg{color:var(--no)}
+.flow-bar-row{display:flex;align-items:center;gap:8px}
+.flow-bar-lbl{font-size:8.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);white-space:nowrap}
+.flow-track{flex:1;height:4px;background:var(--bg3);border-radius:100px;overflow:hidden}
+.flow-fill{height:100%;background:linear-gradient(90deg,var(--ok),#5ed49b);border-radius:100px;transition:width .6s}
+.flow-rate{font-family:var(--font-m);font-size:10px;color:var(--ok);white-space:nowrap}
 
-/* Holdings */
-#filter-wrap{overflow-x:auto;padding:.8rem 1rem .6rem;border-bottom:.5px solid var(--bd);}
-#filter-chips{display:flex;gap:7px;width:max-content;}
-#sort-row{padding:.5rem 1rem;display:flex;align-items:center;gap:8px;border-bottom:.5px solid var(--bd);}
-#sort-row span{font-size:12px;color:var(--tx3);}
-.sort-btn{font-size:12px;padding:3px 9px;border-radius:100px;cursor:pointer;
-  background:none;border:.5px solid var(--bd2);color:var(--tx2);font-family:inherit;}
-.sort-btn.on{background:var(--tx3);color:var(--bg);}
-#holdings-total{padding:.7rem 1rem;display:flex;justify-content:space-between;
-  align-items:center;border-bottom:.5px solid var(--bd);}
-#holdings-total span:first-child{font-size:12px;color:var(--tx3);}
-#holdings-total span:last-child{font-size:14px;font-weight:700;}
-.sec-hdr{padding:5px 1rem;background:var(--bg2);font-size:10px;font-weight:700;
-  color:var(--tx2);text-transform:uppercase;letter-spacing:.08em;}
-.asset-row{padding:13px 1rem;border-bottom:.5px solid var(--bd);display:flex;align-items:center;
-  gap:11px;cursor:pointer;background:var(--bg);transition:background .1s;}
-.asset-row:active{background:var(--bg2);}
-.a-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:1px;}
-.a-info{flex:1;min-width:0;}
-.a-top{display:flex;align-items:baseline;gap:6px;}
-.a-name{font-weight:700;font-size:15px;letter-spacing:-.2px;}
-.a-alias{font-size:11px;color:var(--tx3);}
-.a-sub{font-size:12px;color:var(--tx3);margin-top:1px;}
-.a-right{text-align:right;flex-shrink:0;}
-.a-val{font-size:15px;font-weight:700;letter-spacing:-.3px;}
-.a-pnl{font-size:12px;margin-top:1px;font-weight:500;}
-.a-chev{opacity:.35;}
-.a-chev svg{width:14px;height:14px;stroke:var(--tx);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-#empty-hold{padding:4rem 1rem;text-align:center;}
-#empty-hold p{color:var(--tx3);font-size:15px;margin-bottom:18px;}
+/* Goal */
+.goal-bar{padding:1rem;border-bottom:.5px solid var(--bd)}
+.goal-hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.goal-lbl{font-size:8.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3)}
+.goal-val{font-family:var(--font-m);font-size:10px;color:var(--tx2);letter-spacing:-.1px}
+.goal-val strong{color:var(--tx);font-weight:500}
+.goal-track{height:5px;background:var(--bg3);border-radius:100px;overflow:hidden}
+.goal-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--gold),var(--goldl));transition:width .8s}
+.goal-proj{font-family:var(--font-m);font-size:9.5px;color:var(--tx3);margin-top:6px;letter-spacing:-.1px}
+.goal-proj strong{color:var(--gold)}
 
-/* Form */
-#view-form{padding:0 0 2rem;}
-#form-nav{padding:14px 1rem 12px;display:flex;justify-content:space-between;align-items:center;
-  border-bottom:.5px solid var(--bd);}
-#form-back-btn{background:none;border:none;color:var(--bl);display:flex;align-items:center;
-  gap:5px;font-size:14px;cursor:pointer;font-family:inherit;}
-#form-back-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-#form-title-txt{font-size:17px;font-weight:700;}
-#btn-del{padding:6px 11px;font-size:12px;display:none;}
-#form-body{padding:1rem;}
-#cat-chips{display:flex;gap:6px;flex-wrap:wrap;}
+/* Allocation */
+.alloc-sec{padding:1rem;border-bottom:.5px solid var(--bd)}
+.alloc-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.alloc-toggle{display:flex;gap:3px;background:var(--bg2);border:.5px solid var(--bd);border-radius:100px;padding:2px}
+.alloc-toggle button{font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 9px;border-radius:100px;color:var(--tx3);transition:all .15s}
+.alloc-toggle button.on{background:var(--tx3);color:var(--bg)}
+.alloc-bar{height:6px;border-radius:100px;overflow:hidden;display:flex;gap:1px;background:var(--bg3);margin-bottom:12px}
+.alloc-seg{height:100%}
+.alloc-rows{display:flex;flex-direction:column;gap:7px}
+.ar{display:flex;align-items:center;gap:8px}
+.ar-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ar-name{flex:1;font-size:11.5px;color:var(--tx2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ar-amt{font-family:var(--font-m);font-size:11px;font-weight:500;color:var(--tx);letter-spacing:-.2px}
+.ar-pct{font-family:var(--font-m);font-size:11px;color:var(--tx3);width:32px;text-align:right}
 
-/* Settings */
-#settings-wrap{padding:1.25rem 1rem 2rem;}
-.set-section{margin-bottom:2rem;}
-.set-title{font-size:16px;font-weight:700;margin-bottom:4px;letter-spacing:-.3px;}
-.set-sub{font-size:13px;color:var(--tx2);margin-bottom:14px;line-height:1.5;}
-.set-grid{display:grid;gap:12px;}
-#btn-save-fx{margin-top:14px;width:100%;padding:13px 0;background:var(--tx);color:var(--bg);
-  border:none;font-weight:700;border-radius:var(--r);font-size:15px;font-family:inherit;
-  cursor:pointer;letter-spacing:-.2px;transition:background .2s,opacity .12s;}
-#btn-save-fx:active{opacity:.7;}
-#btn-save-fx.saved{background:var(--ok);}
-.data-card{background:var(--bg2);border-radius:var(--r);padding:14px 15px;margin-bottom:12px;}
-.data-row{display:flex;justify-content:space-between;padding:3px 0;font-size:14px;}
-.data-row span:first-child{color:var(--tx2);}
-.data-row span:last-child{font-weight:700;}
-.set-btn-row{display:flex;gap:10px;}
-.set-btn-row .btn{flex:1;padding:11px 0;text-align:center;font-size:14px;}
-.set-divider{height:.5px;background:var(--bd);margin:1.5rem 0;}
-.set-export{display:flex;justify-content:space-between;align-items:center;
-  background:var(--bg2);border-radius:var(--r);padding:13px 15px;margin-bottom:12px;cursor:pointer;}
-.set-export:active{opacity:.6;}
-.set-export-lbl{font-size:14px;font-weight:500;}
-.set-export-sub{font-size:12px;color:var(--tx2);margin-top:2px;}
-.set-export svg{width:18px;height:18px;stroke:var(--tx3);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.set-note{font-size:12px;color:var(--tx3);line-height:1.9;padding-top:1.25rem;border-top:.5px solid var(--bd);}
-.version{font-size:11px;color:var(--tx3);text-align:center;padding-top:1rem;}
+/* FX row */
+.fx-row{padding:.8rem 1rem;display:flex;gap:14px;font-family:var(--font-m);font-size:10px;
+  color:var(--tx3);border-bottom:.5px solid var(--bd);overflow-x:auto;scrollbar-width:none}
+.fx-row::-webkit-scrollbar{display:none}
+.fx-row .fx{display:inline-flex;gap:5px;align-items:baseline;white-space:nowrap}
+.fx-row .fx strong{color:var(--tx2);font-weight:500}
+.fx-row .fx span{color:var(--tx)}
 
-/* Import view */
-#view-import{padding:0 0 2rem;}
-#imp-nav{padding:14px 1rem 12px;display:flex;justify-content:space-between;align-items:center;
-  border-bottom:.5px solid var(--bd);}
-#imp-back-btn{background:none;border:none;color:var(--bl);display:flex;align-items:center;
-  gap:5px;font-size:14px;cursor:pointer;font-family:inherit;}
-#imp-back-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-#imp-title{font-size:17px;font-weight:700;}
-#imp-body{padding:1rem;}
-#imp-how{background:var(--bg2);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;
-  font-size:12px;color:var(--tx2);line-height:1.7;}
-#imp-status{font-size:13px;color:var(--no);margin-bottom:10px;min-height:18px;font-weight:500;}
-#imp-results{display:none;margin-bottom:14px;}
-#imp-results-hd{font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:10px;}
-#imp-items-list{}
-.ocr-item{background:var(--bg2);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;}
-.ocr-chk{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bd2);background:var(--bg);
-  cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
-  transition:all .15s;font-size:12px;font-weight:700;color:transparent;}
-.ocr-chk.on{background:var(--ok);border-color:var(--ok);color:#fff;}
-.ocr-item-info{flex:1;min-width:0;}
-.ocr-item-tk{font-size:14px;font-weight:700;letter-spacing:-.2px;}
-.ocr-item-sub{font-size:12px;color:var(--tx3);margin-top:2px;}
-.ocr-item-cat{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;
-  border-radius:100px;color:#fff;margin-left:6px;vertical-align:1px;}
-#imp-empty{font-size:14px;color:var(--tx3);text-align:center;padding:1rem 0;line-height:1.7;}
+/* Holdings rows */
+.hrow{display:flex;align-items:center;gap:10px;padding:12px 1rem;border-bottom:.5px solid var(--bd);
+  background:var(--bg);position:relative;overflow:hidden;transition:background .08s}
+.hrow:active{background:var(--bg2)}
+.hrow-bar{position:absolute;left:0;top:0;bottom:0;width:3px}
+.hrow-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-family:var(--font-m);font-size:9px;font-weight:500}
+.hrow-mid{flex:1;min-width:0}
+.hrow-name{font-family:var(--font-m);font-size:13.5px;font-weight:500;letter-spacing:-.3px;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hrow-sub{font-size:10px;color:var(--tx3);margin-top:3px}
+.hrow-px{font-family:var(--font-m);font-size:9px;color:var(--tx3);margin-top:2px;letter-spacing:-.1px}
+.hrow-right{text-align:right;flex-shrink:0;padding-left:6px}
+.hrow-val{font-family:var(--font-m);font-size:13px;font-weight:500;color:var(--tx);letter-spacing:-.3px}
+.hrow-pnl{font-family:var(--font-m);font-size:10px;font-weight:500;margin-top:3px}
+.hrow-chev svg{width:12px;height:12px;stroke:var(--tx3);fill:none;stroke-width:2;stroke-linecap:round;margin-left:4px}
+.live-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ok);margin-left:4px;
+  vertical-align:1px;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.stale-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--tx3);margin-left:4px;vertical-align:1px}
+
+/* Add form */
+.add-pad{padding:1rem;display:flex;flex-direction:column;gap:13px}
+.mode-wrap{background:var(--bg1);border:.5px solid var(--bd);border-radius:12px;padding:3px;display:flex;gap:3px}
+.mode-btn{flex:1;padding:9px 0;border-radius:9px;font-size:10px;font-weight:800;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--tx3);transition:all .18s;display:flex;align-items:center;justify-content:center;gap:5px}
+.mode-btn.on.trade{background:var(--bg3);color:var(--tx)}
+.mode-btn.on.cashflow{background:var(--golddim);color:var(--gold)}
+.type-row{display:flex;gap:6px}
+.type-btn{flex:1;padding:9px 0;border-radius:10px;font-size:9px;font-weight:800;letter-spacing:.07em;
+  text-transform:uppercase;border:.5px solid var(--bd2);color:var(--tx3);transition:all .15s;text-align:center}
+.type-btn.on.BUY{background:var(--okdim);color:var(--ok);border-color:rgba(46,184,112,.3)}
+.type-btn.on.SELL{background:var(--nodim);color:var(--no);border-color:rgba(224,79,79,.2)}
+.type-btn.on.SYNC,.type-btn.on.DIVIDEND{background:var(--bg3);color:var(--tx)}
+.type-btn.on.INCOME{background:var(--okdim);color:var(--ok);border-color:rgba(46,184,112,.3)}
+.type-btn.on.EXPENSE{background:var(--nodim);color:var(--no);border-color:rgba(224,79,79,.2)}
+.field{display:flex;flex-direction:column;gap:5px}
+.field-row{display:flex;gap:8px}
+.field label{font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3)}
+.field input,.field select{background:var(--bg2);border:.5px solid var(--bd2);border-radius:var(--r);
+  padding:10px 12px;font-family:var(--font-m);font-size:13px;letter-spacing:-.2px;
+  transition:border-color .15s,box-shadow .15s;width:100%;color:var(--tx)}
+.field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--golddim)}
+.field input::placeholder{color:var(--tx3)}
+.field select option{background:var(--bg2)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;
+  background:var(--bg2);border:.5px solid var(--bd2);border-radius:var(--r);cursor:pointer}
+.toggle-lbl{font-size:12px;color:var(--tx2);font-weight:600}
+.toggle-lbl small{font-size:10px;color:var(--tx3);display:block;margin-top:1px;font-family:var(--font-m)}
+.toggle{width:40px;height:22px;background:var(--bg3);border-radius:100px;position:relative;transition:background .15s;flex-shrink:0}
+.toggle.on{background:var(--ok)}
+.toggle-knob{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--tx);top:2px;left:2px;transition:left .15s;pointer-events:none}
+.toggle.on .toggle-knob{left:20px}
+.preview-card{background:var(--bg1);border:.5px solid var(--bd);border-radius:11px;padding:11px 13px}
+.gold-btn{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;background:var(--gold);
+  color:var(--bg);padding:13px 18px;border-radius:var(--r);flex:1;transition:opacity .12s}
+.gold-btn:active{opacity:.7}
+.gold-btn:disabled{opacity:.4;cursor:default}
+.outline-btn{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;background:var(--bg1);
+  color:var(--tx);border:.5px solid var(--bd2);border-radius:var(--r);padding:13px 16px}
+.outline-btn:active{opacity:.65}
+.add-cta-row{display:flex;gap:8px}
+.success-pill{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ok);
+  background:var(--okdim);border:.5px solid rgba(46,184,112,.25);border-radius:100px;
+  padding:7px 14px;display:inline-flex;align-items:center;gap:6px;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* Ledger */
+.tx-row{padding:12px 1rem;display:flex;align-items:center;gap:9px;border-bottom:.5px solid var(--bd)}
+.tx-tag{min-width:42px;font-family:var(--font-m);font-size:8.5px;font-weight:500;letter-spacing:.05em;
+  padding:4px 5px;border-radius:6px;text-align:center;flex-shrink:0}
+.tx-tag.BUY{background:var(--okdim);color:var(--ok)}
+.tx-tag.SELL{background:var(--nodim);color:var(--no)}
+.tx-tag.SYNC,.tx-tag.DIVIDEND{background:var(--bg3);color:var(--tx2)}
+.tx-tag.INCOME,.tx-tag.IN{background:var(--okdim);color:var(--ok)}
+.tx-tag.EXPENSE,.tx-tag.OUT{background:var(--nodim);color:var(--no)}
+.tx-mid{flex:1;min-width:0}
+.tx-sym{font-family:var(--font-m);font-size:13px;font-weight:500;color:var(--tx);letter-spacing:-.3px}
+.tx-sub{font-size:10px;color:var(--tx3);margin-top:2px}
+.tx-right{text-align:right;flex-shrink:0}
+.tx-amt{font-family:var(--font-m);font-size:12px;font-weight:500;letter-spacing:-.2px}
+.tx-amt.pos{color:var(--ok)}.tx-amt.neg{color:var(--no)}.tx-amt.neu{color:var(--tx)}
+.tx-date{font-family:var(--font-m);font-size:9.5px;color:var(--tx3);margin-top:2px}
+
+/* Notes analytics */
+.notes-pad{padding:1rem;display:flex;flex-direction:column;gap:12px}
+.analytics-card{background:var(--bg1);border:.5px solid var(--bd);border-radius:12px;overflow:hidden}
+.analytics-card .card-hd{padding:10px 12px;font-size:8.5px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold);border-bottom:.5px solid var(--bd)}
+.analytics-card .card-body{padding:2px 0}
+.analytics-row{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-bottom:.5px solid var(--bd)}
+.analytics-row:last-child{border-bottom:none}
+.analytics-row .k{font-size:12px;color:var(--tx2)}
+.analytics-row .v{font-family:var(--font-m);font-size:12px;font-weight:500;color:var(--tx);letter-spacing:-.2px}
+.query-row{display:flex;gap:6px;flex-wrap:wrap}
+.query-btn{font-size:9.5px;font-weight:700;padding:7px 12px;border-radius:100px;background:var(--bg2);
+  border:.5px solid var(--bd);color:var(--tx2);transition:all .15s;text-align:left;line-height:1.4}
+.query-btn:active{background:var(--bg3)}
+.result-card{background:var(--bg2);border:.5px solid var(--bd2);border-radius:12px;padding:13px;
+  font-size:12px;color:var(--tx2);line-height:1.65;animation:fadeIn .2s ease}
+.result-card strong{color:var(--gold);font-weight:700}
+.result-card em{font-style:normal;font-family:var(--font-m);color:var(--tx);letter-spacing:-.2px}
+
+/* Settings sheet */
+#s-bg{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+#s-sheet{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;
+  z-index:101;background:var(--bg2);border-radius:20px 20px 0 0;border-top:.5px solid var(--bd2);
+  transition:transform .28s cubic-bezier(.32,0,.67,0);padding-bottom:var(--sab)}
+#s-sheet.open{transform:translateX(-50%) translateY(0%)}
+.sheet-handle{width:36px;height:4px;border-radius:2px;background:var(--bd2);margin:10px auto 0}
+#s-inner{padding:0 1rem 1rem;max-height:75dvh;overflow-y:auto;scrollbar-width:none}
+#s-inner::-webkit-scrollbar{display:none}
+.set-sect{margin-top:1rem}
+.set-sect-title{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin-bottom:10px}
+.set-row{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;
+  background:var(--bg3);border-radius:10px;margin-bottom:7px;font-size:13px;cursor:pointer;transition:opacity .12s}
+.set-row:active{opacity:.6}
+.set-row .l{color:var(--tx2);font-size:12px}
+.set-row .r{font-family:var(--font-m);color:var(--tx3);font-size:10.5px}
+.set-input-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.danger{color:var(--no)}
+.set-save-btn{width:100%;padding:13px 0;background:var(--gold);color:var(--bg);font-weight:800;
+  font-size:12px;letter-spacing:.07em;text-transform:uppercase;border-radius:var(--r);margin-top:2px;transition:opacity .12s}
+.set-save-btn:active{opacity:.7}
+
+.price-err{padding:7px 1rem;background:var(--nodim);font-size:10px;color:var(--no);
+  font-family:var(--font-m);text-align:center;border-bottom:.5px solid rgba(224,79,79,.2)}
+.foot{padding:1.5rem 1rem 1rem;font-size:10px;color:var(--tx3);line-height:2;text-align:center}
+.foot .ws{color:var(--gold);font-weight:800;letter-spacing:.05em;display:block;margin-top:8px}
 </style>
 </head>
 <body>
-<div id="wrap">
-
-<!-- Header -->
-<div id="hdr">
-  <div id="hdr-row">
-    <span id="hdr-title">Portfolio</span>
-    <div id="hdr-right">
-      <button id="btn-scan-open" class="btn" onclick="openImport()">
-        <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;vertical-align:-1px" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Import
-      </button>
-      <button id="btn-add" class="btn" onclick="openForm(null)">
-        <svg style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;vertical-align:-1px" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Add
-      </button>
-    </div>
-  </div>
-  <div id="hdr-tabs">
-    <button class="htab on" data-tab="dashboard" onclick="switchTab('dashboard')">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      OVERVIEW
-    </button>
-    <button class="htab" data-tab="holdings" onclick="switchTab('holdings')">
-      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-      HOLDINGS
-    </button>
-    <button class="htab" data-tab="settings" onclick="switchTab('settings')">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      SETTINGS
-    </button>
-  </div>
-</div>
-
-<!-- Dashboard -->
-<div id="view-dashboard" class="view on">
-  <div id="hero">
-    <div id="nw-eyebrow">Net Worth · Banks → NTD</div>
-    <div id="nw-val">NT$0</div>
-    <div id="nw-sub">Invested: <strong id="inv-val">NT$0</strong><span id="pnl-inline" style="margin-left:10px;font-weight:700;"></span></div>
-  </div>
-  <div id="stats-row">
-    <div class="stat"><div class="stat-lbl">Unrealised P&amp;L</div><div class="stat-val" id="stat-pnl">—</div></div>
-    <div class="stat"><div class="stat-lbl">Active Positions</div><div class="stat-val" id="stat-cnt">0</div></div>
-  </div>
-  <div id="alloc-wrap">
-    <div id="alloc-hd">Allocation</div>
-    <div id="alloc-inner">
-      <div id="alloc-svg"></div>
-      <div id="alloc-legend"></div>
-    </div>
-  </div>
-  <div id="fx-strip">
-    <span id="fx-a"></span><span id="fx-b"></span><span id="fx-c"></span>
-  </div>
-</div>
-
-<!-- Holdings -->
-<div id="view-holdings" class="view">
-  <div id="filter-wrap"><div id="filter-chips"></div></div>
-  <div id="sort-row">
-    <span>Sort by</span>
-    <button class="sort-btn on" onclick="setSort('val')">Value</button>
-    <button class="sort-btn" onclick="setSort('pnl')">P&amp;L %</button>
-    <button class="sort-btn" onclick="setSort('name')">Name</button>
-  </div>
-  <div id="holdings-total"><span>Total Portfolio</span><span id="total-val">—</span></div>
-  <div id="holdings-list"></div>
-</div>
-
-<!-- Settings -->
-<div id="view-settings" class="view">
-  <div id="settings-wrap">
-    <div class="set-section">
-      <div class="set-title">FX Rates</div>
-      <div class="set-sub">Set rates for converting to NTD. All values update after saving.</div>
-      <div class="set-grid">
-        <div><label class="lbl">1 USD = ? TWD</label><input type="number" inputmode="decimal" id="in-usd" step="any"></div>
-        <div><label class="lbl">1 IDR = ? TWD</label><input type="number" inputmode="decimal" id="in-idr" step="any"></div>
-        <div><label class="lbl">1 USDT = ? TWD</label><input type="number" inputmode="decimal" id="in-usdt" step="any"></div>
-      </div>
-      <button id="btn-save-fx" onclick="saveFxRates()">Save Rates</button>
-    </div>
-    <div class="set-divider"></div>
-    <div class="set-section">
-      <div class="set-title">Export</div>
-      <div class="set-export" onclick="exportCSV()">
-        <div>
-          <div class="set-export-lbl">Export to CSV</div>
-          <div class="set-export-sub">Download all holdings as spreadsheet</div>
-        </div>
-        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+<div id="app">
+  <header id="hdr">
+    <div class="hdr-row">
+      <div class="wordmark">WEALTH<span class="sub" id="refresh-lbl"></span></div>
+      <div class="hdr-right">
+        <button id="btn-refresh" class="icon-btn" onclick="doRefresh()">
+          <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </button>
+        <button class="icon-btn ghost" onclick="openSettings()">
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
       </div>
     </div>
-    <div class="set-divider"></div>
-    <div class="set-section">
-      <div class="set-title">Data</div>
-      <div class="data-card">
-        <div class="data-row"><span>Active assets</span><span id="d-cnt">0</span></div>
-        <div class="data-row"><span>With prices set</span><span id="d-px">0</span></div>
-        <div class="data-row"><span>Last saved</span><span id="d-time">—</span></div>
-      </div>
-      <div class="set-btn-row">
-        <button class="btn" onclick="loadSample()">Sample Data</button>
-        <button class="btn btn-d" onclick="clearAll()">Clear All</button>
-      </div>
-    </div>
-    <div class="set-note">
-      Net worth = bank balances converted to NTD (authoritative)<br>
-      Investment value = mark-to-market positions (informational)<br>
-      All data stored on this device · No account required
-    </div>
-    <div class="version">v1.3 · Portfolio Tracker</div>
+  </header>
+  <div id="price-err" class="price-err" style="display:none"></div>
+  <main id="main">
+    <div id="v-overview" class="view on"></div>
+    <div id="v-holdings" class="view"></div>
+    <div id="v-add" class="view"></div>
+    <div id="v-ledger" class="view"></div>
+    <div id="v-notes" class="view"></div>
+  </main>
+  <nav id="nav"></nav>
+  <div id="s-bg" style="display:none" onclick="closeSettings()"></div>
+  <div id="s-sheet" style="transform:translateX(-50%) translateY(100%)">
+    <div class="sheet-handle"></div>
+    <div id="s-inner"></div>
   </div>
 </div>
-
-<!-- Form: Add / Edit Asset -->
-<div id="view-form">
-  <div id="form-nav">
-    <button id="form-back-btn" onclick="closeForm()">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      Back
-    </button>
-    <span id="form-title-txt">Add Asset</span>
-    <button id="btn-del" class="btn btn-d" onclick="deleteAsset()">Delete</button>
-  </div>
-  <div id="form-body">
-    <div class="mb">
-      <label class="lbl">Category</label>
-      <div id="cat-chips"></div>
-    </div>
-    <div class="g2">
-      <div><label class="lbl">Name</label><input id="f-name" type="text" placeholder="BCA" autocomplete="off"></div>
-      <div id="f-ticker-wrap"><label class="lbl">Ticker</label><input id="f-ticker" type="text" placeholder="BBCA" autocomplete="off" style="text-transform:uppercase"></div>
-    </div>
-    <div class="g2" id="f-qty-wrap">
-      <div><label class="lbl">Quantity</label><input id="f-qty" type="number" inputmode="decimal" placeholder="0"></div>
-      <div><label class="lbl">Avg Price</label><input id="f-avg" type="number" inputmode="decimal" placeholder="0"></div>
-    </div>
-    <div class="mb">
-      <label class="lbl" id="f-px-lbl">Current Price</label>
-      <input id="f-px" type="number" inputmode="decimal" placeholder="0">
-    </div>
-    <div class="g2">
-      <div>
-        <label class="lbl">Currency</label>
-        <select id="f-cur">
-          <option>IDR</option><option>USD</option><option>TWD</option><option>USDT</option>
-        </select>
-      </div>
-      <div><label class="lbl">Platform</label><input id="f-plat" type="text" placeholder="Stockbit" autocomplete="off"></div>
-    </div>
-    <div class="mb" id="f-note-wrap" style="display:none">
-      <label class="lbl">Note (optional)</label>
-      <input id="f-note" type="text" placeholder="e.g. Reksa Dana Saham">
-    </div>
-    <button class="btn-p" onclick="saveAsset()">Save Asset</button>
-  </div>
-</div>
-
-<!-- Import: paste text from brokerage app -->
-<div id="view-import">
-  <div id="imp-nav">
-    <button id="imp-back-btn" onclick="closeImport()">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      Back
-    </button>
-    <span id="imp-title">Import from App</span>
-    <div style="width:50px"></div>
-  </div>
-  <div id="imp-body">
-    <div class="mb">
-      <div class="lbl" style="margin-bottom:8px">Source platform</div>
-      <div style="display:flex;gap:7px;flex-wrap:wrap" id="plat-chips">
-        <button class="chip on" onclick="selPlat('AJAIB',this)">Ajaib</button>
-        <button class="chip" onclick="selPlat('BINANCE_TW',this)">Binance TW</button>
-        <button class="chip" onclick="selPlat('GATE_IO',this)">Gate.io</button>
-        <button class="chip" onclick="selPlat('MAX',this)">MAX/Bitopro</button>
-        <button class="chip" onclick="selPlat('GENERIC',this)">Other</button>
-      </div>
-    </div>
-    <div id="imp-how" style="background:var(--bg2);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;font-size:12px;color:var(--tx2);line-height:1.7;"></div>
-    <div class="mb">
-      <label class="lbl">Paste copied text here</label>
-      <textarea id="paste-area" rows="7" placeholder="Paste text copied from your brokerage app…" style="resize:vertical;line-height:1.5;font-size:13px;"></textarea>
-    </div>
-    <button class="btn-p" style="background:var(--bl);margin-top:0;" onclick="runImport()">Parse Text</button>
-    <div id="imp-status" style="font-size:13px;color:var(--no);margin-top:10px;min-height:18px;font-weight:500;"></div>
-    <div id="imp-results" style="display:none;margin-top:14px;">
-      <div id="imp-results-hd" style="font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:10px;"></div>
-      <div id="imp-items-list"></div>
-      <button id="btn-imp-import" class="btn-p" style="display:none;margin-top:4px;" onclick="doImport()"></button>
-    </div>
-  </div>
-</div>
-
-</div><!-- /wrap -->
-
-<!-- Bottom Nav -->
-<nav>
-  <button class="on" data-tab="dashboard" onclick="switchTab('dashboard')">
-    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-    OVERVIEW
-  </button>
-  <button data-tab="holdings" onclick="switchTab('holdings')">
-    <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-    HOLDINGS
-  </button>
-  <button data-tab="settings" onclick="switchTab('settings')">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-    SETTINGS
-  </button>
-</nav>
-
 <script>
-/* ── Config ──────────────────────────────────────────────────────────────────*/
-const CATS={
-  IDX:     {l:'IDX',    full:'Indonesia (IDX)',  cur:'IDR',  color:'#c2512b'},
-  US:      {l:'US',     full:'US Stocks',        cur:'USD',  color:'#1d6fa5'},
-  TW:      {l:'TW',     full:'Taiwan (TWSE)',    cur:'TWD',  color:'#0e7c55'},
-  CRYPTO:  {l:'Crypto', full:'Cryptocurrency',   cur:'USDT', color:'#d97706'},
-  MUTUAL:  {l:'Mutual', full:'Reksa Dana',       cur:'IDR',  color:'#6d28d9'},
-  BANK_TWD:{l:'TWD',    full:'Banks (TWD)',      cur:'TWD',  color:'#0891b2'},
-  BANK_IDR:{l:'IDR',    full:'Banks (IDR)',      cur:'IDR',  color:'#65a30d'},
+/* ── Constants ──────────────────────────────────────────────────────────── */
+const CATS = {
+  IDX:    {name:'Indonesia IDX',   color:'#c2512b', cur:'IDR'},
+  TW:     {name:'Taiwan Equities', color:'#0e7c55', cur:'TWD'},
+  Crypto: {name:'Cryptocurrency',  color:'#d97706', cur:'USD'},
+  Mutual: {name:'Mutual Funds',    color:'#6d28d9', cur:'IDR'},
+  US:     {name:'US Stocks',       color:'#1d6fa5', cur:'USD'},
+  BankTW: {name:'Banks · TWD',     color:'#0891b2', cur:'TWD'},
+  BankID: {name:'Banks · IDR',     color:'#65a30d', cur:'IDR'},
 };
-const DFX={IDR_TWD:0.00202,USD_TWD:32.5,USDT_TWD:32.5};
-const SAMPLE=[
-  {id:'s1',name:'BCA',    tk:'BBCA', cat:'IDX',     qty:1000, avg:8800,  px:9350,    cur:'IDR', pl:'Stockbit',        on:true,bk:false,note:''},
-  {id:'s2',name:'Mandiri',tk:'BMRI', cat:'IDX',     qty:500,  avg:6200,  px:6450,    cur:'IDR', pl:'Stockbit',        on:true,bk:false,note:''},
-  {id:'s3',name:'NVIDIA', tk:'NVDA', cat:'US',      qty:0.5,  avg:450,   px:875,     cur:'USD', pl:'Stockbit Global', on:true,bk:false,note:''},
-  {id:'s4',name:'Google', tk:'GOOGL',cat:'US',      qty:0.25, avg:140,   px:175,     cur:'USD', pl:'Stockbit Global', on:true,bk:false,note:''},
-  {id:'s5',name:'0050',   tk:'0050', cat:'TW',      qty:5,    avg:168,   px:182,     cur:'TWD', pl:'Local TW',        on:true,bk:false,note:''},
-  {id:'s6',name:'Bitcoin',tk:'BTC',  cat:'CRYPTO',  qty:0.015,avg:40000, px:68000,   cur:'USDT',pl:'Binance',         on:true,bk:false,note:''},
-  {id:'s7',name:'BCA',    tk:'',     cat:'BANK_IDR',qty:1,    avg:0,     px:45000000,cur:'IDR', pl:'BCA',             on:true,bk:true, note:''},
-  {id:'s8',name:'郵局',   tk:'',     cat:'BANK_TWD',qty:1,    avg:0,     px:120000,  cur:'TWD', pl:'郵局',            on:true,bk:true, note:''},
-  {id:'s9',name:'CTBC',   tk:'',     cat:'BANK_TWD',qty:1,    avg:0,     px:58000,   cur:'TWD', pl:'CTBC',            on:true,bk:true, note:''},
+const INCOME_CATS = [
+  {key:'Salary',icon:'💼',label:'Salary / Wages'},{key:'Freelance',icon:'💻',label:'Freelance'},
+  {key:'Dividend',icon:'📊',label:'Dividend / Interest'},{key:'Rental',icon:'🏘',label:'Rental income'},
+  {key:'Gift',icon:'🎁',label:'Gift / Transfer'},{key:'Other',icon:'💰',label:'Other income'},
 ];
-
-/* ── Utils ───────────────────────────────────────────────────────────────────*/
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
-function lg(k,fb){try{const v=localStorage.getItem(k);return v?JSON.parse(v):fb;}catch{return fb;}}
-function lset(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
-function el(id){return document.getElementById(id);}
-function saveA(){lset('p:a',assets);lset('p:ts',Date.now());}
-function saveFX(){lset('p:fx',fx);}
-const isBank=cat=>cat==='BANK_TWD'||cat==='BANK_IDR';
-const toN=(v,c)=>{if(!v||isNaN(v))return 0;return v*({TWD:1,IDR:fx.IDR_TWD,USD:fx.USD_TWD,USDT:fx.USDT_TWD}[c]||1);};
-const fn=(n,d=0)=>n==null||isNaN(n)?'—':new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n);
-const fnt=n=>n>=1e6?`NT$${(n/1e6).toFixed(2)}M`:n>=1e3?`NT$${(n/1e3).toFixed(1)}K`:`NT$${Math.round(n).toLocaleString()}`;
-
-/* ── State ───────────────────────────────────────────────────────────────────*/
-let assets  =lg('p:a',SAMPLE.map(a=>({...a})));
-let fx      =lg('p:fx',{...DFX});
-let curTab  ='dashboard';
-let curFlt  ='ALL';
-let curSort ='val';
-let editId  =null;
-let formCat ='IDX';
-let impDetected=[];
-let impPlatform='AJAIB';
-
-/* ── Panel helpers ───────────────────────────────────────────────────────────*/
-function showPanel(id){
-  el('hdr').style.display='none';
-  document.querySelector('nav').style.display='none';
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
-  el('view-form').classList.remove('on');
-  el('view-import').classList.remove('on');
-  el(id).classList.add('on');
-}
-function hidePanel(){
-  el('view-form').classList.remove('on');
-  el('view-import').classList.remove('on');
-  el('hdr').style.display='';
-  document.querySelector('nav').style.display='';
-}
-
-/* ── Donut chart ─────────────────────────────────────────────────────────────*/
-function donut(data,cx=70,cy=70,R=60,r=38){
-  if(!data.length)return'<svg width="140" height="140"></svg>';
-  const tot=data.reduce((s,d)=>s+d.value,0);
-  if(!tot)return'<svg width="140" height="140"></svg>';
-  let paths='',angle=-Math.PI/2;
-  data.forEach(d=>{
-    const sw=Math.min((d.value/tot)*Math.PI*2,Math.PI*2-.0001);
-    const ea=angle+sw,la=sw>Math.PI?1:0;
-    const c1=Math.cos(angle),s1=Math.sin(angle),c2=Math.cos(ea),s2=Math.sin(ea);
-    paths+=`<path d="M${cx+R*c1},${cy+R*s1} A${R},${R} 0 ${la},1 ${cx+R*c2},${cy+R*s2} L${cx+r*c2},${cy+r*s2} A${r},${r} 0 ${la},0 ${cx+r*c1},${cy+r*s1} Z" fill="${d.color}"/>`;
-    angle=ea;
-  });
-  return`<svg viewBox="0 0 140 140" width="140" height="140">${paths}</svg>`;
-}
-
-/* ── Tab switching ───────────────────────────────────────────────────────────*/
-function switchTab(tab){
-  curTab=tab;
-  hidePanel();
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
-  el('view-'+tab).classList.add('on');
-  document.querySelectorAll('.htab,nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
-  el('btn-add').style.display=tab==='holdings'?'flex':'none';
-  if(tab==='dashboard')renderDash();
-  else if(tab==='holdings')renderHold();
-  else if(tab==='settings')renderSet();
-}
-
-/* ── Dashboard ───────────────────────────────────────────────────────────────*/
-function renderDash(){
-  const banks=assets.filter(a=>a.on&&isBank(a.cat));
-  const nw=banks.reduce((s,a)=>s+toN(a.px,a.cur),0);
-  const inv=assets.filter(a=>a.on&&!a.bk);
-  const iv=inv.reduce((s,a)=>s+toN(a.qty*a.px,a.cur),0);
-  const co=inv.reduce((s,a)=>s+toN(a.qty*a.avg,a.cur),0);
-  const pnl=iv-co,pct=co>0?pnl/co*100:0;
-  el('nw-val').textContent=fnt(nw);
-  el('inv-val').textContent=fnt(iv);
-  const ps=el('pnl-inline');
-  ps.textContent=pct?((pnl>=0?'+':'')+fn(pct,1)+'%'):'';
-  ps.style.color=pnl>=0?'var(--ok)':'var(--no)';
-  const sv=el('stat-pnl');
-  sv.textContent=(pnl>=0?'+':'')+fnt(Math.abs(pnl));
-  sv.style.color=pnl>=0?'var(--ok)':'var(--no)';
-  el('stat-cnt').textContent=assets.filter(a=>a.on&&a.px>0).length;
-  const pie=Object.entries(CATS).map(([key,cat])=>{
-    const v=assets.filter(a=>a.on&&a.cat===key).reduce((s,a)=>s+toN(a.bk?a.px:a.qty*a.px,a.cur),0);
-    return{name:cat.full,value:Math.round(v),color:cat.color};
-  }).filter(d=>d.value>0);
-  const tot=pie.reduce((s,d)=>s+d.value,0)||1;
-  el('alloc-svg').innerHTML=donut(pie);
-  el('alloc-legend').innerHTML=pie.map(d=>`
-    <div class="leg-row">
-      <div class="leg-dot" style="background:${d.color}"></div>
-      <span class="leg-name">${d.name}</span>
-      <span class="leg-pct">${Math.round(d.value/tot*100)}%</span>
-    </div>`).join('');
-  el('alloc-wrap').style.display=pie.length?'':'none';
-  el('fx-a').textContent='USD/TWD '+fx.USD_TWD;
-  el('fx-b').textContent='IDR/TWD '+fx.IDR_TWD.toFixed(5);
-  el('fx-c').textContent='USDT/TWD '+fx.USDT_TWD;
-}
-
-/* ── Holdings ────────────────────────────────────────────────────────────────*/
-function renderHold(){
-  el('filter-chips').innerHTML=['ALL',...Object.keys(CATS)].map(c=>
-    `<button class="chip${curFlt===c?' on':''}" onclick="setFlt('${c}')">${c==='ALL'?'All':CATS[c].l}</button>`
-  ).join('');
-  document.querySelectorAll('.sort-btn').forEach(b=>{
-    const m=b.getAttribute('onclick').match(/'(\w+)'/);
-    if(m)b.classList.toggle('on',m[1]===curSort);
-  });
-  const vis=assets.filter(a=>a.on&&(curFlt==='ALL'||a.cat===curFlt));
-  const sorted=[...vis].sort((a,b)=>{
-    if(curSort==='val')return toN(a.bk?a.px:a.qty*a.px,a.cur)<toN(b.bk?b.px:b.qty*b.px,b.cur)?1:-1;
-    if(curSort==='pnl'){const pa=a.avg?(a.px-a.avg)/a.avg:0,pb=b.avg?(b.px-b.avg)/b.avg:0;return pa<pb?1:-1;}
-    if(curSort==='name')return(a.tk||a.name).localeCompare(b.tk||b.name);
-    return 0;
-  });
-  el('total-val').textContent=fnt(sorted.reduce((s,a)=>s+toN(a.bk?a.px:a.qty*a.px,a.cur),0));
-  if(!sorted.length){
-    el('holdings-list').innerHTML='<div id="empty-hold"><p>No assets yet</p><button class="btn" onclick="openForm(null)">Add first asset</button></div>';
-    return;
-  }
-  const seen=new Set();
-  el('holdings-list').innerHTML=sorted.map(a=>{
-    const vt=toN(a.bk?a.px:a.qty*a.px,a.cur);
-    const pp=(!a.bk&&a.avg>0)?(a.px-a.avg)/a.avg*100:null;
-    const pnlHtml=pp!=null?`<div class="a-pnl" style="color:${pp>=0?'var(--ok)':'var(--no)'}">${pp>=0?'+':''}${fn(pp,1)}%</div>`:'';
-    const sub=a.bk?`${a.cur} balance`:`${fn(a.qty,a.qty<1?4:2)} × ${fn(a.px,a.px<100?2:0)} ${a.cur}`;
-    const hdr=seen.has(a.cat)||curSort!=='val'?'':`<div class="sec-hdr">${CATS[a.cat]?.full||a.cat}</div>`;
-    seen.add(a.cat);
-    return`${hdr}<div class="asset-row" onclick="openForm('${a.id}')">
-      <div class="a-dot" style="background:${CATS[a.cat]?.color||'#888'}"></div>
-      <div class="a-info">
-        <div class="a-top"><span class="a-name">${a.tk||a.name}</span>${a.tk&&a.name!==a.tk?`<span class="a-alias">${a.name}</span>`:''}</div>
-        <div class="a-sub">${sub}</div>
-      </div>
-      <div class="a-right"><div class="a-val">${fnt(vt)}</div>${pnlHtml}</div>
-      <div class="a-chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
-    </div>`;
-  }).join('');
-}
-function setFlt(f){curFlt=f;renderHold();}
-function setSort(s){curSort=s;renderHold();}
-
-/* ── Settings ────────────────────────────────────────────────────────────────*/
-function renderSet(){
-  el('in-usd').value=fx.USD_TWD;
-  el('in-idr').value=fx.IDR_TWD;
-  el('in-usdt').value=fx.USDT_TWD;
-  el('d-cnt').textContent=assets.filter(a=>a.on).length;
-  el('d-px').textContent=assets.filter(a=>a.on&&a.px>0).length;
-  const ts=lg('p:ts',null);
-  el('d-time').textContent=ts?new Date(ts).toLocaleDateString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'—';
-}
-function saveFxRates(){
-  const u=parseFloat(el('in-usd').value),i=parseFloat(el('in-idr').value),t=parseFloat(el('in-usdt').value);
-  if(u>0)fx.USD_TWD=u;if(i>0)fx.IDR_TWD=i;if(t>0)fx.USDT_TWD=t;
-  saveFX();
-  const b=el('btn-save-fx');
-  b.textContent='✓ Saved';b.classList.add('saved');
-  setTimeout(()=>{b.textContent='Save Rates';b.classList.remove('saved');},2000);
-}
-function exportCSV(){
-  const rows=[['Name','Ticker','Category','Qty','Avg Price','Current Price','Currency','Platform','Value NTD','P&L %']];
-  assets.filter(a=>a.on).forEach(a=>{
-    const vt=toN(a.bk?a.px:a.qty*a.px,a.cur);
-    const pp=(!a.bk&&a.avg>0)?((a.px-a.avg)/a.avg*100):null;
-    rows.push([a.name,a.tk,a.cat,a.qty,a.avg,a.px,a.cur,a.pl,Math.round(vt),pp!=null?fn(pp,2):'']);
-  });
-  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='portfolio_'+new Date().toISOString().slice(0,10)+'.csv';
-  a.click();
-}
-function loadSample(){
-  if(!confirm('Replace current data with sample data?'))return;
-  assets=SAMPLE.map(a=>({...a,id:uid()}));saveA();switchTab('dashboard');
-}
-function clearAll(){
-  if(!confirm('Delete all assets? Cannot be undone.'))return;
-  assets=[];saveA();renderSet();switchTab('holdings');
-}
-
-/* ── Form ────────────────────────────────────────────────────────────────────*/
-function buildCatChips(){
-  el('cat-chips').innerHTML=Object.entries(CATS).map(([k,v])=>
-    `<button class="chip${formCat===k?' on':''}" onclick="selectCat('${k}')"
-      style="${formCat===k?`border-color:${v.color};color:${v.color}`:''}">
-      ${v.l}</button>`).join('');
-}
-function selectCat(cat){
-  formCat=cat;
-  const bk=isBank(cat);
-  el('f-ticker-wrap').style.display=bk?'none':'';
-  el('f-qty-wrap').style.display=bk?'none':'';
-  el('f-px-lbl').textContent=bk?'Balance':'Current Price';
-  el('f-cur').value=CATS[cat].cur;
-  el('f-name').placeholder=bk?'BCA':'Company';
-  el('f-note-wrap').style.display=cat==='MUTUAL'?'':'none';
-  buildCatChips();
-}
-function openForm(id){
-  editId=id;
-  const a=id?assets.find(x=>x.id===id):null;
-  formCat=a?a.cat:'IDX';
-  el('f-name').value=a?a.name:'';
-  el('f-ticker').value=a?(a.tk||''):'';
-  el('f-qty').value=a&&!a.bk?String(a.qty):'';
-  el('f-avg').value=a&&!a.bk?String(a.avg):'';
-  el('f-px').value=a?String(a.px):'';
-  el('f-cur').value=a?a.cur:CATS[formCat].cur;
-  el('f-plat').value=a?(a.pl||''):'';
-  el('f-note').value=a?(a.note||''):'';
-  el('form-title-txt').textContent=a?'Edit Asset':'Add Asset';
-  el('btn-del').style.display=a?'':'none';
-  selectCat(formCat);
-  showPanel('view-form');
-  setTimeout(()=>el('f-name').focus(),100);
-}
-function closeForm(){hidePanel();switchTab(curTab);}
-function saveAsset(){
-  const bk=isBank(formCat);
-  const name=el('f-name').value.trim();
-  if(!name){el('f-name').focus();return;}
-  const asset={
-    id:editId||uid(),name,
-    tk:el('f-ticker').value.trim().toUpperCase(),
-    cat:formCat,
-    qty:bk?1:(parseFloat(el('f-qty').value)||0),
-    avg:bk?0:(parseFloat(el('f-avg').value)||0),
-    px:parseFloat(el('f-px').value)||0,
-    cur:el('f-cur').value,
-    pl:el('f-plat').value.trim(),
-    note:el('f-note').value.trim(),
-    bk,on:true,
-  };
-  assets=editId?assets.map(a=>a.id===editId?asset:a):[...assets,asset];
-  saveA();closeForm();
-}
-function deleteAsset(){
-  if(!editId||!confirm('Remove this asset?'))return;
-  assets=assets.map(a=>a.id===editId?{...a,on:false}:a);
-  saveA();closeForm();
-}
-
-/* ── Import — text paste from brokerage app ──────────────────────────────────
-   No OCR, no API. User copies text from their app using iOS Live Text or
-   Android Google Lens, pastes here. Platform-specific parsers extract holdings.
-────────────────────────────────────────────────────────────────────────────── */
-const TICKER_CAT={
-  BBCA:'IDX',BMRI:'IDX',BBNI:'IDX',BBRI:'IDX',PGEO:'IDX',SMRA:'IDX',CTRA:'IDX',
-  WBSA:'IDX',WSKT:'IDX',TLKM:'IDX',ASII:'IDX',UNVR:'IDX',GOTO:'IDX',BUKA:'IDX',
-  EXCL:'IDX',PTRO:'IDX',BUMI:'IDX',BRPT:'IDX',ICBP:'IDX',INDF:'IDX',
-  ANTM:'IDX',PGAS:'IDX',ADRO:'IDX',ITMG:'IDX',MDKA:'IDX',
-  GOOGL:'US',AVGO:'US',AMZN:'US',NVDA:'US',MSFT:'US',META:'US',QQQ:'US',
-  AAPL:'US',TSLA:'US',GOOG:'US',SPY:'US',VTI:'US',AMD:'US',INTC:'US',NFLX:'US',
-  '0050':'TW','0056':'TW','2330':'TW','2317':'TW','2454':'TW',
-  BTC:'CRYPTO',ETH:'CRYPTO',BNB:'CRYPTO',SOL:'CRYPTO',SUI:'CRYPTO',GT:'CRYPTO',
-  XRP:'CRYPTO',ADA:'CRYPTO',DOGE:'CRYPTO',DOT:'CRYPTO',MATIC:'CRYPTO',LINK:'CRYPTO',
-  AVAX:'CRYPTO',UNI:'CRYPTO',TRX:'CRYPTO',TON:'CRYPTO',
+const EXPENSE_CATS = [
+  {key:'Housing',icon:'🏠',label:'Housing / Rent'},{key:'Food',icon:'🍜',label:'Food & Dining'},
+  {key:'Transport',icon:'🚇',label:'Transport'},{key:'Utilities',icon:'💡',label:'Utilities'},
+  {key:'Health',icon:'🏥',label:'Health & Medical'},{key:'Education',icon:'📚',label:'Education'},
+  {key:'Subs',icon:'📱',label:'Subscriptions'},{key:'Fees',icon:'💸',label:'Investment fees'},
+  {key:'Shopping',icon:'🛍',label:'Shopping'},{key:'Other',icon:'📌',label:'Other expense'},
+];
+const CG_IDS = {
+  BTC:'bitcoin',ETH:'ethereum',SOL:'solana',BNB:'binancecoin',SUI:'sui',
+  BGB:'bitget-token',XRP:'ripple',ADA:'cardano',AVAX:'avalanche-2',
+  LINK:'chainlink',MATIC:'matic-network',DOT:'polkadot',UNI:'uniswap',USDT:'tether',
 };
-const STOP_WORDS=new Set([
-  'THE','AND','FOR','ALL','NET','BUY','SELL','IDR','USD','TWD','PROFIT','LOSS',
-  'TOTAL','RETURN','AVERAGE','CURRENT','PRICE','VALUE','MARKET','CAP','PER','LOT',
-  'GAIN','BALANCE','ACCOUNT','DATE','TIME','APP','TAP','VIEW','SORT','OPEN',
-  'CLOSE','VOL','NILAI','HARGA','SAHAM','PORTOFOLIO','REKSA','DANA','ASET',
-  'KRIPTO','ORDER','RIWAYAT','BELI','JUAL','PASAR','LIMIT','EST','TOTAL','FUT',
-  'CAMPURAN','SPOT','EARN','SEND','TRADE','TRADING','TRANSFER','HISTORY',
-  'SUBSCRIBE','REDEEM','CONVERT','DEPOSIT','WITHDRAW','SETTINGS','AVAILABLE',
-  'UNAVAILABLE','RESERVED','ALLOCATION','RECOMMEND','TODAY','PNL','DISTRIBUTION',
-  'INTEREST','SIMPLE','FLEXIBLE','CUMULATIVE','DILUTED','COST','LAST','HOLDING',
-  'GRID','ROI','APR','BREAKEVEN','ASSETS','ASSET',
-]);
-const PLAT_HOW={
-  AJAIB:'<strong>Ajaib — stock list view:</strong><br>1. Open Ajaib → Portofolio → Saham tab<br>2. iOS: take screenshot → open in Photos → long-press any ticker → Select All → Copy<br>3. Android: screenshot → Google Lens → copy all text<br>4. Paste below. Imports total IDR value (add qty & avg manually for P&L).',
-  BINANCE_TW:'<strong>Binance TW — individual coin page:</strong><br>1. Tap a coin (BTC, BNB, SOL, SUI…)<br>2. iOS: screenshot → Photos → long-press balance → Select All → Copy<br>3. Android: Google Lens → copy text<br>4. One coin per import. Paste below.',
-  GATE_IO:'<strong>Gate.io — individual coin page:</strong><br>1. Tap a coin → asset detail screen<br>2. Screenshot → copy all text as above<br>3. Note: Gate.io TW shows $ but means TWD. One coin per import.',
-  MAX:'<strong>MAX / Bitopro — individual coin page:</strong><br>1. Tap a coin<br>2. Screenshot → copy all text as above<br>3. One coin per import.',
-  GENERIC:'<strong>Other platform:</strong><br>Copy any text containing ticker symbols and numbers. The parser will attempt to extract holdings. Review all values carefully before importing.',
+const YF_IDX_SUFFIX = '.JK'; // IDX → BBCA.JK etc.
+const TWSE_SYM_MAP  = {'2330':'tse_2330.tw','2885':'tse_2885.tw','3711':'tse_3711.tw',
+  '00940':'tse_00940.tw','00981A':'otc_00981A.tw','2317':'tse_2317.tw',
+  '2454':'tse_2454.tw','0050':'tse_0050.tw','0056':'tse_0056.tw'};
+const BROKERS = ['Ajaib','SinoPac','Binance','Bitget','Gate.io','Other'];
+const CURRS   = ['TWD','IDR','USD','USDT'];
+
+/* ── State ──────────────────────────────────────────────────────────────── */
+// assets: [{id,sym,name,cat,broker,cur,qty,avg,px,isBank}]
+// trades: [{id,type,sym,name,broker,cur,qty,px,date}]
+// flows:  [{id,type,category,icon,amount,cur,account,date,note,recurring}]
+let S = {
+  assets: [], trades: [], flows: [],
+  fx: {USD_TWD:32.20, IDR_TWD:0.0020, TWD_TWD:1, USDT_TWD:32.18},
+  goal: 1000000,
 };
+let livePrices   = {};
+let refreshing   = false;
+let lastRefresh  = null;
+let curTab       = 'overview';
+let allocMode    = 'class';
+let holdFilter   = 'All';
+let holdSort     = 'value';
+let ledgerTab    = 'all';
+let ledgerBroker = 'All';
+let addMode      = 'trade';
+let trType       = 'BUY';
+let cfType       = 'INCOME';
+let recurring    = false;
 
-function parseNum(s){
-  if(!s)return 0;
-  if(/^\d{1,3}(\.\d{3})+$/.test(s))return parseInt(s.replace(/\./g,''),10);
-  return parseFloat(String(s).replace(/,/g,''))||0;
+function load() {
+  try { const d = localStorage.getItem('w:state'); if (d) S = {...S,...JSON.parse(d)}; } catch {}
 }
-function firstTitle(lines,max=10){
-  for(let i=0;i<Math.min(max,lines.length);i++){
-    const m=lines[i].match(/^([A-Z]{2,6})$/);
-    if(m&&!STOP_WORDS.has(m[1]))return m[1];
+function save() {
+  try { localStorage.setItem('w:state', JSON.stringify(S)); } catch {}
+}
+
+/* ── Helpers ────────────────────────────────────────────────────────────── */
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,5); }
+function today() { return new Date().toISOString().slice(0,10); }
+function curMon() { return new Date().toISOString().slice(0,7); }
+function el(id) { return document.getElementById(id); }
+function toNTD(amt, cur) {
+  return amt * (S.fx[cur+'_TWD'] ?? 1);
+}
+function fnum(n, dp=2) {
+  if (n==null||isNaN(n)) return '—';
+  const sign=n<0?'−':'', a=Math.abs(n);
+  if(a>=1e9) return sign+(a/1e9).toFixed(2)+'B';
+  if(a>=1e6) return sign+(a/1e6).toFixed(2)+'M';
+  if(a>=1e3) return sign+(a/1e3).toFixed(1)+'K';
+  return sign+a.toFixed(dp);
+}
+const fnt = n => 'NT$'+fnum(n);
+const sp = n => n>=0?'+':'';
+const sc = n => n>=0?'var(--ok)':'var(--no)';
+function assetVal(a) { return toNTD(a.isBank ? a.px : a.qty * livePx(a), a.cur); }
+function assetCost(a){ return toNTD(a.qty * a.avg, a.cur); }
+function livePx(a)   { return livePrices[a.sym] ?? a.px; }
+function isLive(sym) { return sym in livePrices; }
+function pnlPct(a)   { if(a.isBank||!a.avg) return null; const v=assetVal(a),c=assetCost(a); return c>0?(v-c)/c*100:null; }
+function computeFlow(flows, mon) {
+  const ent = flows.filter(f => f.date?.slice(0,7)===mon);
+  const inc = ent.filter(f=>f.type==='INCOME').reduce((s,f)=>s+toNTD(f.amount,f.cur),0);
+  const exp = ent.filter(f=>f.type==='EXPENSE').reduce((s,f)=>s+toNTD(f.amount,f.cur),0);
+  return {inc, exp, net:inc-exp, rate:inc>0?(inc-exp)/inc*100:0, count:ent.length};
+}
+function projMonths(nw, monthly, target) {
+  if(nw>=target) return 0;
+  if(monthly<=0) return null;
+  let n=nw, m=0;
+  while(n<target && m<300) { n = n*1.003 + monthly; m++; }
+  return m<300 ? m : null;
+}
+
+/* ── Price APIs ─────────────────────────────────────────────────────────── */
+async function fetchAllPrices() {
+  if(refreshing) return;
+  refreshing = true;
+  el('btn-refresh').classList.add('spinning');
+  el('price-err').style.display = 'none';
+  const errs = [];
+
+  // 1. CoinGecko
+  const cgSyms = [...new Set(S.assets.filter(a=>a.cat==='Crypto').map(a=>a.sym))];
+  const cgIds = cgSyms.map(s=>CG_IDS[s]).filter(Boolean);
+  if(cgIds.length) {
+    try {
+      const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids='+cgIds.join(',')+'&vs_currencies=usd',
+        {signal:AbortSignal.timeout(8000)});
+      if(r.ok) {
+        const d = await r.json();
+        Object.entries(CG_IDS).forEach(([sym,id])=>{ if(d[id]?.usd) livePrices[sym]=d[id].usd; });
+      }
+    } catch { errs.push('Crypto'); }
   }
-  return null;
-}
 
-function selPlat(p,btn){
-  impPlatform=p;
-  document.querySelectorAll('#plat-chips .chip').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  el('imp-how').innerHTML=PLAT_HOW[p]||'';
-  el('imp-status').textContent='';
-  el('imp-results').style.display='none';
-}
-
-function openImport(){
-  impDetected=[];impPlatform='AJAIB';
-  el('paste-area').value='';
-  el('imp-status').textContent='';
-  el('imp-results').style.display='none';
-  el('imp-how').innerHTML=PLAT_HOW.AJAIB;
-  document.querySelectorAll('#plat-chips .chip').forEach((b,i)=>b.classList.toggle('on',i===0));
-  showPanel('view-import');
-  setTimeout(()=>el('paste-area').focus(),200);
-}
-function closeImport(){hidePanel();switchTab(curTab);}
-
-function runImport(){
-  const text=el('paste-area').value.trim();
-  if(!text){el('imp-status').textContent='Paste some text first.';return;}
-  el('imp-status').textContent='';
-  switch(impPlatform){
-    case'AJAIB':      impDetected=parseAjaib(text);break;
-    case'BINANCE_TW': impDetected=parseBinanceTW(text);break;
-    case'GATE_IO':    impDetected=parseGateIO(text);break;
-    case'MAX':        impDetected=parseMAX(text);break;
-    default:          impDetected=parseGeneric(text);
+  // 2. TWSE
+  const twSyms = [...new Set(S.assets.filter(a=>a.cat==='TW').map(a=>a.sym))];
+  const twseQ  = twSyms.map(s=>TWSE_SYM_MAP[s]).filter(Boolean);
+  if(twseQ.length) {
+    try {
+      const r = await fetch('https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch='+encodeURIComponent(twseQ.join('|'))+'&json=1&delay=0',
+        {signal:AbortSignal.timeout(8000)});
+      if(r.ok) {
+        const d = await r.json();
+        (d.msgArray||[]).forEach(i=>{ const p=parseFloat(i.z!=='-'?i.z:i.y); if(i.c&&!isNaN(p)&&p>0) livePrices[i.c]=p; });
+      }
+    } catch { errs.push('TWSE'); }
   }
-  renderImpResults();
-}
 
-/* Ajaib: list view — ticker on own line, Rp[value] follows */
-function parseAjaib(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
-  const out=[],seen=new Set();
-  for(let i=0;i<lines.length;i++){
-    const m=lines[i].match(/^([A-Z]{2,5})(\s+X)?$/);
-    if(!m)continue;
-    const tk=m[1];
-    if(STOP_WORDS.has(tk)||seen.has(tk))continue;
-    for(let j=i+1;j<Math.min(i+6,lines.length);j++){
-      const l=lines[j];
-      if(/-Rp/.test(l)||/\+Rp/.test(l)||/%/.test(l))continue;
-      const rp=l.match(/Rp([\d.]+)/);
-      if(rp){
-        const px=parseNum(rp[1]);
-        if(px<100000)continue;
-        seen.add(tk);
-        out.push({id:uid(),name:tk,tk,cat:TICKER_CAT[tk]||'IDX',cur:'IDR',
-          qty:1,px,avg:0,pl:'Ajaib',note:'Total value — add qty & avg for P&L',
-          bk:false,on:true,selected:true});
-        break;
+  // 3. Yahoo Finance (IDX + US)
+  const yfAssets = S.assets.filter(a=>a.cat==='IDX'||a.cat==='US');
+  await Promise.allSettled(yfAssets.map(async a => {
+    try {
+      const yfsym = a.cat==='IDX' ? a.sym+YF_IDX_SUFFIX : a.sym;
+      const r = await fetch('https://query2.finance.yahoo.com/v8/finance/chart/'+yfsym+'?interval=1d&range=1d',
+        {signal:AbortSignal.timeout(8000)});
+      if(r.ok) {
+        const d = await r.json();
+        const p = d.chart?.result?.[0]?.meta?.regularMarketPrice;
+        if(p&&p>0) livePrices[a.sym]=p;
+      }
+    } catch {}
+  }));
+
+  // 4. FX
+  try {
+    const r = await fetch('https://open.er-api.com/v6/latest/USD',{signal:AbortSignal.timeout(8000)});
+    if(r.ok) {
+      const d = await r.json();
+      if(d.rates?.TWD&&d.rates?.IDR) {
+        S.fx = {USD_TWD:d.rates.TWD, IDR_TWD:d.rates.TWD/d.rates.IDR, TWD_TWD:1, USDT_TWD:d.rates.TWD*0.9998};
+        save();
       }
     }
+  } catch { errs.push('FX'); }
+
+  refreshing = false;
+  lastRefresh = new Date();
+  el('btn-refresh').classList.remove('spinning');
+  if(errs.length) {
+    el('price-err').textContent = 'Could not reach: '+errs.join(', ')+' — showing cached prices';
+    el('price-err').style.display = '';
   }
-  return out;
+  updateRefreshLabel();
+  if(curTab==='overview') renderOverview();
+  if(curTab==='holdings') renderHoldings();
 }
 
-/* Binance TW: qty from Available, NT$ total, Average Price */
-function parseBinanceTW(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
-  const sbIdx=lines.findIndex(l=>/Spot Balance/i.test(l));
-  const tk=firstTitle(lines,sbIdx>0?sbIdx:10);
-  if(!tk)return[];
-  let qty=0,val=0,avg=0;
-  for(let i=0;i<lines.length-1;i++){
-    if(/^Available$/i.test(lines[i])||/Available\s+Unavailable/i.test(lines[i])){
-      const nums=(lines[i+1].match(/[\d.]+/g)||[]).map(Number).filter(n=>n>0);
-      if(nums.length){qty=nums[0];break;}
+function updateRefreshLabel() {
+  if(!lastRefresh) { el('refresh-lbl').textContent=''; return; }
+  const m = Math.round((Date.now()-lastRefresh)/60000);
+  el('refresh-lbl').textContent = m<1?' · just now':' · '+m+'m ago';
+}
+
+async function doRefresh() {
+  await fetchAllPrices();
+}
+
+/* ── Navigation ─────────────────────────────────────────────────────────── */
+const NAV = [
+  {k:'overview',l:'Overview',ic:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'},
+  {k:'holdings',l:'Holdings',ic:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>'},
+  {k:'add',l:'Add',ic:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>'},
+  {k:'ledger',l:'Ledger',ic:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>'},
+  {k:'notes',l:'Notes',ic:'<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>'},
+];
+function renderNav() {
+  el('nav').innerHTML = NAV.map(n=>`<button class="nbt ${curTab===n.k?'on':''}" onclick="switchTab('${n.k}')"><svg viewBox="0 0 24 24">${n.ic}</svg>${n.l}</button>`).join('');
+}
+function switchTab(tab) {
+  curTab = tab;
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  el('v-'+tab).classList.add('on');
+  renderNav();
+  if(tab==='overview') renderOverview();
+  else if(tab==='holdings') renderHoldings();
+  else if(tab==='add') renderAdd();
+  else if(tab==='ledger') renderLedger();
+  else if(tab==='notes') renderNotes();
+}
+
+/* ── Overview ───────────────────────────────────────────────────────────── */
+function renderOverview() {
+  const inv = S.assets.filter(a=>!a.isBank);
+  const banks = S.assets.filter(a=>a.isBank);
+  const invVal  = inv.reduce((s,a)=>s+assetVal(a),0);
+  const invCost = inv.reduce((s,a)=>s+assetCost(a),0);
+  const cashVal = banks.reduce((s,a)=>s+assetVal(a),0);
+  const nw = invVal + cashVal;
+  const pnl = invVal - invCost;
+  const pnlPct = invCost>0 ? pnl/invCost*100 : 0;
+  const flow = computeFlow(S.flows, curMon());
+  const goalPct = S.goal>0 ? Math.min(nw/S.goal*100,100) : 0;
+  const months  = projMonths(nw, flow.net, S.goal);
+
+  // Allocation
+  const tot = nw||1;
+  const alloc = {};
+  const addAlloc = (key,name,color,v) => { if(!alloc[key]) alloc[key]={key,name,color,v:0}; alloc[key].v+=v; };
+  S.assets.forEach(a => {
+    const v = assetVal(a), c = CATS[a.cat];
+    if(allocMode==='class')    addAlloc(a.cat,c.name,c.color,v);
+    if(allocMode==='broker')   addAlloc(a.broker,a.broker,c.color,v);
+    if(allocMode==='currency') addAlloc(a.cur,a.cur,c.color,v);
+  });
+  const rows = Object.values(alloc).sort((a,b)=>b.v-a.v);
+  rows.forEach(r=>r.pct=r.v/tot*100);
+
+  const BPAL = {Ajaib:'#c2512b',SinoPac:'#0e7c55',Binance:'#d97706',Bitget:'#6d28d9','Gate.io':'#0891b2'};
+  if(allocMode==='broker') rows.forEach(r=>{ if(BPAL[r.key]) r.color=BPAL[r.key]; });
+
+  el('v-overview').innerHTML = `
+  <div class="hero">
+    <div class="eyebrow" style="margin-bottom:8px">Net Worth · NTD</div>
+    <div class="nw-big">${fnt(nw)}</div>
+    <div class="hero-row">
+      <span class="hero-sub">Invested <strong>${fnt(invVal)}</strong></span>
+      <span style="color:var(--tx3)">·</span>
+      <span class="hero-sub">P&L <strong style="color:${sc(pnl)}">${sp(pnl)}${fnt(Math.abs(pnl))}</strong></span>
+      <span class="pill ${pnlPct>=0?'pos':'neg'}">${sp(pnlPct)}${pnlPct.toFixed(1)}%</span>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-l">Invested</div><div class="stat-v">${fnt(invCost)}</div></div>
+    <div class="stat"><div class="stat-l">Cash</div><div class="stat-v">${fnt(cashVal)}</div></div>
+    <div class="stat"><div class="stat-l">Positions</div><div class="stat-v">${inv.length}</div></div>
+  </div>
+
+  ${flow.count>0 ? `
+  <div class="flow-sec">
+    <div class="flow-hd"><div class="eyebrow dot" style="--gold:#c9a870">Monthly · ${curMon()}</div></div>
+    <div class="flow-grid">
+      <div class="flow-cell"><div class="l">Income</div><div class="v pos">${fnt(flow.inc)}</div></div>
+      <div class="flow-cell"><div class="l">Expenses</div><div class="v neg">${fnt(flow.exp)}</div></div>
+      <div class="flow-cell"><div class="l">Net</div><div class="v ${flow.net>=0?'pos':'neg'}">${sp(flow.net)}${fnt(Math.abs(flow.net))}</div></div>
+    </div>
+    <div class="flow-bar-row">
+      <span class="flow-bar-lbl">Savings rate</span>
+      <div class="flow-track"><div class="flow-fill" style="width:${Math.max(0,Math.min(100,flow.rate)).toFixed(0)}%"></div></div>
+      <span class="flow-rate">${flow.rate.toFixed(0)}%</span>
+    </div>
+  </div>` : ''}
+
+  ${S.goal>0 ? `
+  <div class="goal-bar">
+    <div class="goal-hd">
+      <span class="goal-lbl">Goal · NTD</span>
+      <span class="goal-val"><strong>${fnt(nw)}</strong> / ${fnt(S.goal)} · ${goalPct.toFixed(1)}%</span>
+    </div>
+    <div class="goal-track"><div class="goal-fill" style="width:${goalPct.toFixed(1)}%"></div></div>
+    ${months!=null ? `<div class="goal-proj">At ${fnt(flow.net)}/mo savings → reach goal in <strong>~${months} months</strong></div>` : ''}
+  </div>` : ''}
+
+  ${rows.length ? `
+  <div class="alloc-sec">
+    <div class="alloc-hd">
+      <div class="eyebrow">Allocation</div>
+      <div class="alloc-toggle">
+        <button class="${allocMode==='class'?'on':''}" onclick="setAllocMode('class')">class</button>
+        <button class="${allocMode==='broker'?'on':''}" onclick="setAllocMode('broker')">broker</button>
+        <button class="${allocMode==='currency'?'on':''}" onclick="setAllocMode('currency')">currency</button>
+      </div>
+    </div>
+    <div class="alloc-bar">${rows.map(r=>`<div class="alloc-seg" style="width:${r.pct.toFixed(2)}%;background:${r.color}" title="${r.name}"></div>`).join('')}</div>
+    <div class="alloc-rows">${rows.map(r=>`<div class="ar"><div class="ar-dot" style="background:${r.color}"></div><span class="ar-name">${r.name}</span><span class="ar-amt">${fnt(r.v)}</span><span class="ar-pct">${r.pct.toFixed(0)}%</span></div>`).join('')}</div>
+  </div>` : ''}
+
+  <div class="fx-row">
+    <div class="fx"><strong>USD</strong><span>${S.fx.USD_TWD.toFixed(2)}</span></div>
+    <div class="fx"><strong>IDR</strong><span>${S.fx.IDR_TWD.toFixed(5)}</span></div>
+    <div class="fx"><strong>USDT</strong><span>${S.fx.USDT_TWD.toFixed(2)}</span></div>
+    <div class="fx"><strong>→</strong><span>NTD</span></div>
+  </div>
+
+  ${!S.assets.length ? `<div class="empty">No assets yet<br>Go to <strong>Add</strong> to record your first position<br>or open <strong>Settings</strong> to load sample data</div>` : ''}
+  <div class="foot">
+    Net worth = bank balances → NTD · <strong>authoritative</strong><br>
+    Investments = mark-to-market · <strong>informational</strong><br>
+    All data stored on this device · no account needed
+    <span class="ws">WEALTH</span>
+  </div>`;
+}
+function setAllocMode(m) { allocMode=m; renderOverview(); }
+
+/* ── Holdings ───────────────────────────────────────────────────────────── */
+function renderHoldings() {
+  const cats = ['All',...Object.keys(CATS)];
+  const filtered = S.assets.filter(a => holdFilter==='All'||a.cat===holdFilter);
+  const sorted = [...filtered].sort((a,b)=>{
+    if(holdSort==='value') return assetVal(b)-assetVal(a);
+    if(holdSort==='pnl') { const pa=pnlPct(a)??-999, pb=pnlPct(b)??-999; return pb-pa; }
+    return (a.sym||a.name).localeCompare(b.sym||b.name);
+  });
+  const totalVal = sorted.reduce((s,a)=>s+assetVal(a),0);
+  const liveCount = sorted.filter(a=>isLive(a.sym)).length;
+
+  let grouped = '';
+  const seen = new Set();
+  sorted.forEach(a => {
+    const cat = CATS[a.cat];
+    const grpKey = holdSort==='value' ? a.cat : '_';
+    if(!seen.has(grpKey)) {
+      seen.add(grpKey);
+      if(holdSort==='value') {
+        const grpVal = sorted.filter(x=>x.cat===a.cat).reduce((s,x)=>s+assetVal(x),0);
+        grouped += `<div class="sec-hdr"><span>${cat?.name||a.cat}</span><span class="sec-hdr-r">${fnt(grpVal)}</span></div>`;
+      }
+    }
+    const pp = pnlPct(a);
+    const lp = livePx(a);
+    const qDisp = a.isBank ? '' : (a.qty<1?a.qty.toFixed(4):a.qty>=1000?fnum(a.qty,0):a.qty.toLocaleString('en-US',{maximumFractionDigits:2}));
+    grouped += `<div class="hrow" onclick="openAssetDetail('${a.id}')">
+      <div class="hrow-bar" style="background:${cat?.color||'#888'}"></div>
+      <div class="hrow-ico" style="background:color-mix(in oklab,${cat?.color||'#888'} 14%,#111116);color:${cat?.color||'#888'}">${(a.sym||a.name).slice(0,4).toUpperCase()}</div>
+      <div class="hrow-mid">
+        <div class="hrow-name">${a.sym||a.name}<span style="color:var(--tx3);font-family:var(--font-d);font-size:10px;font-weight:400;margin-left:4px">· ${a.broker}</span></div>
+        <div class="hrow-sub">${a.name}${!a.isBank&&qDisp?' · '+qDisp+' × '+a.cur:' · '+a.cur}</div>
+        ${!a.isBank ? `<div class="hrow-px">${lp.toLocaleString('en-US',{maximumFractionDigits:2})} ${a.cur}<span class="${isLive(a.sym)?'live-dot':'stale-dot'}"></span></div>` : ''}
+      </div>
+      <div class="hrow-right">
+        <div class="hrow-val">${fnt(assetVal(a))}</div>
+        ${pp!=null?`<div class="hrow-pnl" style="color:${sc(pp)}">${sp(pp)}${pp.toFixed(1)}%</div>`:''}
+      </div>
+      <div class="hrow-chev"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+    </div>`;
+  });
+
+  el('v-holdings').innerHTML = `
+  <div class="tab-hd" style="display:flex;align-items:flex-end;justify-content:space-between">
+    <div>
+      <div class="ttl">Holdings</div>
+      <div class="sub">${S.assets.length} positions · ${fnt(totalVal)}${liveCount>0?' · <span style="color:var(--ok)">'+liveCount+' live</span>':''}</div>
+    </div>
+    <button class="icon-btn" style="background:var(--gold);color:var(--bg);border-color:var(--gold)" onclick="switchTab('add')">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+  </div>
+  <div class="chips-row">${cats.map(c=>`<button class="chip ${holdFilter===c?'on':''}" onclick="setHoldFilter('${c}')">${c==='All'?'All':CATS[c]?.name.split(' ')[0]||c}</button>`).join('')}</div>
+  <div class="sort-strip"><span>Sort</span>
+    <button class="srt ${holdSort==='value'?'on':''}" onclick="setHoldSort('value')">Value</button>
+    <button class="srt ${holdSort==='pnl'?'on':''}" onclick="setHoldSort('pnl')">P&L%</button>
+    <button class="srt ${holdSort==='name'?'on':''}" onclick="setHoldSort('name')">Name</button>
+  </div>
+  ${sorted.length ? grouped : '<div class="empty">No assets yet<br>Tap + to add your first position</div>'}
+  <div style="height:24px"></div>`;
+}
+function setHoldFilter(f) { holdFilter=f; renderHoldings(); }
+function setHoldSort(s) { holdSort=s; renderHoldings(); }
+
+function openAssetDetail(id) {
+  const a = S.assets.find(x=>x.id===id); if(!a) return;
+  const cat = CATS[a.cat];
+  const pp = pnlPct(a);
+  const lp = livePx(a);
+  const valNT = assetVal(a);
+  const sheetHTML = `
+    <div style="display:flex;align-items:center;gap:12px;padding:12px 4px 13px;border-bottom:.5px solid var(--bd)">
+      <div class="hrow-ico" style="background:color-mix(in oklab,${cat?.color||'#888'} 14%,#111116);color:${cat?.color||'#888'};width:44px;height:44px">${(a.sym||a.name).slice(0,4).toUpperCase()}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-family:var(--font-m);font-size:16px;font-weight:500;letter-spacing:-.3px">${a.sym||a.name}</div>
+        <div style="font-size:11px;color:var(--tx3);margin-top:2px">${a.name} · ${a.broker}</div>
+      </div>
+      <button class="icon-btn ghost" onclick="closeSettings()"><svg viewBox="0 0 24 24" style="width:15px;height:15px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);border-radius:11px;overflow:hidden;margin:13px 0 8px">
+      <div style="background:var(--bg3);padding:11px 13px"><div class="eyebrow" style="font-size:7.5px;margin-bottom:4px">Value · NTD</div><div class="stat-v">${fnt(valNT)}</div></div>
+      <div style="background:var(--bg3);padding:11px 13px"><div class="eyebrow" style="font-size:7.5px;margin-bottom:4px">P&L</div><div class="stat-v" style="color:${pp!=null?sc(pp):'var(--tx)'}">${pp!=null?sp(pp)+pp.toFixed(1)+'%':'—'}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--bd);border-radius:11px;overflow:hidden;margin-bottom:13px">
+      <div style="background:var(--bg3);padding:9px 11px"><div class="eyebrow" style="font-size:7.5px;margin-bottom:3px">Qty</div><div style="font-family:var(--font-m);font-size:12px;color:var(--tx2)">${a.isBank?'—':a.qty.toLocaleString('en-US',{maximumFractionDigits:4})}</div></div>
+      <div style="background:var(--bg3);padding:9px 11px"><div class="eyebrow" style="font-size:7.5px;margin-bottom:3px">Avg</div><div style="font-family:var(--font-m);font-size:12px;color:var(--tx2)">${a.isBank?'—':a.avg.toLocaleString('en-US',{maximumFractionDigits:2})+' '+a.cur}</div></div>
+      <div style="background:var(--bg3);padding:9px 11px"><div class="eyebrow" style="font-size:7.5px;margin-bottom:3px">Live px</div><div style="font-family:var(--font-m);font-size:12px;color:var(--tx2)">${lp.toLocaleString('en-US',{maximumFractionDigits:2})+' '+a.cur}</div></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="outline-btn" style="flex:1;padding:11px 0;text-align:center" onclick="deleteAsset('${id}')">🗑 Delete</button>
+      <button class="gold-btn" style="flex:2" onclick="closeSettings()">Done</button>
+    </div>`;
+  openSheet(sheetHTML);
+}
+function deleteAsset(id) {
+  if(!confirm('Remove this asset?')) return;
+  S.assets = S.assets.filter(a=>a.id!==id);
+  save(); closeSettings(); renderHoldings();
+}
+
+/* ── Add ────────────────────────────────────────────────────────────────── */
+function renderAdd() {
+  const tradeCats = Object.keys(CATS);
+  const flowCats  = cfType==='INCOME'?INCOME_CATS:EXPENSE_CATS;
+
+  el('v-add').innerHTML = `
+  <div class="tab-hd"><div class="ttl">Add</div><div class="sub">Record a trade or monthly income / expense</div></div>
+  <div class="add-pad">
+    <div class="mode-wrap">
+      <button class="mode-btn ${addMode==='trade'?'on trade':''}" onclick="setAddMode('trade')">📈 Trade</button>
+      <button class="mode-btn ${addMode==='cashflow'?'on cashflow':''}" onclick="setAddMode('cashflow')">💳 Cash Flow</button>
+    </div>
+
+    ${addMode==='trade' ? `
+    <div>
+      <div class="eyebrow" style="margin-bottom:8px">Transaction type</div>
+      <div class="type-row">
+        ${['BUY','SELL','SYNC','DIVIDEND'].map(t=>`<button class="type-btn ${trType===t?'on '+t:''}" onclick="setTrType('${t}')">${t==='DIVIDEND'?'DIV':t}</button>`).join('')}
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field" style="flex:0 0 115px">
+        <label>Symbol</label>
+        <input id="f-sym" list="sym-list" placeholder="BTC" oninput="this.value=this.value.toUpperCase();autoFill()" autocomplete="off">
+        <datalist id="sym-list">${[...new Set(S.assets.map(a=>a.sym))].map(s=>`<option value="${s}">`).join('')}</datalist>
+      </div>
+      <div class="field" style="flex:1"><label>Name</label><input id="f-name" placeholder="Bitcoin" autocomplete="off"></div>
+    </div>
+    <div class="field-row">
+      <div class="field" style="flex:1"><label>Broker</label><select id="f-broker">${BROKERS.map(b=>`<option>${b}</option>`).join('')}</select></div>
+      <div class="field" style="flex:0 0 100px"><label>Category</label><select id="f-cat">${tradeCats.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
+    </div>
+    <div class="field-row">
+      <div class="field" style="flex:1"><label>Quantity</label><input id="f-qty" type="number" inputmode="decimal" placeholder="0" step="any" min="0"></div>
+      <div class="field" style="flex:1"><label>Avg Cost</label><input id="f-avg" type="number" inputmode="decimal" placeholder="0" step="any" min="0"></div>
+    </div>
+    <div class="field-row">
+      <div class="field" style="flex:1"><label>Price</label><input id="f-px" type="number" inputmode="decimal" placeholder="0" step="any" min="0"></div>
+      <div class="field" style="flex:0 0 100px"><label>Currency</label><select id="f-cur">${CURRS.map(c=>`<option>${c}</option>`).join('')}</select></div>
+    </div>
+    <div class="field"><label>Date</label><input id="f-date" type="date" value="${today()}"></div>
+    <div id="trade-preview"></div>
+    <div id="trade-done"></div>
+    <div class="add-cta-row">
+      <button class="outline-btn" onclick="clearTradeForm()">Clear</button>
+      <button class="gold-btn" onclick="saveTrade()">Add → Ledger</button>
+    </div>
+    ` : `
+    <div>
+      <div class="eyebrow" style="margin-bottom:8px">Type</div>
+      <div class="type-row" style="gap:10px">
+        <button class="type-btn ${cfType==='INCOME'?'on INCOME':''}" onclick="setCfType('INCOME')">📈 Income</button>
+        <button class="type-btn ${cfType==='EXPENSE'?'on EXPENSE':''}" onclick="setCfType('EXPENSE')">📉 Expense</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>Category</label>
+      <select id="cf-cat">${flowCats.map(c=>`<option value="${c.key}">${c.icon} ${c.label}</option>`).join('')}</select>
+    </div>
+    <div class="field-row">
+      <div class="field" style="flex:1"><label>Amount</label><input id="cf-amt" type="number" inputmode="decimal" placeholder="0.00" step="any" min="0"></div>
+      <div class="field" style="flex:0 0 100px"><label>Currency</label><select id="cf-cur">${CURRS.map(c=>`<option>${c}</option>`).join('')}</select></div>
+    </div>
+    <div class="field-row">
+      <div class="field" style="flex:1"><label>Account</label><select id="cf-acct">${['SinoPac','Ajaib','Binance','Bitget','Gate.io','Other'].map(a=>`<option>${a}</option>`).join('')}</select></div>
+      <div class="field" style="flex:0 0 140px"><label>Date</label><input id="cf-date" type="date" value="${today()}"></div>
+    </div>
+    <div class="field"><label>Note (optional)</label><input id="cf-note" placeholder="${cfType==='INCOME'?'May salary, project payment…':'Rent, grocery run…'}"></div>
+    <div class="toggle-row" onclick="toggleRecurring()">
+      <div class="toggle-lbl">Recurring monthly<small>Marks as regular item in Ledger</small></div>
+      <div class="toggle ${recurring?'on':''}"><div class="toggle-knob"></div></div>
+    </div>
+    <div id="flow-preview"></div>
+    <div id="flow-done"></div>
+    <div class="add-cta-row">
+      <button class="outline-btn" onclick="clearFlowForm()">Clear</button>
+      <button class="gold-btn" onclick="saveFlow()">${cfType==='INCOME'?'Record Income':'Record Expense'}</button>
+    </div>
+    `}
+  </div>
+  <div style="height:24px"></div>`;
+}
+function setAddMode(m) { addMode=m; renderAdd(); }
+function setTrType(t) { trType=t; renderAdd(); }
+function setCfType(t) { cfType=t; renderAdd(); }
+function toggleRecurring() { recurring=!recurring; renderAdd(); }
+
+function autoFill() {
+  const sym = (el('f-sym')?.value||'').toUpperCase();
+  const a = S.assets.find(x=>x.sym===sym);
+  if(a) {
+    if(el('f-name')) el('f-name').value=a.name;
+    if(el('f-broker')) el('f-broker').value=a.broker;
+    if(el('f-cat')) el('f-cat').value=a.cat;
+    if(el('f-cur')) el('f-cur').value=a.cur;
+    if(el('f-px')) el('f-px').value=a.px;
+    if(el('f-avg')) el('f-avg').value=a.avg;
+  }
+}
+
+function saveTrade() {
+  const sym = el('f-sym')?.value.trim().toUpperCase();
+  const name = el('f-name')?.value.trim();
+  const qty  = parseFloat(el('f-qty')?.value||0);
+  const avg  = parseFloat(el('f-avg')?.value||0);
+  const px   = parseFloat(el('f-px')?.value||0);
+  const cur  = el('f-cur')?.value || 'IDR';
+  const cat  = el('f-cat')?.value || 'IDX';
+  const broker = el('f-broker')?.value || 'Ajaib';
+  const date = el('f-date')?.value || today();
+  if(!sym) { el('f-sym')?.focus(); return; }
+
+  // Update or add holding
+  const isBank = cat==='BankTW'||cat==='BankID';
+  if(trType==='BUY'||trType==='SYNC') {
+    const existing = S.assets.find(a=>a.sym===sym&&a.broker===broker);
+    if(existing) {
+      if(trType==='BUY'&&qty>0&&avg>0) {
+        const newQty = existing.qty+qty;
+        existing.avg = (existing.avg*existing.qty + avg*qty)/newQty;
+        existing.qty = newQty;
+      }
+      if(px>0) existing.px=px;
+    } else {
+      S.assets.push({id:uid(),sym,name:name||sym,cat,broker,cur,qty:qty||1,avg:avg||0,px:px||0,isBank});
     }
   }
-  if(!qty){
-    for(let i=1;i<Math.min(9,lines.length);i++){
-      const m=lines[i].match(/^([\d]+\.[\d]+)$/);
-      if(m){const n=parseFloat(m[1]);if(n>0&&n<1e10){qty=n;break;}}
-    }
-  }
-  const ntAll=[...text.matchAll(/NT\s?\$?\s*([\d,]+\.?\d*)/g)].map(m=>parseNum(m[1])).filter(n=>n>0);
-  if(ntAll.length)val=ntAll[0];
-  const avgSec=text.match(/Average Price[\s\S]{0,150}/i);
-  if(avgSec){
-    const av=[...avgSec[0].matchAll(/NT\s?\$?\s*([\d,]+\.?\d*)/g)].map(m=>parseNum(m[1])).filter(n=>n>0&&n!==val);
-    if(av.length)avg=av[0];
-  }
-  const px=qty>0&&val>0?Math.round(val/qty*100)/100:0;
-  if(!qty||!px)return[];
-  return[{id:uid(),name:tk,tk,cat:TICKER_CAT[tk]||'CRYPTO',cur:'TWD',
-    qty,px,avg,pl:'Binance TW',note:'',bk:false,on:true,selected:true}];
+
+  S.trades.push({id:uid(),type:trType,sym,name:name||sym,broker,cur,qty,px,date});
+  save();
+
+  const done = el('trade-done');
+  if(done) { done.innerHTML='<div style="text-align:center"><span class="success-pill">✓ Added to ledger</span></div>'; setTimeout(()=>{if(done)done.innerHTML='';},2200); }
+  if(el('f-qty')) el('f-qty').value='';
+  if(el('f-px'))  el('f-px').value='';
+  if(el('f-sym')) el('f-sym').value='';
+  if(el('f-name'))el('f-name').value='';
 }
 
-/* Gate.io: Diluted Cost = avg cost basis, Last Price = current px, $ means TWD.
-   The two labels appear side-by-side: "Diluted Cost  Last Price"
-   followed by their values on the next line: "$ 3,031,719.5  $ 2,452,370.1"
-   Strategy: find the line containing both labels, grab the next line's two $ values. */
-function parseGateIO(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
-  const tk=firstTitle(lines);
-  if(!tk)return[];
-  let qty=0,px=0,avg=0;
-  // qty: "[number] [TICKER]"
-  const qm=text.match(new RegExp('([\\d]+\\.?[\\d]*)\\s+'+tk+'\\b'));
-  if(qm)qty=parseFloat(qm[1]);
-  // Find the "Diluted Cost ... Last Price" label line; values are on the NEXT line
-  for(let i=0;i<lines.length-1;i++){
-    if(/Diluted Cost/i.test(lines[i])&&/Last Price/i.test(lines[i])){
-      // Next line has two dollar values: "$ 3,031,719.5  $ 2,452,370.1"
-      const vals=[...lines[i+1].matchAll(/\$?\s*([\d,]+\.?\d*)/g)]
-        .map(m=>parseNum(m[1])).filter(n=>n>100);
-      if(vals.length>=2){avg=vals[0];px=vals[1];}   // Diluted Cost first, Last Price second
-      else if(vals.length===1){px=vals[0];}
-      break;
-    }
-  }
-  // Fallback: separate label rows
-  if(!px){
-    const lastSec=text.match(/Last Price[\s\S]{0,80}/i);
-    if(lastSec){const m=lastSec[0].match(/\$\s*([\d,]+\.?\d*)/);if(m)px=parseNum(m[1]);}
-  }
-  if(!avg){
-    const dilSec=text.match(/Diluted Cost[\s\S]{0,80}/i);
-    if(dilSec){const m=dilSec[0].match(/\$\s*([\d,]+\.?\d*)/);if(m)avg=parseNum(m[1]);}
-  }
-  // Second fallback: derive px from Est. Total Value / qty
-  if(!px&&qty>0){
-    const tvSec=text.match(/Est\.?\s*Total Value[\s\S]{0,80}/i);
-    if(tvSec){const m=tvSec[0].match(/\$\s*([\d,]+\.?\d*)/);if(m)px=Math.round(parseNum(m[1])/qty*100)/100;}
-  }
-  if(!qty||!px)return[];
-  return[{id:uid(),name:tk,tk,cat:TICKER_CAT[tk]||'CRYPTO',cur:'TWD',
-    qty,px,avg,pl:'Gate.io',note:'',bk:false,on:true,selected:true}];
+function saveFlow() {
+  const amt  = parseFloat(el('cf-amt')?.value||0);
+  const cur  = el('cf-cur')?.value||'TWD';
+  const cat  = el('cf-cat')?.value||'Salary';
+  const acct = el('cf-acct')?.value||'SinoPac';
+  const note = el('cf-note')?.value.trim()||'';
+  const date = el('cf-date')?.value||today();
+  if(!amt||amt<=0) { el('cf-amt')?.focus(); return; }
+  const allCats = [...INCOME_CATS,...EXPENSE_CATS];
+  const catObj  = allCats.find(c=>c.key===cat)||{};
+  S.flows.push({id:uid(),type:cfType,category:cat,icon:catObj.icon||'',amount:amt,cur,account:acct,date,note,recurring});
+  save();
+  const done = el('flow-done');
+  if(done) { done.innerHTML='<div style="text-align:center"><span class="success-pill">✓ Cash flow recorded</span></div>'; setTimeout(()=>{if(done)done.innerHTML='';},2200); }
+  if(el('cf-amt')) el('cf-amt').value='';
+  if(el('cf-note'))el('cf-note').value='';
 }
+function clearTradeForm() { ['f-sym','f-name','f-qty','f-avg','f-px'].forEach(id=>{ if(el(id)) el(id).value=''; }); if(el('f-date')) el('f-date').value=today(); }
+function clearFlowForm()  { ['cf-amt','cf-note'].forEach(id=>{ if(el(id)) el(id).value=''; }); if(el('cf-date')) el('cf-date').value=today(); recurring=false; renderAdd(); }
 
-/* MAX: total assets in TWD, breakeven in USDT */
-function parseMAX(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
-  const tk=firstTitle(lines);
-  if(!tk)return[];
-  let qty=0,val=0,bkUsdt=0;
-  const qm=text.match(new RegExp('([\\d.]+)\\s+'+tk+'\\b'));
-  if(qm)qty=parseFloat(qm[1]);
-  const twdM=text.match(/[≈=~]?\s*([\d,]+\.?\d*)\s*TWD/);
-  if(twdM)val=parseNum(twdM[1]);
-  const bkSec=text.match(/Breakeven price[\s\S]{0,100}/i);
-  if(bkSec){const m=bkSec[0].match(/([\d,]+\.?\d*)\s*USDT/);if(m)bkUsdt=parseNum(m[1]);}
-  const px=qty>0&&val>0?Math.round(val/qty*100)/100:0;
-  if(!qty||!px)return[];
-  return[{id:uid(),name:tk,tk,cat:TICKER_CAT[tk]||'CRYPTO',cur:'TWD',
-    qty,px,avg:0,pl:'MAX/Bitopro',
-    note:bkUsdt?'Breakeven: '+bkUsdt+' USDT':'',
-    bk:false,on:true,selected:true}];
-}
+/* ── Ledger ─────────────────────────────────────────────────────────────── */
+function renderLedger() {
+  const allTrades = [...S.trades].sort((a,b)=>b.date>a.date?1:-1);
+  const allFlows  = [...S.flows].sort((a,b)=>b.date>a.date?1:-1);
+  const all = [...allTrades.map(t=>({...t,_k:'trade'})),...allFlows.map(f=>({...f,_k:'flow'}))].sort((a,b)=>b.date>a.date?1:-1);
 
-/* Generic: heuristic ticker + number extraction */
-function parseGeneric(text){
-  const lines=text.split('\n').map(l=>l.trim()).filter(l=>l.length>1);
-  const out=[],seen=new Set();
-  for(let i=0;i<lines.length;i++){
-    const tokens=(lines[i].match(/\b([A-Z0-9]{2,6})\b/g)||[]);
-    let tk=null;
-    for(const t of tokens){if(TICKER_CAT[t]&&!seen.has(t)){tk=t;break;}}
-    if(!tk){for(const t of tokens){if(t.length>=3&&t.length<=5&&!STOP_WORDS.has(t)&&!seen.has(t)&&/[A-Z]/.test(t)){tk=t;break;}}}
-    if(!tk)continue;
-    const ctx=lines.slice(Math.max(0,i-1),Math.min(lines.length,i+3)).join(' ');
-    const nums=(ctx.match(/[\d][0-9,.]+/g)||[]).map(n=>{
-      if(/^\d{1,3}(\.\d{3})+$/.test(n))return parseInt(n.replace(/\./g,''),10);
-      return parseNum(n);
-    }).filter(n=>!isNaN(n)&&n>0&&n<1e12);
-    if(!nums.length)continue;
-    const sorted=[...nums].sort((a,b)=>a-b);
-    let qty=sorted[0],px=sorted[sorted.length-1];
-    const si=sorted.find(n=>n<=10000&&n===Math.round(n));
-    if(si&&si!==sorted[sorted.length-1]){qty=si;px=sorted[sorted.length-1];}
-    seen.add(tk);
-    const cat=TICKER_CAT[tk]||'IDX';
-    out.push({id:uid(),name:tk,tk,cat,cur:CATS[cat]?.cur||'IDR',
-      qty,px,avg:0,pl:'',note:'',bk:false,on:true,selected:true});
-  }
-  return out;
-}
+  const filtered = all.filter(e=>{
+    if(ledgerTab==='trades'  && e._k!=='trade')  return false;
+    if(ledgerTab==='income'  && e.type!=='INCOME')  return false;
+    if(ledgerTab==='expense' && e.type!=='EXPENSE') return false;
+    if((ledgerTab==='all'||ledgerTab==='trades') && ledgerBroker!=='All' && e.broker && e.broker!==ledgerBroker) return false;
+    return true;
+  });
 
-function renderImpResults(){
-  el('imp-results').style.display='';
-  if(!impDetected.length){
-    el('imp-results-hd').textContent='Nothing detected';
-    el('imp-items-list').innerHTML='<div id="imp-empty">No holdings found.<br>Make sure you selected all text from the correct screen.</div>';
-    el('btn-imp-import').style.display='none';
-    return;
-  }
-  const note={
-    AJAIB:'Ajaib: total IDR value imported. Tap each asset after to add qty & avg price.',
-    BINANCE_TW:'Binance TW: full data extracted.',
-    GATE_IO:'Gate.io: $ = TWD. Review prices.',
-    MAX:'MAX: TWD value used. Check avg price.',
-  }[impPlatform]||'Review all values carefully.';
-  const sel=impDetected.filter(a=>a.selected).length;
-  el('imp-results-hd').textContent=impDetected.length+' asset'+(impDetected.length!==1?'s':'')+' found';
-  el('imp-items-list').innerHTML=
-    `<div style="font-size:12px;color:var(--tx2);background:var(--bg2);border-radius:var(--r);padding:10px 12px;margin-bottom:10px;line-height:1.6">${note}</div>`+
-    impDetected.map((a,i)=>{
-      const col=CATS[a.cat]?.color||'#888';
-      const isTotal=a.pl==='Ajaib';
-      const sub=isTotal
-        ?`Total: ${fn(a.px,0)} ${a.cur} · qty/avg TBD`
-        :`Qty ${fn(a.qty,a.qty<1?6:2)} · Price ${fn(a.px,a.px<100?4:0)} ${a.cur}`+(a.avg?` · Avg ${fn(a.avg,a.avg<100?2:0)}`:'');
-      return`<div class="ocr-item">
-        <div class="ocr-chk${a.selected?' on':''}" onclick="impToggle(${i})">${a.selected?'✓':''}</div>
-        <div class="ocr-item-info">
-          <div class="ocr-item-tk">${a.tk}<span class="ocr-item-cat" style="background:${col}">${a.cat}</span></div>
-          <div class="ocr-item-sub">${sub}</div>
+  const flow = computeFlow(S.flows, curMon());
+
+  el('v-ledger').innerHTML = `
+  <div class="tab-hd" style="display:flex;align-items:flex-end;justify-content:space-between">
+    <div><div class="ttl">Ledger</div><div class="sub">Trades · income · expenses · ${all.length} entries</div></div>
+    <button class="icon-btn" style="background:var(--gold);color:var(--bg);border-color:var(--gold)" onclick="switchTab('add')">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+  </div>
+
+  ${flow.count>0 ? `
+  <div style="padding:10px 1rem;background:var(--bg1);border-bottom:.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin-bottom:4px">${curMon()}</div>
+      <div style="font-family:var(--font-m);font-size:11px;color:var(--tx2)">
+        <span style="color:var(--ok)">${fnt(flow.inc)}</span>
+        <span style="color:var(--tx3);margin:0 5px">in</span>
+        <span style="color:var(--no)">${fnt(flow.exp)}</span>
+        <span style="color:var(--tx3);margin:0 5px">out</span>
+        <span style="color:${sc(flow.net)};font-weight:500">${sp(flow.net)}${fnt(Math.abs(flow.net))} net</span>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-family:var(--font-m);font-size:13px;font-weight:500;color:${flow.rate>=50?'var(--ok)':'var(--tx2)'}">${flow.rate.toFixed(0)}%</div>
+      <div style="font-size:8.5px;color:var(--tx3)">saved</div>
+    </div>
+  </div>` : ''}
+
+  <div class="sec-hdr"><span>Journal</span><span class="sec-hdr-r">${filtered.length} shown</span></div>
+  <div class="chips-row">
+    ${[['all','All'],['trades','Trades'],['income','Income'],['expense','Expenses']].map(([k,l])=>`<button class="chip ${ledgerTab===k?'on':''}" onclick="setLedgerTab('${k}')">${l}</button>`).join('')}
+  </div>
+  ${(ledgerTab==='all'||ledgerTab==='trades')?`<div class="chips-row">${['All',...BROKERS].map(b=>`<button class="chip ${ledgerBroker===b?'on':''}" onclick="setLedgerBroker('${b}')">${b}</button>`).join('')}</div>`:''}
+
+  ${filtered.length ? filtered.map(e=>{
+    if(e._k==='flow') {
+      const amtNT = toNTD(e.amount, e.cur);
+      return `<div class="tx-row">
+        <div class="tx-tag ${e.type==='INCOME'?'INCOME':'EXPENSE'}">${e.type==='INCOME'?'IN':'OUT'}</div>
+        <div class="tx-mid">
+          <div class="tx-sym">${e.icon} ${e.category}<span style="color:var(--tx3);font-family:var(--font-d);font-size:10px;font-weight:400;margin-left:3px">· ${e.account}</span></div>
+          <div class="tx-sub">${e.note||'—'}${e.recurring?'<span style="color:var(--gold);margin-left:5px;font-size:9px;font-weight:800">↻</span>':''}</div>
+        </div>
+        <div class="tx-right">
+          <div class="tx-amt ${e.type==='INCOME'?'pos':'neg'}">${e.type==='INCOME'?'+':'−'}${fnt(amtNT)}</div>
+          <div class="tx-date">${e.date}</div>
         </div>
       </div>`;
-    }).join('');
-  el('btn-imp-import').style.display=sel?'':'none';
-  el('btn-imp-import').textContent=`Import ${sel} Asset${sel!==1?'s':''}`;
+    }
+    const ttl = toNTD((e.qty||0)*(e.px||0), e.cur);
+    return `<div class="tx-row">
+      <div class="tx-tag ${e.type}">${e.type==='DIVIDEND'?'DIV':e.type}</div>
+      <div class="tx-mid">
+        <div class="tx-sym">${e.sym}<span style="color:var(--tx3);font-family:var(--font-d);font-size:10px;font-weight:400;margin-left:3px">· ${e.broker}</span></div>
+        <div class="tx-sub">${(e.qty||0).toLocaleString('en-US',{maximumFractionDigits:4})} × ${(e.px||0).toLocaleString('en-US',{maximumFractionDigits:2})} ${e.cur}</div>
+      </div>
+      <div class="tx-right">
+        <div class="tx-amt neu">${e.type==='DIVIDEND'?'+':''}${fnt(ttl)}</div>
+        <div class="tx-date">${e.date}</div>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty">No entries here yet</div>'}
+  <div style="height:24px"></div>`;
 }
-function impToggle(i){impDetected[i].selected=!impDetected[i].selected;renderImpResults();}
-function doImport(){
-  const toAdd=impDetected.filter(a=>a.selected);
-  if(!toAdd.length)return;
-  assets=[...assets,...toAdd.map(a=>({...a,id:uid()}))];
-  saveA();closeImport();switchTab('holdings');
+function setLedgerTab(t) { ledgerTab=t; renderLedger(); }
+function setLedgerBroker(b) { ledgerBroker=b; renderLedger(); }
+
+/* ── Notes / Analytics ──────────────────────────────────────────────────── */
+function renderNotes() {
+  const inv   = S.assets.filter(a=>!a.isBank);
+  const banks = S.assets.filter(a=>a.isBank);
+  const nw    = inv.reduce((s,a)=>s+assetVal(a),0)+banks.reduce((s,a)=>s+assetVal(a),0);
+  const cost  = inv.reduce((s,a)=>s+assetCost(a),0);
+  const pnl   = inv.reduce((s,a)=>s+(assetVal(a)-assetCost(a)),0);
+  const flow  = computeFlow(S.flows, curMon());
+  const hhi   = inv.reduce((s,a)=>{const w=assetVal(a)/(nw||1);return s+w*w;},0);
+  const divScore = Math.max(0,(1-hhi)*100);
+
+  el('v-notes').innerHTML = `
+  <div class="tab-hd"><div class="ttl">Notes</div><div class="sub">Portfolio analytics · calculated from live data · no API</div></div>
+  <div class="notes-pad">
+
+    <div class="analytics-card">
+      <div class="card-hd">Portfolio Summary</div>
+      <div class="card-body">
+        ${[['Net worth → NTD',fnt(nw),null],['Invested',fnt(cost),null],['Unrealised P&L',sp(pnl)+fnt(Math.abs(pnl)),sc(pnl)],['Diversification',divScore.toFixed(0)+'/100',null],['Open positions',inv.length+' assets',null]].map(([k,v,c])=>`
+          <div class="analytics-row"><span class="k">${k}</span><span class="v" style="${c?'color:'+c:''}">${v}</span></div>`).join('')}
+      </div>
+    </div>
+
+    ${flow.count>0 ? `
+    <div class="analytics-card">
+      <div class="card-hd">Cash Flow · ${curMon()}</div>
+      <div class="card-body">
+        ${[['Income',fnt(flow.inc),'var(--ok)'],['Expenses',fnt(flow.exp),'var(--no)'],['Net saved',sp(flow.net)+fnt(Math.abs(flow.net)),sc(flow.net)],['Savings rate',flow.rate.toFixed(0)+'%',flow.rate>=50?'var(--ok)':null]].map(([k,v,c])=>`
+          <div class="analytics-row"><span class="k">${k}</span><span class="v" style="${c?'color:'+c:''}">${v}</span></div>`).join('')}
+        ${S.goal>0&&flow.net>0?`<div class="analytics-row"><span class="k">Months to goal</span><span class="v" style="color:var(--gold)">~${projMonths(nw,flow.net,S.goal)} mo</span></div>`:''}
+      </div>
+    </div>` : ''}
+
+    <div class="eyebrow" style="margin-top:4px">Quick analysis</div>
+    <div class="query-row">
+      <button class="query-btn" onclick="runQuery('topgainers')">📈 Top gainers</button>
+      <button class="query-btn" onclick="runQuery('toplosers')">📉 Top losers</button>
+      <button class="query-btn" onclick="runQuery('currency')">💱 Currency split</button>
+      <button class="query-btn" onclick="runQuery('broker')">🏦 By broker</button>
+      <button class="query-btn" onclick="runQuery('goal')">🎯 Goal timeline</button>
+    </div>
+    <div id="query-result"></div>
+
+    ${!S.assets.length ? '<div class="empty">Add assets to see analytics</div>' : ''}
+  </div>
+  <div style="height:24px"></div>`;
 }
 
-/* ── Init ────────────────────────────────────────────────────────────────────*/
-switchTab('dashboard');
+function runQuery(q) {
+  const inv   = S.assets.filter(a=>!a.isBank);
+  const nw    = S.assets.reduce((s,a)=>s+assetVal(a),0);
+  let html = '';
+
+  if(q==='topgainers'||q==='toplosers') {
+    const sorted = inv.filter(a=>a.avg>0).map(a=>({a,pp:pnlPct(a)})).filter(x=>x.pp!=null).sort((a,b)=>q==='topgainers'?b.pp-a.pp:a.pp-b.pp).slice(0,5);
+    if(!sorted.length) { html='<span>No positions with avg cost set.</span>'; }
+    else html=sorted.map(({a,pp})=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:.5px solid var(--bd)"><em>${a.sym}</em><strong style="color:${sc(pp)}">${sp(pp)}${pp.toFixed(1)}%</strong></div>`).join('');
+  }
+  if(q==='currency') {
+    const expo={};
+    S.assets.forEach(a=>{expo[a.cur]=(expo[a.cur]||0)+assetVal(a);});
+    const tot=Object.values(expo).reduce((s,v)=>s+v,0)||1;
+    html=Object.entries(expo).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:.5px solid var(--bd)"><em>${k}</em><strong>${fnt(v)} <span style="color:var(--tx3)">${(v/tot*100).toFixed(0)}%</span></strong></div>`).join('');
+  }
+  if(q==='broker') {
+    const acc={};
+    S.assets.forEach(a=>{acc[a.broker]=(acc[a.broker]||0)+assetVal(a);});
+    const tot=Object.values(acc).reduce((s,v)=>s+v,0)||1;
+    html=Object.entries(acc).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:.5px solid var(--bd)"><em>${k}</em><strong>${fnt(v)} <span style="color:var(--tx3)">${(v/tot*100).toFixed(0)}%</span></strong></div>`).join('');
+  }
+  if(q==='goal') {
+    const flow=computeFlow(S.flows,curMon());
+    const pct=S.goal>0?Math.min(nw/S.goal*100,100):0;
+    const months=S.goal>0&&flow.net>0?projMonths(nw,flow.net,S.goal):null;
+    html=`<div style="padding:4px 0"><strong>Goal: ${fnt(S.goal)}</strong></div>
+    <div style="padding:4px 0;border-top:.5px solid var(--bd)">Current: <em>${fnt(nw)}</em> — <strong>${pct.toFixed(1)}%</strong> there</div>
+    <div style="padding:4px 0;border-top:.5px solid var(--bd)">Gap: <em>${fnt(Math.max(0,S.goal-nw))}</em></div>
+    ${months!=null?`<div style="padding:4px 0;border-top:.5px solid var(--bd)">At ${fnt(flow.net)}/mo → <strong style="color:var(--gold)">~${months} months</strong></div>`:'<div style="padding:4px 0;border-top:.5px solid var(--bd);color:var(--tx3)">Add income/expense to get projection</div>'}`;
+  }
+  const res = el('query-result');
+  if(res) res.innerHTML = `<div class="result-card">${html}</div>`;
+}
+
+/* ── Settings sheet ─────────────────────────────────────────────────────── */
+function openSheet(html) {
+  el('s-inner').innerHTML = html;
+  el('s-bg').style.display = '';
+  requestAnimationFrame(()=>el('s-sheet').classList.add('open'));
+}
+function openSettings() {
+  openSheet(`
+    <div class="set-sect">
+      <div class="set-sect-title">FX Rates · to NTD</div>
+      <div class="set-input-grid">
+        <div class="field"><label>1 USD =</label><input id="s-usd" type="number" inputmode="decimal" step="any" value="${S.fx.USD_TWD}" style="padding:9px 11px"></div>
+        <div class="field"><label>1 IDR =</label><input id="s-idr" type="number" inputmode="decimal" step="any" value="${S.fx.IDR_TWD}" style="padding:9px 11px"></div>
+        <div class="field"><label>1 USDT =</label><input id="s-usdt" type="number" inputmode="decimal" step="any" value="${S.fx.USDT_TWD}" style="padding:9px 11px"></div>
+        <div class="field"><label>Goal · NTD</label><input id="s-goal" type="number" inputmode="decimal" step="any" value="${S.goal}" style="padding:9px 11px"></div>
+      </div>
+      <button class="set-save-btn" onclick="saveSettings()">Save</button>
+    </div>
+    <div class="set-sect">
+      <div class="set-sect-title">Data · ${S.assets.length} assets · ${S.trades.length} trades · ${S.flows.length} flows</div>
+      <div class="set-row" onclick="exportCSV()"><span class="l">Export CSV</span><span class="r">↓ download</span></div>
+      <div class="set-row" onclick="loadSample()"><span class="l">Load sample data</span><span class="r">demo only</span></div>
+      <div class="set-row danger" onclick="clearAll()"><span class="l" style="color:var(--no)">Clear all data</span><span class="r" style="color:var(--no)">cannot undo</span></div>
+    </div>
+    <div style="font-size:9.5px;color:var(--tx3);text-align:center;padding:12px 0 4px;line-height:2;font-family:var(--font-m)">
+      All data stored on this device only<br>No account · No server · No tracking<br>v2.0 · Wealth Tracker
+    </div>`);
+}
+function closeSettings() {
+  el('s-sheet').classList.remove('open');
+  el('s-bg').style.display='none';
+  el('s-inner').innerHTML='';
+}
+function saveSettings() {
+  const u=parseFloat(el('s-usd')?.value), i=parseFloat(el('s-idr')?.value),
+        t=parseFloat(el('s-usdt')?.value), g=parseFloat(el('s-goal')?.value);
+  if(u>0) S.fx.USD_TWD=u; if(i>0) S.fx.IDR_TWD=i; if(t>0) S.fx.USDT_TWD=t;
+  if(g>=0) S.goal=g;
+  save(); closeSettings();
+  if(curTab==='overview') renderOverview();
+}
+function exportCSV() {
+  const rows = [['Sym','Name','Cat','Broker','Qty','AvgCost','Price','Cur','ValNTD','PnlPct']];
+  S.assets.filter(a=>a.isBank===false).forEach(a=>{
+    const pp=pnlPct(a);
+    rows.push([a.sym,a.name,a.cat,a.broker,a.qty,a.avg,a.px,a.cur,Math.round(assetVal(a)),pp!=null?pp.toFixed(2):'']);
+  });
+  const csv = rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const link = document.createElement('a');
+  link.href = 'data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  link.download = 'wealth_'+today()+'.csv';
+  link.click();
+  closeSettings();
+}
+function loadSample() {
+  if(!confirm('Load demo data? This replaces any existing data.')) return;
+  S.assets = [
+    {id:uid(),sym:'BTC',  name:'Bitcoin',          cat:'Crypto', broker:'Binance', cur:'USD', qty:0.01,  avg:71200,   px:77019,   isBank:false},
+    {id:uid(),sym:'2330', name:'台積電 TSMC',        cat:'TW',     broker:'SinoPac', cur:'TWD', qty:5,     avg:2182,    px:2260,    isBank:false},
+    {id:uid(),sym:'BBCA', name:'Bank Central Asia', cat:'IDX',    broker:'Ajaib',   cur:'IDR', qty:1000,  avg:9868,    px:8365,    isBank:false},
+    {id:uid(),sym:'SOL',  name:'Solana',            cat:'Crypto', broker:'Binance', cur:'USD', qty:0.5,   avg:222.6,   px:168.9,   isBank:false},
+    {id:uid(),sym:'SinoPac',name:'SinoPac TWD',     cat:'BankTW', broker:'SinoPac', cur:'TWD', qty:1,     avg:0,       px:3240,    isBank:true},
+  ];
+  S.trades = [];
+  S.flows  = [
+    {id:uid(),type:'INCOME', category:'Salary',  icon:'💼',amount:62000,cur:'TWD',account:'SinoPac',date:today(),note:'Monthly salary',  recurring:true},
+    {id:uid(),type:'EXPENSE',category:'Housing', icon:'🏠',amount:15500,cur:'TWD',account:'SinoPac',date:today(),note:'Rent',            recurring:true},
+    {id:uid(),type:'EXPENSE',category:'Food',    icon:'🍜',amount:7800, cur:'TWD',account:'SinoPac',date:today(),note:'Food & dining',   recurring:false},
+    {id:uid(),type:'EXPENSE',category:'Transport',icon:'🚇',amount:2600,cur:'TWD',account:'SinoPac',date:today(),note:'MRT & transport', recurring:false},
+  ];
+  save(); closeSettings(); switchTab('overview');
+}
+function clearAll() {
+  if(!confirm('Delete ALL data? This cannot be undone.')) return;
+  S.assets=[]; S.trades=[]; S.flows=[]; save(); closeSettings(); switchTab('overview');
+}
+
+/* ── Init ───────────────────────────────────────────────────────────────── */
+load();
+renderNav();
+renderOverview();
+setInterval(updateRefreshLabel, 30000);
+// Auto-fetch if assets exist
+if(S.assets.length) fetchAllPrices();
 </script>
 </body>
 </html>
