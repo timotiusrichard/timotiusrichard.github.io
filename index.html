@@ -612,7 +612,7 @@ function renderOverview() {
     <div class="fx"><strong>→</strong><span>NTD</span></div>
   </div>
 
-  ${!S.assets.length ? `<div class="empty">No assets yet<br>Go to <strong>Add</strong> to record your first position<br>or open <strong>Settings</strong> to load sample data</div>` : ''}
+  ${!S.assets.length ? `<div class="empty">No assets yet<br>Go to <strong>Add</strong> to record your first position</div>` : ''}
   <div class="foot">
     Net worth = bank balances → NTD · <strong>authoritative</strong><br>
     Investments = mark-to-market · <strong>informational</strong><br>
@@ -1067,7 +1067,6 @@ function openSettings() {
     <div class="set-sect">
       <div class="set-sect-title">Data · ${S.assets.length} assets · ${S.trades.length} trades · ${S.flows.length} flows</div>
       <div class="set-row" onclick="exportCSV()"><span class="l">Export CSV</span><span class="r">↓ download</span></div>
-      <div class="set-row" onclick="loadSample()"><span class="l">Load sample data</span><span class="r">demo only</span></div>
       <div class="set-row danger" onclick="clearAll()"><span class="l" style="color:var(--no)">Clear all data</span><span class="r" style="color:var(--no)">cannot undo</span></div>
     </div>
     <div style="font-size:9.5px;color:var(--tx3);text-align:center;padding:12px 0 4px;line-height:2;font-family:var(--font-m)">
@@ -1100,24 +1099,7 @@ function exportCSV() {
   link.click();
   closeSettings();
 }
-function loadSample() {
-  if(!confirm('Load demo data? This replaces any existing data.')) return;
-  S.assets = [
-    {id:uid(),sym:'BTC',  name:'Bitcoin',          cat:'Crypto', broker:'Binance', cur:'USD', qty:0.01,  avg:71200,   px:77019,   isBank:false},
-    {id:uid(),sym:'2330', name:'台積電 TSMC',        cat:'TW',     broker:'SinoPac', cur:'TWD', qty:5,     avg:2182,    px:2260,    isBank:false},
-    {id:uid(),sym:'BBCA', name:'Bank Central Asia', cat:'IDX',    broker:'Ajaib',   cur:'IDR', qty:1000,  avg:9868,    px:8365,    isBank:false},
-    {id:uid(),sym:'SOL',  name:'Solana',            cat:'Crypto', broker:'Binance', cur:'USD', qty:0.5,   avg:222.6,   px:168.9,   isBank:false},
-    {id:uid(),sym:'SinoPac',name:'SinoPac TWD',     cat:'BankTW', broker:'SinoPac', cur:'TWD', qty:1,     avg:0,       px:3240,    isBank:true},
-  ];
-  S.trades = [];
-  S.flows  = [
-    {id:uid(),type:'INCOME', category:'Salary',  icon:'💼',amount:62000,cur:'TWD',account:'SinoPac',date:today(),note:'Monthly salary',  recurring:true},
-    {id:uid(),type:'EXPENSE',category:'Housing', icon:'🏠',amount:15500,cur:'TWD',account:'SinoPac',date:today(),note:'Rent',            recurring:true},
-    {id:uid(),type:'EXPENSE',category:'Food',    icon:'🍜',amount:7800, cur:'TWD',account:'SinoPac',date:today(),note:'Food & dining',   recurring:false},
-    {id:uid(),type:'EXPENSE',category:'Transport',icon:'🚇',amount:2600,cur:'TWD',account:'SinoPac',date:today(),note:'MRT & transport', recurring:false},
-  ];
-  save(); closeSettings(); switchTab('overview');
-}
+
 function clearAll() {
   if(!confirm('Delete ALL data? This cannot be undone.')) return;
   S.assets=[]; S.trades=[]; S.flows=[]; save(); closeSettings(); switchTab('overview');
